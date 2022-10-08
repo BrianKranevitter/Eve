@@ -1,0 +1,13 @@
+{
+  "name": "com.eve_disaste",
+  "version": "0.1.0",
+  "displayName": "Eve Disaster",
+  "description": "Dependencies of Eve Disaster.",
+  "keywords": [
+    "utility"
+  ],
+  "dependencies": {
+    "com.enderlook.unity.audio_manager": "https://github.com/Enderlook/Unity-Audio-Manager.git?path=Packages/com.enderlook.unity.audio_manager#com.enderlook.unity.audio_manager/v0.4.0",
+    "com.enderlook.unity.toolset": "https://github.com/Enderlook/Unity-Toolset.git?path=Packages/com.enderlook.unity.toolset#com.enderlook.unity.toolset/v0.3.1"
+  }
+}

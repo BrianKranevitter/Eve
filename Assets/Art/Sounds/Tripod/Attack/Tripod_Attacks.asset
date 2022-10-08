@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04fee737ef44bcf4cbf3b3964d828dbd, type: 3}
+  m_Name: Tripod_Attacks
+  m_EditorClassIdentifier: 
+  files:
+  - {fileID: 11400000, guid: 39a367ebd51848349a2a0483c327ed9b, type: 2}
+  - {fileID: 11400000, guid: cd94639148f1788459f42ca887d2399f, type: 2}
+  - {fileID: 11400000, guid: f21acd747e06e424e97798219a91420f, type: 2}
+  - {fileID: 11400000, guid: a3c9ddee3627f0346893701e1a3efb08, type: 2}

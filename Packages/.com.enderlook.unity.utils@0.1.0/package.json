@@ -1,0 +1,16 @@
+{
+  "name": "com.enderlook.unity.utils",
+  "version": "0.1.0",
+  "displayName": "Enderlook Unity Utils",
+  "description": "Provides additional utility methods.",
+  "keywords": [
+    "utility"
+  ],
+  "dependencies": {
+    "com.enderlook.net_compatibility": "https://github.com/Enderlook/Unity-Net-Packages.git?path=Packages/com.enderlook.net_compatibility#com.enderlook.net_compatibility/v0.5.0"
+  },
+  "author": {
+    "name": "Enderlook",
+    "url": "https://github.com/Enderlook"
+  }
+}

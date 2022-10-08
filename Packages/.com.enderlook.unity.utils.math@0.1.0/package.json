@@ -1,0 +1,14 @@
+{
+  "name": "com.enderlook.unity.utils.math",
+  "version": "0.1.0",
+  "displayName": "Enderlook Unity Utils Math",
+  "description": "Provides additional mathematical utility methods.",
+  "keywords": [
+    "utility",
+    "math"
+  ],
+  "author": {
+    "name": "Enderlook",
+    "url": "https://github.com/Enderlook"
+  }
+}
