@@ -7,7 +7,7 @@ public class NightVisionForcer : MonoBehaviour
 {
     public Color nightVisionColor;
 
-    public float remapMin, remapMax, noiseStrenght, nightVisionLightRange, grayScaleValue;
+    public float remapMin, remapMax, noiseStrenght, nightVisionLightRange, grayScaleValue, nightVisionBloomValue;
 
     public Light nightVisionLight;
 
@@ -16,6 +16,8 @@ public class NightVisionForcer : MonoBehaviour
 
     private NightVisionPPSSettings nightVisionShader;
 
+    private Bloom bloomShader;
+
     private Animator _anim;
 
     private bool nightVisionTurnedOn;
@@ -23,6 +25,7 @@ public class NightVisionForcer : MonoBehaviour
     private void Awake()
     {
         ppVolume.profile.TryGetSettings(out nightVisionShader);
+        ppVolume.profile.TryGetSettings(out bloomShader);
 
         _anim = GetComponent<Animator>();
     }
@@ -35,6 +38,7 @@ public class NightVisionForcer : MonoBehaviour
         nightVisionShader._Noise_Strenght.value = noiseStrenght;
         nightVisionLight.range = nightVisionLightRange;
         nightVisionShader._GrayscaleValue.value = grayScaleValue;
+        bloomShader.intensity.value = nightVisionBloomValue;
 
         if (Input.GetKeyDown(KeyCode.N))
         {
