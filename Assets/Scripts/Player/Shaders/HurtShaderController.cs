@@ -8,12 +8,15 @@ namespace Game.Player
         [SerializeField, Tooltip("The speed that blood will dissapear with")]
         private float bloodDissapearSpeed;
 
+        [SerializeField]
+        private PostProcessVolume ppVolume;
+
         private HurtShaderPPSSettings hurtShader;
 
         private int lastIndex;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
-        private void Awake() => GetComponentInChildren<PostProcessVolume>().profile.TryGetSettings(out hurtShader);
+        private void Awake() => ppVolume.profile.TryGetSettings(out hurtShader);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
         private void Update()
@@ -45,29 +48,29 @@ namespace Game.Player
             switch (index)
             {
                 case 0:
-                {
-                    if (damageValue + hurtShader._Splats1.value > 1)
-                        hurtShader._Splats1.value = 1;
-                    else
-                        hurtShader._Splats1.value += damageValue;
+                    {
+                        if (damageValue + hurtShader._Splats1.value > 1)
+                            hurtShader._Splats1.value = 1;
+                        else
+                            hurtShader._Splats1.value += damageValue;
                         break;
-                }
+                    }
                 case 1:
-                {
-                    if (damageValue + hurtShader._Splats2.value > 1)
-                        hurtShader._Splats2.value = 1;
-                    else
-                        hurtShader._Splats2.value += damageValue;
+                    {
+                        if (damageValue + hurtShader._Splats2.value > 1)
+                            hurtShader._Splats2.value = 1;
+                        else
+                            hurtShader._Splats2.value += damageValue;
                         break;
-                }
+                    }
                 case 2:
-                {
-                    if (damageValue + hurtShader._Splats3.value > 1)
-                        hurtShader._Splats3.value = 1;
-                    else
-                        hurtShader._Splats3.value += damageValue;
+                    {
+                        if (damageValue + hurtShader._Splats3.value > 1)
+                            hurtShader._Splats3.value = 1;
+                        else
+                            hurtShader._Splats3.value += damageValue;
                         break;
-                }
+                    }
             }
 
             lastIndex = index;

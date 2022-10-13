@@ -18,13 +18,16 @@ namespace Game.Player
         private PlayerStamina stamina;
         private FatiguePPSSettings fatigueShader;
 
+        [SerializeField]
+        private PostProcessVolume ppVolume;
+
         private float nextUpdate;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
         private void Awake()
         {
             stamina = GetComponent<PlayerStamina>();
-            GetComponentInChildren<PostProcessVolume>().profile.TryGetSettings(out fatigueShader);
+            ppVolume.profile.TryGetSettings(out fatigueShader);
             nextUpdate = Time.time + timeBetweenUpdates;
 
             if (fatigueShader == null)

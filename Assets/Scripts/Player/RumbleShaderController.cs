@@ -19,9 +19,12 @@ public class RumbleShaderController : MonoBehaviour
     [Tooltip("The max rumble apperture.")]
     public float apperture;
 
+    [SerializeField]
+    private PostProcessVolume ppVolume;
+
     private void Awake()
     {
-        GetComponentInChildren<PostProcessVolume>().profile.TryGetSettings(out hurtShader);
+        ppVolume.profile.TryGetSettings(out hurtShader);
     }
 
     void Update()
