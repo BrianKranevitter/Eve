@@ -21,13 +21,13 @@ MonoBehaviour:
     value: 2.45
   aperture:
     overrideState: 1
-    value: 0.2
+    value: 32
   focalLength:
     overrideState: 1
     value: 1
   kernelSize:
     overrideState: 1
-    value: 1
+    value: 2
 --- !u!114 &-3867553186111234219
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98aa99c10fb71a249b2644f8eeb3646e, type: 3}
   m_Name: NightVisionPPSSettings
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -143,7 +143,6 @@ MonoBehaviour:
   settings:
   - {fileID: 6637465096344861924}
   - {fileID: -8190104519812479563}
-  - {fileID: 4427200470773755283}
   - {fileID: 4619208868105466351}
   - {fileID: 6734497218616550307}
   - {fileID: -751792079833414389}
@@ -188,40 +187,6 @@ MonoBehaviour:
   _ExplosionBlurIntensity:
     overrideState: 0
     value: 0
---- !u!114 &4427200470773755283
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b77c5407dc277943b591ade9e6b18c5, type: 3}
-  m_Name: LensDistortion
-  m_EditorClassIdentifier: 
-  active: 1
-  enabled:
-    overrideState: 1
-    value: 1
-  intensity:
-    overrideState: 1
-    value: -5.55
-  intensityX:
-    overrideState: 1
-    value: 1
-  intensityY:
-    overrideState: 1
-    value: 1
-  centerX:
-    overrideState: 1
-    value: 0
-  centerY:
-    overrideState: 1
-    value: 0
-  scale:
-    overrideState: 1
-    value: 1
 --- !u!114 &4619208868105466351
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -248,7 +213,7 @@ MonoBehaviour:
     overrideState: 1
     value: {r: 0, g: 0, b: 0, a: 1}
   ambientOnly:
-    overrideState: 0
+    overrideState: 1
     value: 0
   noiseFilterTolerance:
     overrideState: 1
