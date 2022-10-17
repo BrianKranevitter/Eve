@@ -29,6 +29,8 @@ public class RumbleShaderController : MonoBehaviour
 
     void Update()
     {
+        if (PauseMenu.Paused) return;
+        
         ResetExplosionRumbleApperture();
 
         hurtShader._Rumble_Aprerture_Natural.value = apperture * Mathf.Clamp(1 - Vector3.Distance(boilerRoomPosition.position, transform.position) / range, 0, 1);

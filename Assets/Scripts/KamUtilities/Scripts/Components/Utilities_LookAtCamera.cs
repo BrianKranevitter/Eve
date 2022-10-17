@@ -6,7 +6,7 @@ using UnityEngine;
 public class Utilities_LookAtCamera : MonoBehaviour
 {
     [Tooltip("This transform will always look at the camera")]
-    public Transform self;
+    public Transform transform;
     public bool invert;
     public Vector3 rotationOffset;
 
@@ -24,10 +24,10 @@ public class Utilities_LookAtCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        self?.LookAt(cameraToUse.transform);
+        transform?.LookAt(cameraToUse.transform);
         if (invert)
         {
-            self.forward = -self.forward;
+            transform.forward = -transform.forward;
         }
     }
 }

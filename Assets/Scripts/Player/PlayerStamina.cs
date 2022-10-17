@@ -44,6 +44,8 @@ namespace Game.Player
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
         private void FixedUpdate()
         {
+            if (PauseMenu.Paused) return;
+            
             switch (restType)
             {
                 case RestType.Idle:

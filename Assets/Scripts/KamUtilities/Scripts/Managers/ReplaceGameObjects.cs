@@ -30,7 +30,7 @@ public class ReplaceGameObjects : ScriptableWizard
             foreach (GameObject go in action.OldObjects)
             {
                 GameObject newObject;
-                newObject = (GameObject)PrefabUtility.InstantiatePrefab(action.NewType);
+                newObject = (GameObject)EditorUtility.InstantiatePrefab(action.NewType);
                 newObject.transform.position = go.transform.position;
                 newObject.transform.rotation = go.transform.rotation;
                 if (copyScale)

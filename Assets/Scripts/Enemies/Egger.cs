@@ -227,11 +227,32 @@ namespace Game.Enemies
                 return false;
 
             state = State.EscapingFromLight;
-            NavAgent.isStopped = false;
-            NavAgent.speed = initialSpeed * escapingSpeedMultiplier;
-            SetEscapeDestination(PlayerBody.Player.transform.position);
 
-            TrySetAnimationTrigger(escapeFromLightAnimationTrigger, "escape from light");
+            switch (Lantern.ActiveLantern.lanternType)
+            {
+                case Lantern.LanternType.White: 
+                    Debug.LogWarning("Egger: White light, escape");
+                    NavAgent.isStopped = false;
+                    NavAgent.speed = initialSpeed * escapingSpeedMultiplier;
+                    SetEscapeDestination(PlayerBody.Player.transform.position);
+
+                    TrySetAnimationTrigger(escapeFromLightAnimationTrigger, "escape from light");
+                    break;
+                case Lantern.LanternType.Red:
+                    Debug.LogWarning("Egger: Red light, amgri");
+                    GoToHuntState();
+                    
+                    NavAgent.speed = initialSpeed * 3;
+                    break;
+                case Lantern.LanternType.Blue:
+                    Debug.LogWarning("Egger: Blue light, freeze");
+                    NavAgent.isStopped = true;
+                    NavAgent.speed = 0;
+                    
+                    GoToIdleState();
+                    break;
+            }
+            
             return true;
         }
 
@@ -287,34 +308,6 @@ namespace Game.Enemies
         {
             isInShootingAnimation = false;
             nextShoot = Time.time + shootingCooldown;
-        }
-
-        private bool HasLightInRange()
-        {
-            Light light = Lantern.ActiveLight;
-            if (light == null)
-                return false;
-
-            Transform lightTranform = light.transform;
-
-            Vector3 enemyPosition = EyePosition;
-            Vector3 lightPosition = lightTranform.position;
-
-            Vector3 lightDirection = enemyPosition - lightPosition;
-            float distanceToConeOrigin = lightDirection.sqrMagnitude;
-            float range = light.range;
-            if (distanceToConeOrigin < range * range)
-            {
-                Vector3 coneDirection = lightTranform.forward;
-                float angle = Vector3.Angle(coneDirection, lightDirection);
-                if (angle < light.spotAngle  * .5f)
-                {
-                    if (!Physics.Linecast(enemyPosition, lightPosition, BlockSight))
-                        return true;
-                }
-            }
-
-            return false;
         }
 
         protected override void OnTakeDamage(float amount, bool isOnWeakspot)

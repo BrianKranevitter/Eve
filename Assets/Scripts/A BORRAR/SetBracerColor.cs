@@ -24,6 +24,8 @@ public class SetBracerColor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.Paused) return;
+        
         if(player.currentHp>0)
         {
         leftArmColor.SetColor("_EmissionColor", Color.Lerp(damagedColor, healthyColor, player.currentHp / 100));

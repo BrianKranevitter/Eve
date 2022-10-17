@@ -52,7 +52,7 @@ namespace Game.Player
         
         private (int, float) lastValue;
 
-        [SerializeField, Tooltip("Point where the player appears when ´Tp key` is pressed")]
+        [SerializeField, Tooltip("Point where the player appears when ï¿½Tp key` is pressed")]
         private Transform tpPoint;
 
         [SerializeField, Tooltip("Key to tp at new spawn point")]
@@ -70,6 +70,8 @@ namespace Game.Player
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
         private void Update()
         {
+            if (PauseMenu.Paused) return;
+            
             if (Input.GetKeyDown(tpKey))
                 transform.position = tpPoint.position;
 
@@ -82,6 +84,8 @@ namespace Game.Player
 
         public void TakeDamage(float amount)
         {
+            if (PauseMenu.Paused) return;
+            
             hurtShaderController.SetBlood(amount / 5); // We set the feedback accord in how much damage we took.
 
             if (amount < 10)

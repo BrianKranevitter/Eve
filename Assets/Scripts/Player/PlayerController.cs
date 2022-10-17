@@ -74,6 +74,12 @@ namespace Game.Player
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
         private void FixedUpdate()
         {
+            if (PauseMenu.Paused)
+            {
+                bodyAnimator.SetFloat("PlayerSpeed", 0);
+                return;
+            }
+            
             if (PlayerBody.IsAlive)
             {
                 bodyAnimator.SetFloat("PlayerSpeed", rigidbody.velocity.magnitude);

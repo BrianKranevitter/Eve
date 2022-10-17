@@ -43,6 +43,8 @@ namespace Game.Player
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
         private void FixedUpdate()
         {
+            if (PauseMenu.Paused) return;
+            
             Ray ray = interationSource.ViewportPointToRay(new Vector3(.5f, .5f));
             if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hitInfo, maximumInteractionDistance, collisionMask, QueryTriggerInteraction.Collide))
             {

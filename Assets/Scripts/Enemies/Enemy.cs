@@ -190,6 +190,40 @@ namespace Game.Enemies
 
         protected void SetLastPlayerPosition() => LastPlayerPosition = PlayerBody.Player.transform.position;
 
+        protected bool HasLightInRange()
+        {
+            Light light = Lantern.ActiveLight;
+            if (light == null)
+                return false;
+            
+            Lantern flashlight = Lantern.ActiveLantern;;
+            if (flashlight == null)
+                return false;
+            
+            
+            Transform lightTranform = light.transform;
+
+            Vector3 enemyPosition = EyePosition;
+            Vector3 lightPosition = lightTranform.position;
+
+            Vector3 lightDirection = enemyPosition - lightPosition;
+            float distanceToConeOrigin = lightDirection.sqrMagnitude;
+            float range = flashlight.interactionRange;
+            
+            if (distanceToConeOrigin < range)
+            {
+                Vector3 coneDirection = lightTranform.forward;
+                float angle = Vector3.Angle(coneDirection, lightDirection);
+                if (angle < flashlight.interactionAngle)
+                {
+                    if (!Physics.Linecast(enemyPosition, lightPosition, BlockSight))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity animator.")]
         private void FromHurt() => TrySetLastAnimationTrigger();
 

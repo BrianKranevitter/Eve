@@ -90,6 +90,8 @@ namespace Game.Player.Weapons
 
         private void Update()
         {
+            if (PauseMenu.Paused) return;
+            
             if (!PlayerBody.IsAlive)
                 return;
 

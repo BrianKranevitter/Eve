@@ -10,10 +10,18 @@ namespace Game.Player.Weapons
     public sealed class Lantern : MonoBehaviour
     {
         public static Light ActiveLight { get; private set; }
+        public static Lantern ActiveLantern { get; private set; }
 
         [Header("Configuration")]
         [SerializeField, Min(0), Tooltip("Duration of light in seconds.")]
         private float duration;
+        
+        [Min(0), Tooltip("Range at which the light starts interacting with things, such as enemies.")]
+        public float interactionRange;
+        [Min(0), Tooltip("Angle at which the light starts interacting with things, such as enemies.")]
+        public float interactionAngle;
+
+        public LanternType lanternType = LanternType.White;
 
         [Header("Animation Triggers")]
         [SerializeField, Tooltip("Animation trigger when replacing batteries. (The animation must execute FromReloadLantern() method.)")]
@@ -68,6 +76,10 @@ namespace Game.Player.Weapons
         private float originalAngle;
         private float originalOpacity;
 
+        public float animationOpacityMultiplier;
+        public float animationRangeMultiplier;
+        private bool turnedOff = false;
+
         private AmmunitionType ammunition;
 
         private Material batteryShader;
@@ -77,6 +89,11 @@ namespace Game.Player.Weapons
 
         private bool isInAnimation;
 
+        public enum LanternType
+        {
+            Red, Blue, White
+        }
+        
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
         private void Awake()
         {
@@ -110,6 +127,8 @@ namespace Game.Player.Weapons
                 else if (string.IsNullOrEmpty(haloLightOpacityFieldName))
                     Debug.LogWarning("Missing halo light opacity field name.");
             }
+            
+            SetType(LanternType.White);
         }
 
         public void Initialize(WeaponManager manager)
@@ -123,9 +142,26 @@ namespace Game.Player.Weapons
             if (light == null)
                 return;
 
+            if (Input.GetKeyDown(KeyCode.Keypad1))
+            {
+                SetType(LanternType.White);
+            }
+            else if (Input.GetKeyDown(KeyCode.Keypad2))
+            {
+                SetType(LanternType.Red);
+            }
+            else if (Input.GetKeyDown(KeyCode.Keypad3))
+            {
+                SetType(LanternType.Blue);
+            }
+            
+            light.range = originalRange * animationRangeMultiplier;
+            haloLightShader.SetFloat(haloLightOpacityFieldName, originalOpacity * animationOpacityMultiplier);
+            
             if (light.intensity <= 0 || light.range <= 0 || light.spotAngle <= 0)
             {
                 ActiveLight = null;
+                ActiveLantern = null;
                 light.enabled = false;
                 if (haloLightRenderer != null)
                     haloLightRenderer.enabled = false;
@@ -133,6 +169,7 @@ namespace Game.Player.Weapons
             else
             {
                 ActiveLight = light;
+                ActiveLantern = this;
                 light.enabled = true;
                 if (haloLightRenderer != null)
                     haloLightRenderer.enabled = true;
@@ -142,6 +179,7 @@ namespace Game.Player.Weapons
             {
                 if (currentDuration > 0)
                 {
+                    turnedOff = false;
                     currentDuration -= Time.deltaTime;
 
                     if (batteryShader != null && !string.IsNullOrEmpty(batteryPercentFieldName))
@@ -149,13 +187,47 @@ namespace Game.Player.Weapons
                 }
                 else
                 {
-                    if (!Try.SetAnimationTrigger(animator, outOfBatteryAnimationTrigger, "out of battery"))
-                        SetOffImmediately();
+                    if (!turnedOff)
+                    {
+                        if (!Try.SetAnimationTrigger(animator, outOfBatteryAnimationTrigger, "out of battery"))
+                        {
+                            SetOffImmediately();
+                        }
+                        else
+                        {
+                            turnedOff = true;
+                        }
+                    }
+                    
                     Try.PlayOneShoot(transform, outOfBatterySound, "out of battery");
                 }
             }
         }
 
+        public void SetType(LanternType type)
+        {
+            if (light == null) return;
+
+            lanternType = type;
+            switch (type)
+            {
+                case LanternType.White: 
+                    light.color = Color.white;
+                    break;
+                case LanternType.Red:
+                    light.color = Color.red;
+                    break;
+                case LanternType.Blue:
+                    light.color = Color.blue;
+                    break;
+                
+                default:
+                    SetType(LanternType.White);
+                    break;
+            }
+            
+            Debug.Log("Set light type to " + type);
+        }
         public void SetOnImmediately()
         {
             if (light == null)
@@ -203,6 +275,8 @@ namespace Game.Player.Weapons
 
             haloLightShader.SetFloat(haloLightOpacityFieldName, 0);
             haloLightRenderer.enabled = false;
+            
+            Debug.Log("SET OFF IMMEDIATELY");
         }
 
         public void SetOff()
