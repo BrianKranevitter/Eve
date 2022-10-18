@@ -13,7 +13,7 @@ public class NightVisionForcer : MonoBehaviour
 
     [SerializeField]
     private PostProcessVolume ppVolume;
-
+    
     private NightVisionPPSSettings nightVisionShader;
 
     private Bloom bloomShader;
