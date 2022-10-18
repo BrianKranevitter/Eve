@@ -10791,6 +10791,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maximumHealth: 10
+  colliders:
+  - {fileID: 3966846946083698328}
+  - {fileID: 5816166416250138972}
+  - {fileID: 671691734519297016}
+  - {fileID: 7902827679516642940}
+  - {fileID: 6821792458624537972}
+  - {fileID: 5518417860647056237}
+  - {fileID: 8535239051755575993}
+  - {fileID: 2580797331768364252}
   sightRadius: 15
   <BlockSight>k__BackingField:
     serializedVersion: 2
@@ -10806,12 +10815,12 @@ MonoBehaviour:
   hurtWeakspotSound: {fileID: 11400000, guid: 334241750ceaa084cafd4f6edb300354, type: 2}
   deathSound: {fileID: 0}
   deathWeakspotSound: {fileID: 0}
-  startShootingRadius: 7
-  stopShootingRadius: 13
-  panicDuration: 4
   oscillationWidth: 0.65
   oscillationFrequency: 3
   escapingSpeedMultiplier: 0.8
+  startShootingRadius: 7
+  stopShootingRadius: 13
+  panicDuration: 4
   lightSensibilityDuration: 1
   lightImmunityDuration: 4
   projectilePrefab: {fileID: 2128842294993930146, guid: 0e673e982d9e211408872cb4f1161251, type: 3}

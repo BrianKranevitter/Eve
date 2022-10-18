@@ -5,7 +5,7 @@ using Game.Utility;
 
 using System;
 using System.Collections;
-
+using Game.Player.Weapons;
 using UnityEngine;
 
 namespace Game.Enemies
@@ -79,8 +79,7 @@ namespace Game.Enemies
 
         [SerializeField, Tooltip("Sound played on melee.")]
         private AudioFile meleeSound;
-
-        private float initialSpeed;
+        
         private MeleeAttack meleeAttack;
 
         private bool isInShootingAnimation;
@@ -104,8 +103,6 @@ namespace Game.Enemies
         protected override void Awake()
         {
             base.Awake();
-
-            initialSpeed = NavAgent.speed;
 
             meleePosition.enabled = false;
             meleeAttack = meleePosition.gameObject.AddComponent<MeleeAttack>();
@@ -269,8 +266,32 @@ namespace Game.Enemies
                     break;
                 }
             }
-        }
 
+            if (HasLightInRange())
+            {
+                LightEffect();
+            }
+        }
+        
+        protected override void LightEffect()
+        {
+            switch (Lantern.ActiveLantern.lanternType)
+            {
+                case Lantern.LanternType.White:
+                    GoToIdleState();
+                    break;
+                
+                case Lantern.LanternType.Red:
+                    GoToHuntState();
+                    break;
+                
+                case Lantern.LanternType.Blue:
+                    GoToIdleState();
+                    break;
+            }
+            
+            base.LightEffect();
+        }
         public void TriggerMouthAttackAnimation()
         {
             if (string.IsNullOrEmpty(mouthAnimationTrigger))

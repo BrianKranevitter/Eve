@@ -22,14 +22,7 @@ namespace Game.Enemies
         [SerializeField, Min(0), Tooltip("Duration in seconds that last panic after loosing line of sight with player.")]
         private float panicDuration = 2;
 
-        [SerializeField, Min(0), Tooltip("Width of the oscillation when producing zig-zag.")]
-        private float oscillationWidth = 1.5f;
 
-        [SerializeField, Min(0), Tooltip("Frequency of the oscillation when producing zig-zag.")]
-        private float oscillationFrequency = 3;
-
-        [SerializeField, Min(0), Tooltip("Speed multiplier when escaping.")]
-        private float escapingSpeedMultiplier = 1;
 
         [Header("Light Escape")]
         [SerializeField, Min(0), Tooltip("Duration in seconds that light sensibility last after getting out of light range.")]
@@ -68,7 +61,7 @@ namespace Game.Enemies
         [SerializeField, Tooltip("Sound played on shoot.")]
         private AudioFile shootSound;
 
-        private float initialSpeed;
+        
 
         private bool isInShootingAnimation;
 
@@ -88,8 +81,6 @@ namespace Game.Enemies
         protected override void Awake()
         {
             base.Awake();
-
-            initialSpeed = NavAgent.speed;
 
             // Square values to avoid applying square root when checking distance.
             startShootingRadius *= startShootingRadius;
@@ -208,6 +199,11 @@ namespace Game.Enemies
                     break;
                 }
             }
+
+            if (HasLightInRange())
+            {
+                LightEffect();
+            }
         }
 
         private void GoToChaseState()
@@ -228,32 +224,30 @@ namespace Game.Enemies
 
             state = State.EscapingFromLight;
 
+            LightEffect();
+            
+            return true;
+        }
+
+        protected override void LightEffect()
+        {
+            base.LightEffect();
+            
             switch (Lantern.ActiveLantern.lanternType)
             {
-                case Lantern.LanternType.White: 
-                    Debug.LogWarning("Egger: White light, escape");
-                    NavAgent.isStopped = false;
-                    NavAgent.speed = initialSpeed * escapingSpeedMultiplier;
-                    SetEscapeDestination(PlayerBody.Player.transform.position);
-
+                case Lantern.LanternType.White:
+                    GoToEscapeFromPlayerState();
                     TrySetAnimationTrigger(escapeFromLightAnimationTrigger, "escape from light");
                     break;
+                
                 case Lantern.LanternType.Red:
-                    Debug.LogWarning("Egger: Red light, amgri");
                     GoToHuntState();
-                    
-                    NavAgent.speed = initialSpeed * 3;
                     break;
+                
                 case Lantern.LanternType.Blue:
-                    Debug.LogWarning("Egger: Blue light, freeze");
-                    NavAgent.isStopped = true;
-                    NavAgent.speed = 0;
-                    
                     GoToIdleState();
                     break;
             }
-            
-            return true;
         }
 
         private void GoToEscapeFromPlayerState()
@@ -314,90 +308,6 @@ namespace Game.Enemies
         {
             base.OnTakeDamage(amount, isOnWeakspot);
             GoToEscapeFromPlayerState();
-        }
-
-        private void SetEscapeDestination(Vector3 playerPosition)
-        {
-            float distance = float.NegativeInfinity;
-            Vector3 end = default;
-            bool canOscillate = default;
-
-            Vector3 eyePosition = EyePosition;
-
-            playerPosition.y = eyePosition.y;
-
-            Vector3 back = (eyePosition - playerPosition).normalized;
-            Vector3 forward = -back;
-
-            Check(back, true);
-
-            Vector3 left = new Vector3(back.z, back.y, back.x);
-            Check(left, false);
-            Check(back + (left * .25f), true);
-            Check(back + (left * .5f), true);
-            Check(back + (left * .75f), false);
-            Check(back + (left * 1f), false);
-            Check(back + (left * 1.5f), false);
-            Check(back + (left * 2f), false);
-            Check(back + (left * 4f), false);
-            Check(back + (left * 8f), false);
-            Check(forward + (left * 8f), false);
-
-            Vector3 right = new Vector3(back.z, back.y, -back.x);
-            Check(right, false);
-            Check(back + (right * .25f), false);
-            Check(back + (right * .5f), false);
-            Check(back + (right * .75f), false);
-            Check(back + (right * 1f), false);
-            Check(back + (right * 1.5f), false);
-            Check(back + (right * 2f), false);
-            Check(back + (right * 4f), false);
-            Check(back + (right * 8f), false);
-            Check(forward + (right * 8f), false);
-
-            void Check(Vector3 direction, bool oscillate)
-            {
-                if (Physics.Raycast(eyePosition, direction, out RaycastHit hit, BlockSight)
-                    && hit.distance > distance)
-                {
-                    distance = hit.distance;
-                    end = hit.point;
-                    canOscillate = oscillate;
-                }
-            }
-
-            if (canOscillate && oscillationFrequency != 0 && oscillationWidth != 0)
-            {
-                Vector3 direction = (end - eyePosition).normalized;
-                Vector3 perpendicular = new Vector3(direction.z, direction.y, direction.x);
-                float wave = Mathf.Sin(Time.fixedTime * oscillationFrequency) * oscillationWidth;
-                Vector3 desviation = perpendicular * oscillationWidth * wave;
-                Vector3 newDirection = ((direction * .5f) + desviation).normalized;
-
-                Vector3 destination;
-                if (Physics.Raycast(eyePosition, newDirection, out RaycastHit hit, 1, BlockSight))
-                    destination = hit.point;
-                else
-                    destination = eyePosition + newDirection;
-
-                if (NavMesh.SamplePosition(destination, out NavMeshHit hit2, 4, NavMesh.AllAreas))
-                    destination = hit2.position;
-
-                if (!NavAgent.SetDestination(destination))
-                {
-                    if (NavMesh.SamplePosition(end, out hit2, 4, NavMesh.AllAreas))
-                        end = hit2.position;
-                    bool success = NavAgent.SetDestination(end);
-                    Debug.Assert(success);
-                }
-            }
-            else
-            {
-                if (NavMesh.SamplePosition(end, out NavMeshHit hit, 4, NavMesh.AllAreas))
-                    end = hit.position;
-                bool success = NavAgent.SetDestination(end);
-                Debug.Assert(success);
-            }
         }
 
         protected override void OnEndBlind()

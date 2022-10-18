@@ -11,8 +11,13 @@ namespace Game.Player.Weapons
     {
         public static Light ActiveLight { get; private set; }
         public static Lantern ActiveLantern { get; private set; }
+        public static bool Active { get; private set; }
 
         [Header("Configuration")]
+        
+        [SerializeField, Tooltip("Key used to toggle light.")]
+        private KeyCode lightKey = KeyCode.F;
+        
         [SerializeField, Min(0), Tooltip("Duration of light in seconds.")]
         private float duration;
         
@@ -67,10 +72,15 @@ namespace Game.Player.Weapons
 
         [SerializeField, ShowIf(nameof(haloLightRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set opacity of halo.")]
         private string haloLightOpacityFieldName;
+        
+        [SerializeField, ShowIf(nameof(haloLightRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set color of halo.")]
+        private string haloLightColorFieldName;
 
         private new Light light;
         private Animator animator;
 
+        
+        [Header("Animator")]
         private float originalRange;
         private float originalIntensity;
         private float originalAngle;
@@ -142,17 +152,32 @@ namespace Game.Player.Weapons
             if (light == null)
                 return;
 
-            if (Input.GetKeyDown(KeyCode.Keypad1))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 SetType(LanternType.White);
             }
-            else if (Input.GetKeyDown(KeyCode.Keypad2))
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 SetType(LanternType.Red);
             }
-            else if (Input.GetKeyDown(KeyCode.Keypad3))
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 SetType(LanternType.Blue);
+            }
+
+            if (Input.GetKeyDown(lightKey))
+            {
+                if (!Active)
+                {
+                    Active = true;
+                    SetOn();
+                }
+                else
+                {
+                    Active = false;
+                    SetOff();;
+                }
+                    
             }
             
             light.range = originalRange * animationRangeMultiplier;
@@ -213,12 +238,15 @@ namespace Game.Player.Weapons
             {
                 case LanternType.White: 
                     light.color = Color.white;
+                    haloLightShader.SetColor(haloLightColorFieldName, Color.white);
                     break;
                 case LanternType.Red:
                     light.color = Color.red;
+                    haloLightShader.SetColor(haloLightColorFieldName, Color.red);
                     break;
                 case LanternType.Blue:
                     light.color = Color.blue;
+                    haloLightShader.SetColor(haloLightColorFieldName, Color.blue);
                     break;
                 
                 default:
