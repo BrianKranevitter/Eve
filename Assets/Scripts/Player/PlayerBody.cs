@@ -1,3 +1,4 @@
+using Game.Enemies;
 using Game.Utility;
 
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace Game.Player
             private set => player = value;
         }
 
-        public static bool IsAlive => player.currentHealth > 0;
+        public static bool IsAlive { get; private set; }
 
         [SerializeField, Tooltip("Maximum amount of health the player has.")]
         private float health = 100;
@@ -36,6 +37,14 @@ namespace Game.Player
         [SerializeField, Tooltip("The animator trigger that goes to ShakeLight animation.")]
         private string shakeLightTrigger;
 
+        [Header("Death")]
+        [SerializeField, Tooltip("The model used when dying by crawler")]
+        private GameObject playerRoot;
+        
+        [SerializeField, Tooltip("The model used when dying by crawler")]
+        private GameObject dyingModel_Crawler;
+        
+        [SerializeField, Tooltip("Camera Animator")]
         private Animator playerCameraAnimator;
 
         private HurtShaderController hurtShaderController;
@@ -63,8 +72,9 @@ namespace Game.Player
         {
             currentHealth = health;
             hurtShaderController = GetComponent<HurtShaderController>();
-            playerCameraAnimator = GetComponentInChildren<Animator>();
             Player = this;
+
+            IsAlive = true;
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
@@ -84,30 +94,37 @@ namespace Game.Player
 
         public void TakeDamage(float amount)
         {
-            if (PauseMenu.Paused) return;
+            if (PauseMenu.Paused || !IsAlive) return;
             
             hurtShaderController.SetBlood(amount / 5); // We set the feedback accord in how much damage we took.
+            
+            currentHealth -= amount;
 
-            if (amount < 10)
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                IsAlive = false;
+                
+                OnDeath();
+            }
+
+
+            if (amount.ToPercentageOfRange(0, health) < 10)
                 playerCameraAnimator.SetTrigger(shakeLightTrigger);
             else
                 playerCameraAnimator.SetTrigger(shakeHardTrigger);
-
-            if (currentHealth < amount)
-            {
-                if (currentHealth > 0) // If we are already dead we can't die again
-                {
-                    currentHealth = 0;
-                    OnDeath();
-                }
-            }
-            else
-                currentHealth -= amount;
         }
 
         private void OnDeath()
         {
-            Debug.LogWarning("TODO: Implement player death.");
+            dyingModel_Crawler.gameObject.SetActive(true);
+            dyingModel_Crawler.transform.parent = null;
+            playerRoot.gameObject.SetActive(false);
+
+            foreach (var enemy in Enemy.allEnemies)
+            {
+                enemy.gameObject.SetActive(false);
+            }
         }
     }
 }

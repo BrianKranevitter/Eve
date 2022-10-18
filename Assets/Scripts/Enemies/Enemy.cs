@@ -18,6 +18,8 @@ namespace Game.Enemies
     [RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(Animator))]
     public abstract class Enemy : MonoBehaviour, IDamagable, IBlindable
     {
+        public static List<Enemy> allEnemies = new List<Enemy>();
+        
         [SerializeField, Min(0), Tooltip("Maximum health of enemy.")]
         private float maximumHealth;
         
@@ -126,6 +128,19 @@ namespace Game.Enemies
             sightRadius *= sightRadius;
 
             GoToIdleState();
+
+            if (!allEnemies.Contains(this))
+            {
+                allEnemies.Add(this);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (allEnemies.Contains(this))
+            {
+                allEnemies.Remove(this);
+            }
         }
 
         protected void GoToIdleState()

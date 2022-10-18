@@ -139,6 +139,15 @@ namespace Game.Player.Weapons
             }
             
             SetType(LanternType.White);
+
+            if (Active)
+            {
+                SetOn();
+            }
+            else
+            {
+                SetOff();
+            }
         }
 
         public void Initialize(WeaponManager manager)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Utilities_CanvasGroupReveal : MonoBehaviour
 {
@@ -8,6 +9,13 @@ public class Utilities_CanvasGroupReveal : MonoBehaviour
     [SerializeField] public float revealTime;
     [SerializeField] private float decreasingAlphaValue;
 
+
+    [SerializeField] private UnityEvent onRevealed;
+    [SerializeField] private UnityEvent onHidden;
+    
+    [SerializeField] private UnityEvent onTempRevealed;
+    [SerializeField] private UnityEvent onTempHidden;
+    
     public void RevealTemporary()
     {
         StopAllCoroutines();
@@ -69,6 +77,9 @@ public class Utilities_CanvasGroupReveal : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         
+        onTempRevealed.Invoke();
+        
+        
         yield return new WaitForSeconds(revealTime);
         
         while (obj.alpha > 0)
@@ -76,6 +87,8 @@ public class Utilities_CanvasGroupReveal : MonoBehaviour
             obj.alpha -= decreasingAlphaValue;
             yield return new WaitForEndOfFrame();
         }
+        
+        onTempHidden.Invoke();
     }
     
     private bool revealing { get => reveal != null;}
@@ -87,6 +100,8 @@ public class Utilities_CanvasGroupReveal : MonoBehaviour
             obj.alpha += decreasingAlphaValue;
             yield return new WaitForEndOfFrame();
         }
+        
+        onRevealed.Invoke();
     }
 
     private bool hiding { get => hide != null;}
@@ -98,5 +113,7 @@ public class Utilities_CanvasGroupReveal : MonoBehaviour
             obj.alpha -= decreasingAlphaValue;
             yield return new WaitForEndOfFrame();
         }
+        
+        onHidden.Invoke();
     }
 }
