@@ -81,7 +81,7 @@ namespace Game.Player.Weapons
                 Lantern lantern = weapon.gameObject.GetComponentInChildren<Lantern>();
                 if (lantern != null)
                 {
-                    lantern.Initialize(this);
+                    lantern.Initialize();
                     lanterns[i] = lantern;
                 }
             }
@@ -207,7 +207,7 @@ namespace Game.Player.Weapons
                     Lantern lantern = newWeapon.GetComponentInChildren<Lantern>();
                     newWeapon.Initialize(this);
                     if (lantern != null)
-                        lantern.Initialize(this);
+                        lantern.Initialize();
                 }
             }
 

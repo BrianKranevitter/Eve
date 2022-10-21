@@ -9,8 +9,9 @@ using UnityEngine.AI;
 
 namespace Game.Enemies
 {
-    public sealed class Egger : Enemy
+    public sealed class Egger : MonoBehaviour
     {
+        /*
         [Header("Sight")]
         [SerializeField, Min(0), Tooltip("Determines at which distance from player the creature start shooting.")]
         private float startShootingRadius = 2;
@@ -92,11 +93,13 @@ namespace Game.Enemies
             if (!IsAlive)
                 return;
 
+            base.FixedUpdate();
+            
             switch (state)
             {
                 case State.Idle:
                 {
-                    if (HasLightInRange() && TryGoToEscapeFromLightState())
+                    if (HasLightInRange() != Lantern.DistanceEffect.None && TryGoToEscapeFromLightState())
                         break;
                     if (HasPlayerInSight())
                         GoToHuntState();
@@ -104,7 +107,7 @@ namespace Game.Enemies
                 }
                 case State.HuntingPlayer:
                 {
-                    if (HasLightInRange() && TryGoToEscapeFromLightState())
+                    if (HasLightInRange() != Lantern.DistanceEffect.None && TryGoToEscapeFromLightState())
                         break;
 
                     if (!HasPlayerInSight())
@@ -121,7 +124,7 @@ namespace Game.Enemies
                 }
                 case State.ChasingPlayer:
                 {
-                    if (HasLightInRange() && TryGoToEscapeFromLightState())
+                    if (HasLightInRange() != Lantern.DistanceEffect.None && TryGoToEscapeFromLightState())
                         break;
                     if (HasPlayerInSight())
                     {
@@ -148,7 +151,7 @@ namespace Game.Enemies
                     if (isInShootingAnimation)
                         break;
 
-                    if (HasLightInRange() && TryGoToEscapeFromLightState())
+                    if (HasLightInRange() != Lantern.DistanceEffect.None && TryGoToEscapeFromLightState())
                         break;
 
                     if (!HasPlayerInSight())
@@ -184,7 +187,7 @@ namespace Game.Enemies
                 }
                 case State.EscapingFromLight:
                 {
-                    if (HasLightInRange())
+                    if (HasLightInRange() != Lantern.DistanceEffect.None)
                     {
                         panicsEndsAt = Time.fixedTime + lightSensibilityDuration;
                         SetEscapeDestination(LastPlayerPosition);
@@ -198,11 +201,6 @@ namespace Game.Enemies
                     }
                     break;
                 }
-            }
-
-            if (HasLightInRange())
-            {
-                LightEffect();
             }
         }
 
@@ -224,29 +222,63 @@ namespace Game.Enemies
 
             state = State.EscapingFromLight;
 
-            LightEffect();
-            
             return true;
         }
 
-        protected override void LightEffect()
+        protected override void LightEffect(Lantern.DistanceEffect lightEffect)
         {
-            base.LightEffect();
+            base.LightEffect(lightEffect);
             
-            switch (Lantern.ActiveLantern.lanternType)
+            switch (lightEffect)
             {
-                case Lantern.LanternType.White:
-                    GoToEscapeFromPlayerState();
-                    TrySetAnimationTrigger(escapeFromLightAnimationTrigger, "escape from light");
+                case Lantern.DistanceEffect.Far:
+                {
+                    switch (Lantern.ActiveLantern.lightType)
+                    {
+                        case Lantern.LightType.White:
+                        {
+                            break;
+                        }
+
+
+                        case Lantern.LightType.Red:
+                        {
+                            break;
+                        }
+                        
+                        case Lantern.LightType.Blue:
+                        {
+                            break;
+                        }
+                    }
                     break;
-                
-                case Lantern.LanternType.Red:
-                    GoToHuntState();
+                }
+
+                case Lantern.DistanceEffect.Close:
+                {
+                    switch (Lantern.ActiveLantern.lightType)
+                    {
+                        case Lantern.LightType.White:
+                        {
+                            GoToEscapeFromPlayerState();
+                            TrySetAnimationTrigger(escapeFromLightAnimationTrigger, "escape from light");
+                            break;
+                        }
+
+                        case Lantern.LightType.Red:
+                        {
+                            GoToHuntState();
+                            break;
+                        }
+                        
+                        case Lantern.LightType.Blue:
+                        {
+                            GoToIdleState();
+                            break;
+                        }
+                    }
                     break;
-                
-                case Lantern.LanternType.Blue:
-                    GoToIdleState();
-                    break;
+                }
             }
         }
 
@@ -463,5 +495,6 @@ namespace Game.Enemies
             startShootingRadius = Mathf.Min(startShootingRadius, stopShootingRadius);
         }
 #endif
+*/
     }
 }

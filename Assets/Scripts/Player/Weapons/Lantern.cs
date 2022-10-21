@@ -4,6 +4,7 @@ using Enderlook.Unity.Toolset.Attributes;
 using Game.Utility;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Game.Player.Weapons
 {
@@ -21,12 +22,16 @@ namespace Game.Player.Weapons
         [SerializeField, Min(0), Tooltip("Duration of light in seconds.")]
         private float duration;
         
-        [Min(0), Tooltip("Range at which the light starts interacting with things, such as enemies.")]
-        public float interactionRange;
+        [FormerlySerializedAs("interactionRange")] [Min(0), Tooltip("Minimum Range at which the light starts interacting with things, such as enemies, at CLOSE range.")]
+        public float interactionRange_Close;
+        
+        [Min(0), Tooltip("Maximum range at which the light starts interacting with things, such as enemies, at the FAR range.")]
+        public float interactionRange_Far;
+        
         [Min(0), Tooltip("Angle at which the light starts interacting with things, such as enemies.")]
         public float interactionAngle;
 
-        public LanternType lanternType = LanternType.White;
+        public LightType lightType = LightType.White;
 
         [Header("Animation Triggers")]
         [SerializeField, Tooltip("Animation trigger when replacing batteries. (The animation must execute FromReloadLantern() method.)")]
@@ -90,8 +95,6 @@ namespace Game.Player.Weapons
         public float animationRangeMultiplier;
         private bool turnedOff = false;
 
-        private AmmunitionType ammunition;
-
         private Material batteryShader;
         private Material haloLightShader;
 
@@ -99,9 +102,14 @@ namespace Game.Player.Weapons
 
         private bool isInAnimation;
 
-        public enum LanternType
+        public enum LightType
         {
             Red, Blue, White
+        }
+
+        public enum DistanceEffect
+        {
+            Close, Far, None
         }
         
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
@@ -138,7 +146,7 @@ namespace Game.Player.Weapons
                     Debug.LogWarning("Missing halo light opacity field name.");
             }
             
-            SetType(LanternType.White);
+            SetType(LightType.White);
 
             if (Active)
             {
@@ -148,11 +156,12 @@ namespace Game.Player.Weapons
             {
                 SetOff();
             }
+            
+            ActiveLantern = this;
         }
 
-        public void Initialize(WeaponManager manager)
+        public void Initialize()
         {
-            ammunition = manager.GetAmmunitionType(ammunitionName);
             SetOffImmediately();
         }
 
@@ -163,15 +172,15 @@ namespace Game.Player.Weapons
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                SetType(LanternType.White);
+                SetType(LightType.White);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                SetType(LanternType.Red);
+                SetType(LightType.Red);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                SetType(LanternType.Blue);
+                SetType(LightType.Blue);
             }
 
             if (Input.GetKeyDown(lightKey))
@@ -195,7 +204,6 @@ namespace Game.Player.Weapons
             if (light.intensity <= 0 || light.range <= 0 || light.spotAngle <= 0)
             {
                 ActiveLight = null;
-                ActiveLantern = null;
                 light.enabled = false;
                 if (haloLightRenderer != null)
                     haloLightRenderer.enabled = false;
@@ -203,7 +211,6 @@ namespace Game.Player.Weapons
             else
             {
                 ActiveLight = light;
-                ActiveLantern = this;
                 light.enabled = true;
                 if (haloLightRenderer != null)
                     haloLightRenderer.enabled = true;
@@ -238,32 +245,30 @@ namespace Game.Player.Weapons
             }
         }
 
-        public void SetType(LanternType type)
+        public void SetType(LightType type)
         {
             if (light == null) return;
 
-            lanternType = type;
+            lightType = type;
             switch (type)
             {
-                case LanternType.White: 
+                case LightType.White: 
                     light.color = Color.white;
                     haloLightShader.SetColor(haloLightColorFieldName, Color.white);
                     break;
-                case LanternType.Red:
+                case LightType.Red:
                     light.color = Color.red;
                     haloLightShader.SetColor(haloLightColorFieldName, Color.red);
                     break;
-                case LanternType.Blue:
+                case LightType.Blue:
                     light.color = Color.blue;
                     haloLightShader.SetColor(haloLightColorFieldName, Color.blue);
                     break;
                 
                 default:
-                    SetType(LanternType.White);
+                    SetType(LightType.White);
                     break;
             }
-            
-            Debug.Log("Set light type to " + type);
         }
         public void SetOnImmediately()
         {
@@ -312,8 +317,6 @@ namespace Game.Player.Weapons
 
             haloLightShader.SetFloat(haloLightOpacityFieldName, 0);
             haloLightRenderer.enabled = false;
-            
-            Debug.Log("SET OFF IMMEDIATELY");
         }
 
         public void SetOff()
@@ -323,11 +326,8 @@ namespace Game.Player.Weapons
             Try.PlayOneShoot(transform, turnOffSound, "turn off");
         }
 
-        private void TryReload()
+        public void TryReload()
         {
-            if (ammunition.CurrentAmmunition == 0)
-                return;
-
             isInAnimation = true;
 
             Try.PlayOneShoot(transform, reloadSound, "reload");
@@ -341,7 +341,6 @@ namespace Game.Player.Weapons
         private void FromReloadLantern()
         {
             isInAnimation = false;
-            ammunition.CurrentAmmunition--;
             animator.ResetTrigger("TurnOff");
             currentDuration = duration;
         }
