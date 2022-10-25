@@ -23,7 +23,7 @@ namespace Game.Menu
             animator.SetBool(down, true);
         }
 
-        public void PlayGame() => SceneManager.LoadScene("Level1");
+        public void PlayGame() => SceneManager.LoadScene("Tutorial");
 
         public void Quit() => Application.Quit();
     }

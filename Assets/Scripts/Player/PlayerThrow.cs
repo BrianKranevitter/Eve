@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Enderlook.Unity.AudioManager;
 using Game.Utility;
-using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
 using UnityEngine;
 
 public class PlayerThrow : MonoBehaviour
