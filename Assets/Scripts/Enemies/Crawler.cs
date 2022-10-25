@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using Game.Player.Weapons;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace Game.Enemies
 {
@@ -26,8 +27,7 @@ namespace Game.Enemies
             else
                 mouthAnimator.SetTrigger(mouthAnimationTrigger);
         }
-        
-        
+
         protected override void LightEffect(Lantern.DistanceEffect lightEffect)
         {
             switch (lightEffect)
@@ -80,6 +80,53 @@ namespace Game.Enemies
                 
             //If you are not in any of these cases, you are enraged.
             return !(case1 || case2 || case3);
+        }
+
+        public int flashingAmount = 5;
+        public float flashingTime = 3;
+        private bool affectedByLight;
+        private int flashCount = 0;
+        private float timeSinceStart = 0;
+        protected override void OnCertainKill_Update()
+        {
+            base.OnCertainKill_Update();
+            
+            if (HasLightInRange() != Lantern.DistanceEffect.Close && Lantern.ActiveLantern.lightType == Lantern.LightType.White)
+            {
+                if (!affectedByLight)
+                {
+                    affectedByLight = true;
+                    
+                    flashCount++;
+                    
+                    if (flashCount > flashingAmount)
+                    {
+                        _Fsm.SendInput(EnemyState.Idle);
+                    }
+                }
+            }
+            else
+            {
+                affectedByLight = false;
+            }
+
+            if (flashCount > 0)
+            {
+                timeSinceStart += Time.deltaTime;
+
+                if (timeSinceStart > flashingTime)
+                {
+                    flashCount = 0;
+                    timeSinceStart = 0;
+                }
+            }
+        }
+
+        protected override void OnCertainKill_Enter(EnemyState state)
+        {
+            base.OnCertainKill_Enter(state);
+            
+            timeSinceStart = 0;
         }
     }
 }

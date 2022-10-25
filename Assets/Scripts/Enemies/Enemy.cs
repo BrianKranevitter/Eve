@@ -12,6 +12,7 @@ using Game.Utility;
 using Kam.Utils.FSM;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Color = UnityEngine.Color;
 
 namespace Game.Enemies
@@ -26,10 +27,14 @@ namespace Game.Enemies
 
         
         
+        [FormerlySerializedAs("sightRadius")]
         [Header("Sight")]
         [SerializeField, Min(0), Tooltip("Determines at which radius the creature can see the player.")]
-        protected float sightRadius;
+        protected float sightRadius_Idle;
 
+        [SerializeField, Min(0), Tooltip("Determines at which radius the creature can see the player.")]
+        protected float sightRadius_Active = 500;
+        
         [field: SerializeField, IsProperty, Tooltip("Layer that can block enemy sight.")]
         protected LayerMask BlockSight { get; set; }
 
@@ -190,7 +195,7 @@ namespace Game.Enemies
             meleeAttack.enabled = false;
 
             // Square values to avoid applying square root when checking distance.
-            sightRadius *= sightRadius;
+            sightRadius_Idle *= sightRadius_Idle;
             startShootingRadius *= startShootingRadius;
             stopShootingRadius *= stopShootingRadius;
             startMeleeRadius *= startMeleeRadius;
@@ -217,6 +222,11 @@ namespace Game.Enemies
             }
             
             _Fsm.FixedUpdate();
+        }
+
+        private void Update()
+        {
+            _Fsm.Update();
         }
 
         #region FSM
@@ -344,6 +354,7 @@ namespace Game.Enemies
                 .Done();
             
             StateConfigurer.Create(CertainKillMode)
+                .SetTransition(EnemyState.Idle, Idle)
                 .SetTransition(EnemyState.Dead, Dead)
                 .Done();
 
@@ -366,7 +377,7 @@ namespace Game.Enemies
             
             Idle.OnFixedUpdate += () =>
             {
-                if (HasPlayerInSight())
+                if (HasPlayerInSight(sightRadius_Idle))
                     _Fsm.SendInput(EnemyState.HuntingPlayer);
             };
             
@@ -416,7 +427,7 @@ namespace Game.Enemies
             
             HuntingPlayer.OnFixedUpdate += () =>
             {
-                if (!HasPlayerInSight())
+                if (!HasPlayerInSight(sightRadius_Active))
                 {
                     _Fsm.SendInput(EnemyState.ChasingPlayer);
                     return;
@@ -457,7 +468,7 @@ namespace Game.Enemies
             
             ChasingPlayer.OnFixedUpdate += () =>
             {
-                if (HasPlayerInSight())
+                if (HasPlayerInSight(sightRadius_Active))
                 {
                     float sqrDistance = (LastPlayerPosition - transform.position).sqrMagnitude;
                     if (sqrDistance <= startMeleeRadius)
@@ -509,7 +520,7 @@ namespace Game.Enemies
             
             ChargeToPlayer.OnFixedUpdate += () =>
             {
-                if (!HasPlayerInSight())
+                if (!HasPlayerInSight(sightRadius_Active))
                 {
                     _Fsm.SendInput(EnemyState.ChasingPlayer);
                     return;
@@ -543,7 +554,7 @@ namespace Game.Enemies
                 if (isInMeleeAnimation)
                     return;
 
-                if (!HasPlayerInSight())
+                if (!HasPlayerInSight(sightRadius_Active))
                 {
                     _Fsm.SendInput(EnemyState.ChasingPlayer);
                     return;
@@ -585,7 +596,7 @@ namespace Game.Enemies
                 if (isInShootingAnimation)
                     return;
 
-                if (!HasPlayerInSight())
+                if (!HasPlayerInSight(sightRadius_Active))
                 {
                     _Fsm.SendInput(EnemyState.ChasingPlayer);
                     return;
@@ -664,10 +675,11 @@ namespace Game.Enemies
                 LookAtPlayer();
                 TrySetAnimationTrigger(chargeAnimationTrigger, "certainKill");
             };
+            CertainKillMode.OnEnter += OnCertainKill_Enter;
             
             CertainKillMode.OnFixedUpdate += () =>
             {
-                if (!HasPlayerInSight())
+                if (!HasPlayerInSight(sightRadius_Active))
                 {
                     _Fsm.SendInput(EnemyState.ChasingPlayer);
                     return;
@@ -684,6 +696,7 @@ namespace Game.Enemies
                 Debug.Assert(success);
             };
             
+            CertainKillMode.OnUpdate += OnCertainKill_Update;
             
             
             
@@ -715,6 +728,15 @@ namespace Game.Enemies
             }
         }
         protected abstract bool CheckRage();
+
+        protected virtual void OnCertainKill_Update()
+        {
+        }
+        
+        protected virtual void OnCertainKill_Enter(EnemyState state)
+        {
+            
+        }
         
         public void FinishedAnimation(EnemyState state)
         {
@@ -954,7 +976,7 @@ namespace Game.Enemies
                 OnTakeDamage(amount, true);
         }
 
-        protected bool HasPlayerInSight()
+        protected bool HasPlayerInSight(float sightRadius)
         {
             Vector3 eyePosition = EyePosition;
             if ((PlayerBody.Player.transform.position - eyePosition).sqrMagnitude < sightRadius
@@ -1132,7 +1154,7 @@ namespace Game.Enemies
         protected virtual void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(EyePosition, SqrtOnPlay(sightRadius));
+            Gizmos.DrawWireSphere(EyePosition, SqrtOnPlay(sightRadius_Idle));
         }
 
         protected float SqrtOnPlay(float value) => Application.isPlaying ? Mathf.Sqrt(value) : value;

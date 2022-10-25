@@ -72,7 +72,7 @@ namespace Game.Enemies
         protected override void OnTakeDamage(float amount, bool isOnWeakspot)
         {
             base.OnTakeDamage(amount, isOnWeakspot);
-            if (isOnWeakspot && HasPlayerInSight())
+            if (isOnWeakspot && HasPlayerInSight(sightRadius_Active))
                 _Fsm.SendInput(EnemyState.ChargeToPlayer);
             else if (currentState == EnemyState.Idle)
                 _Fsm.SendInput(EnemyState.ChasingPlayer);
