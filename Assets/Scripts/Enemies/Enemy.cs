@@ -170,6 +170,7 @@ namespace Game.Enemies
         }
 
         protected Vector3 LastPlayerPosition { get; private set; }
+        protected Glowstick GlowstickToChase { get; private set; }
 
         protected float initialSpeed;
         
@@ -215,10 +216,16 @@ namespace Game.Enemies
             if (!IsAlive)
                 return;
             
-            Lantern.DistanceEffect lightEffect = HasLightInRange();
+            Lantern.DistanceEffect lightEffect = HasPlayerLightInRange();
             if (lightEffect != Lantern.DistanceEffect.None)
             {
                 LightEffect(lightEffect);
+            }
+            
+            Lantern.DistanceEffect glowstickEffect = HasGlowstickInRange();
+            if (glowstickEffect != Lantern.DistanceEffect.None)
+            {
+                GlowstickEffect(glowstickEffect);
             }
             
             _Fsm.FixedUpdate();
@@ -236,7 +243,7 @@ namespace Game.Enemies
         protected EventFSM<EnemyState> _Fsm;
         public enum EnemyState
         {
-            Idle, Blinded, HuntingPlayer, ChasingPlayer, ChargeToPlayer, Melee, Shoot, RageBuildup, CertainKillMode, Dead
+            Idle, Blinded, HuntingPlayer, ChasingPlayer, ChargeToPlayer, Melee, Shoot, RageBuildup, CertainKillMode, Dead, ChaseGlowstick
         }
         private void SetupFSM()
         {
@@ -252,6 +259,7 @@ namespace Game.Enemies
             var RageBuildup = new State<EnemyState>("RageBuildup");
             var CertainKillMode = new State<EnemyState>("CertainKillMode");
             var Dead = new State<EnemyState>("Dead");
+            var ChaseGlowstick = new State<EnemyState>("ChaseGlowstick");
 
             #endregion
 
@@ -267,6 +275,7 @@ namespace Game.Enemies
                 .SetTransition(EnemyState.RageBuildup, RageBuildup)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .Done();
             
             StateConfigurer.Create(Blinded)
@@ -279,6 +288,7 @@ namespace Game.Enemies
                 .SetTransition(EnemyState.RageBuildup, RageBuildup)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .Done();
             
             StateConfigurer.Create(HuntingPlayer)
@@ -291,6 +301,7 @@ namespace Game.Enemies
                 .SetTransition(EnemyState.RageBuildup, RageBuildup)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .Done();
             
             StateConfigurer.Create(ChasingPlayer)
@@ -303,6 +314,7 @@ namespace Game.Enemies
                 .SetTransition(EnemyState.RageBuildup, RageBuildup)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .Done();
             
             StateConfigurer.Create(ChargeToPlayer)
@@ -315,6 +327,7 @@ namespace Game.Enemies
                 .SetTransition(EnemyState.RageBuildup, RageBuildup)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .Done();
             
             StateConfigurer.Create(Melee)
@@ -327,6 +340,7 @@ namespace Game.Enemies
                 .SetTransition(EnemyState.RageBuildup, RageBuildup)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .Done();
             
             StateConfigurer.Create(Shoot)
@@ -339,6 +353,7 @@ namespace Game.Enemies
                 .SetTransition(EnemyState.RageBuildup, RageBuildup)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .Done();
             
             StateConfigurer.Create(RageBuildup)
@@ -351,6 +366,7 @@ namespace Game.Enemies
                 .SetTransition(EnemyState.Shoot, Shoot)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .Done();
             
             StateConfigurer.Create(CertainKillMode)
@@ -359,6 +375,19 @@ namespace Game.Enemies
                 .Done();
 
             StateConfigurer.Create(Dead)
+                .Done();
+            
+            StateConfigurer.Create(ChaseGlowstick)
+                .SetTransition(EnemyState.Idle, Idle)
+                .SetTransition(EnemyState.Blinded, Blinded)
+                .SetTransition(EnemyState.HuntingPlayer, HuntingPlayer)
+                .SetTransition(EnemyState.ChasingPlayer, ChasingPlayer)
+                .SetTransition(EnemyState.ChargeToPlayer, ChargeToPlayer)
+                .SetTransition(EnemyState.Melee, Melee)
+                .SetTransition(EnemyState.Shoot, Shoot)
+                .SetTransition(EnemyState.RageBuildup, RageBuildup)
+                .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
+                .SetTransition(EnemyState.Dead, Dead)
                 .Done();
             
             #endregion
@@ -704,6 +733,32 @@ namespace Game.Enemies
             {
                 
             };
+            
+            ChaseGlowstick.OnEnter += x =>
+            {
+                Debug.Log($"{gameObject.name}: CHARGE TO GLOWSTICK");
+                currentState = EnemyState.ChasingPlayer;
+                NavAgent.isStopped = false;
+                NavAgent.speed = initialSpeed * chargingSpeedMultiplier;
+                bool success = NavAgent.SetDestination(GlowstickToChase.transform.position);
+                Debug.Assert(success);
+
+                TrySetAnimationTrigger(chargeAnimationTrigger, "charge");
+            };
+            
+            ChaseGlowstick.OnFixedUpdate += () =>
+            {
+                float sqrDistance = (GlowstickToChase.transform.position - transform.position).sqrMagnitude;
+                if (sqrDistance <= startMeleeRadius)
+                {
+                    Destroy(GlowstickToChase.gameObject);
+                    _Fsm.SendInput(EnemyState.Idle);
+                    return;
+                }
+                
+                bool success = NavAgent.SetDestination(GlowstickToChase.transform.position);
+                Debug.Assert(success);
+            };
             #endregion
             
             _Fsm = new EventFSM<EnemyState>(Idle);
@@ -744,7 +799,7 @@ namespace Game.Enemies
             {
                 case EnemyState.Blinded:
                 {
-                    Lantern.DistanceEffect light = HasLightInRange();
+                    Lantern.DistanceEffect light = HasPlayerLightInRange();
                     Debug.Log("LIGHT WAS " + light);
                     
                     if (light == Lantern.DistanceEffect.Close &&
@@ -775,7 +830,15 @@ namespace Game.Enemies
 
                 case EnemyState.RageBuildup:
                 {
-                    _Fsm.SendInput(EnemyState.CertainKillMode);
+                    if (GlowstickToChase != null)
+                    {
+                        _Fsm.SendInput(EnemyState.ChaseGlowstick);
+                    }
+                    else
+                    {
+                        _Fsm.SendInput(EnemyState.CertainKillMode);
+                    }
+                    
                     break;
                 }
 
@@ -797,6 +860,68 @@ namespace Game.Enemies
         }
 
         protected virtual void LightEffect(Lantern.DistanceEffect lightEffect)
+        {
+            switch (lightEffect)
+            {
+                case Lantern.DistanceEffect.Far:
+                {
+                    switch (Lantern.ActiveLantern.lightType)
+                    {
+                        case Lantern.LightType.White:
+                        {
+                            break;
+                        }
+
+
+                        case Lantern.LightType.Red:
+                        {
+                            break;
+                        }
+                        
+                        case Lantern.LightType.Blue:
+                        {
+                            break;
+                        }
+                    }
+                    break;
+                }
+
+                case Lantern.DistanceEffect.Close:
+                {
+                    switch (Lantern.ActiveLantern.lightType)
+                    {
+                        case Lantern.LightType.White:
+                        {
+                            /*
+                            NavAgent.isStopped = false;
+                            NavAgent.speed = initialSpeed * escapingSpeedMultiplier;
+                            SetEscapeDestination(PlayerBody.Player.transform.position);*/
+                            break;
+                        }
+
+
+                        case Lantern.LightType.Red:
+                        {
+                            /*
+                            NavAgent.speed = initialSpeed * 3;*/
+                            break;
+                        }
+                        
+                        case Lantern.LightType.Blue:
+                        {
+                            /*
+                            NavAgent.isStopped = true;
+                            NavAgent.speed = 0;
+                    
+                            GoToIdleState();*/
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        protected virtual void GlowstickEffect(Lantern.DistanceEffect lightEffect)
         {
             switch (lightEffect)
             {
@@ -1032,7 +1157,7 @@ namespace Game.Enemies
 
         protected void SetLastPlayerPosition() => LastPlayerPosition = PlayerBody.Player.transform.position;
 
-        protected Lantern.DistanceEffect HasLightInRange()
+        protected Lantern.DistanceEffect HasPlayerLightInRange()
         {
             if(!Lantern.Active)
                 return Lantern.DistanceEffect.None;
@@ -1091,6 +1216,65 @@ namespace Game.Enemies
                 }
             }
 
+            return Lantern.DistanceEffect.None;
+        }
+        
+        protected Lantern.DistanceEffect HasGlowstickInRange()
+        {
+            if (Glowstick.activeGlowsticks.Count == 0)
+            {
+                GlowstickToChase = null;
+                return Lantern.DistanceEffect.None;
+            }
+
+            List<Tuple<Lantern.DistanceEffect, Glowstick>> stickEffects = new List<Tuple<Lantern.DistanceEffect, Glowstick>>();
+            foreach (var stick in Glowstick.activeGlowsticks)
+            {
+                Vector3 closestEnemyPoint = transform.position + Vector3.up * eyeOffset;
+                Vector3 lightPosition = stick.transform.position;
+
+                Vector3 lightDirection = closestEnemyPoint - lightPosition;
+                float distanceToOrigin = lightDirection.sqrMagnitude;
+
+                if (distanceToOrigin <= stick.interactionRange_Far)
+                {
+                    if (!Physics.Linecast(closestEnemyPoint, lightPosition, BlockSight))
+                    {
+                        //Light is hitting, now check distance.
+                    
+                        if (distanceToOrigin > stick.interactionRange_Close)
+                        {
+                            stickEffects.Add(Tuple.Create(Lantern.DistanceEffect.Far, stick));
+                        }
+                        else
+                        {
+                            stickEffects.Add(Tuple.Create(Lantern.DistanceEffect.Close, stick));
+                        }
+                    }
+                }
+                
+                stickEffects.Add(Tuple.Create(Lantern.DistanceEffect.None, stick));
+            }
+
+            foreach (var item in stickEffects)
+            {
+                if (item.Item1 == Lantern.DistanceEffect.Close)
+                {
+                    GlowstickToChase = item.Item2;
+                    return Lantern.DistanceEffect.Close;
+                }
+            }
+            
+            foreach (var item in stickEffects)
+            {
+                if (item.Item1 == Lantern.DistanceEffect.Far)
+                {
+                    GlowstickToChase = item.Item2;
+                    return Lantern.DistanceEffect.Far;
+                }
+            }
+
+            GlowstickToChase = null;
             return Lantern.DistanceEffect.None;
         }
 

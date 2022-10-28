@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Enderlook.Unity.AudioManager;
@@ -22,6 +23,8 @@ public class PlayerThrow : MonoBehaviour
     
     private bool readyToThrow;
 
+    public Action<GameObject> onThrow = delegate(GameObject o) {  };
+    
     private void Start()
     {
         readyToThrow = true;
@@ -55,6 +58,8 @@ public class PlayerThrow : MonoBehaviour
         
         readyToThrow = false;
         Invoke(nameof(ResetThrow), cooldown);
+        
+        onThrow.Invoke(obj);
     }
     
     void ResetThrow()

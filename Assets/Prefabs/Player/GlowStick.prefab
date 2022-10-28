@@ -268,6 +268,7 @@ GameObject:
   - component: {fileID: 8656255252980487370}
   - component: {fileID: 1529397780284499904}
   - component: {fileID: 8211022996220136413}
+  - component: {fileID: 6468393024926729347}
   m_Layer: 23
   m_Name: GlowStick
   m_TagString: Untagged
@@ -360,6 +361,21 @@ MonoBehaviour:
   changeFrecuencyUnselected: 0.5
   changeSizeUnselected: 1
   outlineRangeUnselected: 2
+--- !u!114 &6468393024926729347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2461495076793183747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5b4c69f31479e44b0f9066ad00ee4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioOnPickup: {fileID: 0}
+  interactionRange_Close: 50
+  interactionRange_Far: 500
 --- !u!1 &3115391705400628695
 GameObject:
   m_ObjectHideFlags: 0

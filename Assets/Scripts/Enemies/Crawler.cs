@@ -63,10 +63,38 @@ namespace Game.Enemies
             
             base.LightEffect(lightEffect);
         }
+        
+        protected override void GlowstickEffect(Lantern.DistanceEffect lightEffect)
+        {
+            switch (lightEffect)
+            {
+                case Lantern.DistanceEffect.Far:
+                {
+                    if (currentState == EnemyState.Idle)
+                    {
+                        //Rage
+                        _Fsm.SendInput(EnemyState.RageBuildup);
+                    }
+                    break;
+                }
+
+                case Lantern.DistanceEffect.Close:
+                {
+                    if (currentState == EnemyState.Idle)
+                    {
+                        //Stunned
+                        _Fsm.SendInput(EnemyState.Blinded);
+                    }
+                    break;
+                }
+            }
+
+            base.GlowstickEffect(lightEffect);
+        }
 
         protected override bool CheckRage()
         {
-            Lantern.DistanceEffect distance = HasLightInRange();
+            Lantern.DistanceEffect distance = HasPlayerLightInRange();
                 
             //Cases where you'd want to stay in rage
             bool case1 = distance == Lantern.DistanceEffect.Close &&
@@ -91,7 +119,7 @@ namespace Game.Enemies
         {
             base.OnCertainKill_Update();
             
-            if (HasLightInRange() != Lantern.DistanceEffect.Close && Lantern.ActiveLantern.lightType == Lantern.LightType.White)
+            if (HasPlayerLightInRange() != Lantern.DistanceEffect.Close && Lantern.ActiveLantern.lightType == Lantern.LightType.White)
             {
                 if (!affectedByLight)
                 {
