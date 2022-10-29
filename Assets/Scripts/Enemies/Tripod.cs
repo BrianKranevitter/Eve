@@ -22,7 +22,7 @@ namespace Game.Enemies
                 case Lantern.DistanceEffect.Far:
                 {
                     //Rage Animation
-                    _Fsm.SendInput(EnemyState.RageBuildup);
+                    _Fsm.SendInput(EnemyState.RageBuildup_Player);
                     break;
                 }
 
@@ -33,7 +33,7 @@ namespace Game.Enemies
                         case Lantern.LightType.White:
                         {
                             //Rage
-                            _Fsm.SendInput(EnemyState.RageBuildup);
+                            _Fsm.SendInput(EnemyState.RageBuildup_Player);
                             break;
                         }
 
@@ -60,7 +60,7 @@ namespace Game.Enemies
                     if (currentState == EnemyState.Idle)
                     {
                         //Rage
-                        _Fsm.SendInput(EnemyState.RageBuildup);
+                        _Fsm.SendInput(EnemyState.RageBuildup_Glowstick);
                     }
                     break;
                 }
@@ -70,7 +70,7 @@ namespace Game.Enemies
                     if (currentState == EnemyState.Idle)
                     {
                         //Stunned
-                        _Fsm.SendInput(EnemyState.RageBuildup);
+                        _Fsm.SendInput(EnemyState.RageBuildup_Player);
                     }
                     break;
                 }
@@ -79,7 +79,7 @@ namespace Game.Enemies
             base.GlowstickEffect(lightEffect);
         }
 
-        protected override bool CheckRage()
+        protected override bool CheckRage_Player()
         {
             Lantern.DistanceEffect distance = HasPlayerLightInRange();
                 
@@ -100,10 +100,6 @@ namespace Game.Enemies
         protected override void OnTakeDamage(float amount, bool isOnWeakspot)
         {
             base.OnTakeDamage(amount, isOnWeakspot);
-            if (isOnWeakspot && HasPlayerInSight(sightRadius_Active))
-                _Fsm.SendInput(EnemyState.ChargeToPlayer);
-            else if (currentState == EnemyState.Idle)
-                _Fsm.SendInput(EnemyState.ChasingPlayer);
 
             if (!IsAlive)
             {

@@ -215,19 +215,7 @@ namespace Game.Enemies
         {
             if (!IsAlive)
                 return;
-            
-            Lantern.DistanceEffect lightEffect = HasPlayerLightInRange();
-            if (lightEffect != Lantern.DistanceEffect.None)
-            {
-                LightEffect(lightEffect);
-            }
-            
-            Lantern.DistanceEffect glowstickEffect = HasGlowstickInRange();
-            if (glowstickEffect != Lantern.DistanceEffect.None)
-            {
-                GlowstickEffect(glowstickEffect);
-            }
-            
+
             _Fsm.FixedUpdate();
         }
 
@@ -243,7 +231,7 @@ namespace Game.Enemies
         protected EventFSM<EnemyState> _Fsm;
         public enum EnemyState
         {
-            Idle, Blinded, HuntingPlayer, ChasingPlayer, ChargeToPlayer, Melee, Shoot, RageBuildup, CertainKillMode, Dead, ChaseGlowstick
+            Idle, Blinded, ChasePlayer, RageBuildup_Player, ChaseGlowstick, RageBuildup_Glowstick, CertainKillMode, Dead
         }
         private void SetupFSM()
         {
@@ -251,15 +239,16 @@ namespace Game.Enemies
             
             var Idle = new State<EnemyState>("Idle");
             var Blinded = new State<EnemyState>("Blinded");
-            var HuntingPlayer = new State<EnemyState>("HuntingPlayer");
-            var ChasingPlayer = new State<EnemyState>("ChasingPlayer");
-            var ChargeToPlayer = new State<EnemyState>("ChargeToPlayer");
-            var Melee = new State<EnemyState>("Melee");
-            var Shoot = new State<EnemyState>("Shoot");
-            var RageBuildup = new State<EnemyState>("RageBuildup");
+            
+            var ChasePlayer = new State<EnemyState>("ChasingPlayer");
+            var RageBuildup_Player = new State<EnemyState>("RageBuildup_Player");
+            
+            var ChaseGlowstick = new State<EnemyState>("ChaseGlowstick");
+            var RageBuildup_Glowstick = new State<EnemyState>("RageBuildup_Glowstick");
+            
             var CertainKillMode = new State<EnemyState>("CertainKillMode");
             var Dead = new State<EnemyState>("Dead");
-            var ChaseGlowstick = new State<EnemyState>("ChaseGlowstick");
+            
 
             #endregion
 
@@ -267,106 +256,42 @@ namespace Game.Enemies
 
             StateConfigurer.Create(Idle)
                 .SetTransition(EnemyState.Blinded, Blinded)
-                .SetTransition(EnemyState.HuntingPlayer, HuntingPlayer)
-                .SetTransition(EnemyState.ChasingPlayer, ChasingPlayer)
-                .SetTransition(EnemyState.ChargeToPlayer, ChargeToPlayer)
-                .SetTransition(EnemyState.Melee, Melee)
-                .SetTransition(EnemyState.Shoot, Shoot)
-                .SetTransition(EnemyState.RageBuildup, RageBuildup)
+                .SetTransition(EnemyState.ChasePlayer, ChasePlayer)
+                .SetTransition(EnemyState.RageBuildup_Player, RageBuildup_Player)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
+                .SetTransition(EnemyState.RageBuildup_Glowstick, RageBuildup_Glowstick)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
-                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .Done();
             
             StateConfigurer.Create(Blinded)
                 .SetTransition(EnemyState.Idle, Idle)
-                .SetTransition(EnemyState.HuntingPlayer, HuntingPlayer)
-                .SetTransition(EnemyState.ChasingPlayer, ChasingPlayer)
-                .SetTransition(EnemyState.ChargeToPlayer, ChargeToPlayer)
-                .SetTransition(EnemyState.Melee, Melee)
-                .SetTransition(EnemyState.Shoot, Shoot)
-                .SetTransition(EnemyState.RageBuildup, RageBuildup)
+                .SetTransition(EnemyState.ChasePlayer, ChasePlayer)
+                .SetTransition(EnemyState.RageBuildup_Player, RageBuildup_Player)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
+                .SetTransition(EnemyState.RageBuildup_Glowstick, RageBuildup_Glowstick)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
-                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .Done();
-            
-            StateConfigurer.Create(HuntingPlayer)
+
+            StateConfigurer.Create(ChasePlayer)
                 .SetTransition(EnemyState.Idle, Idle)
                 .SetTransition(EnemyState.Blinded, Blinded)
-                .SetTransition(EnemyState.ChasingPlayer, ChasingPlayer)
-                .SetTransition(EnemyState.ChargeToPlayer, ChargeToPlayer)
-                .SetTransition(EnemyState.Melee, Melee)
-                .SetTransition(EnemyState.Shoot, Shoot)
-                .SetTransition(EnemyState.RageBuildup, RageBuildup)
+                .SetTransition(EnemyState.RageBuildup_Player, RageBuildup_Player)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
+                .SetTransition(EnemyState.RageBuildup_Glowstick, RageBuildup_Glowstick)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
-                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .Done();
-            
-            StateConfigurer.Create(ChasingPlayer)
+
+            StateConfigurer.Create(RageBuildup_Player)
                 .SetTransition(EnemyState.Idle, Idle)
                 .SetTransition(EnemyState.Blinded, Blinded)
-                .SetTransition(EnemyState.HuntingPlayer, HuntingPlayer)
-                .SetTransition(EnemyState.ChargeToPlayer, ChargeToPlayer)
-                .SetTransition(EnemyState.Melee, Melee)
-                .SetTransition(EnemyState.Shoot, Shoot)
-                .SetTransition(EnemyState.RageBuildup, RageBuildup)
+                .SetTransition(EnemyState.ChasePlayer, ChasePlayer)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
+                .SetTransition(EnemyState.RageBuildup_Glowstick, RageBuildup_Glowstick)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
-                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
-                .Done();
-            
-            StateConfigurer.Create(ChargeToPlayer)
-                .SetTransition(EnemyState.Idle, Idle)
-                .SetTransition(EnemyState.Blinded, Blinded)
-                .SetTransition(EnemyState.HuntingPlayer, HuntingPlayer)
-                .SetTransition(EnemyState.ChasingPlayer, ChasingPlayer)
-                .SetTransition(EnemyState.Melee, Melee)
-                .SetTransition(EnemyState.Shoot, Shoot)
-                .SetTransition(EnemyState.RageBuildup, RageBuildup)
-                .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
-                .SetTransition(EnemyState.Dead, Dead)
-                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
-                .Done();
-            
-            StateConfigurer.Create(Melee)
-                .SetTransition(EnemyState.Idle, Idle)
-                .SetTransition(EnemyState.Blinded, Blinded)
-                .SetTransition(EnemyState.HuntingPlayer, HuntingPlayer)
-                .SetTransition(EnemyState.ChasingPlayer, ChasingPlayer)
-                .SetTransition(EnemyState.ChargeToPlayer, ChargeToPlayer)
-                .SetTransition(EnemyState.Shoot, Shoot)
-                .SetTransition(EnemyState.RageBuildup, RageBuildup)
-                .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
-                .SetTransition(EnemyState.Dead, Dead)
-                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
-                .Done();
-            
-            StateConfigurer.Create(Shoot)
-                .SetTransition(EnemyState.Idle, Idle)
-                .SetTransition(EnemyState.Blinded, Blinded)
-                .SetTransition(EnemyState.HuntingPlayer, HuntingPlayer)
-                .SetTransition(EnemyState.ChasingPlayer, ChasingPlayer)
-                .SetTransition(EnemyState.ChargeToPlayer, ChargeToPlayer)
-                .SetTransition(EnemyState.Melee, Melee)
-                .SetTransition(EnemyState.RageBuildup, RageBuildup)
-                .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
-                .SetTransition(EnemyState.Dead, Dead)
-                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
-                .Done();
-            
-            StateConfigurer.Create(RageBuildup)
-                .SetTransition(EnemyState.Idle, Idle)
-                .SetTransition(EnemyState.Blinded, Blinded)
-                .SetTransition(EnemyState.HuntingPlayer, HuntingPlayer)
-                .SetTransition(EnemyState.ChasingPlayer, ChasingPlayer)
-                .SetTransition(EnemyState.ChargeToPlayer, ChargeToPlayer)
-                .SetTransition(EnemyState.Melee, Melee)
-                .SetTransition(EnemyState.Shoot, Shoot)
-                .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
-                .SetTransition(EnemyState.Dead, Dead)
-                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .Done();
             
             StateConfigurer.Create(CertainKillMode)
@@ -380,12 +305,19 @@ namespace Game.Enemies
             StateConfigurer.Create(ChaseGlowstick)
                 .SetTransition(EnemyState.Idle, Idle)
                 .SetTransition(EnemyState.Blinded, Blinded)
-                .SetTransition(EnemyState.HuntingPlayer, HuntingPlayer)
-                .SetTransition(EnemyState.ChasingPlayer, ChasingPlayer)
-                .SetTransition(EnemyState.ChargeToPlayer, ChargeToPlayer)
-                .SetTransition(EnemyState.Melee, Melee)
-                .SetTransition(EnemyState.Shoot, Shoot)
-                .SetTransition(EnemyState.RageBuildup, RageBuildup)
+                .SetTransition(EnemyState.ChasePlayer, ChasePlayer)
+                .SetTransition(EnemyState.RageBuildup_Player, RageBuildup_Player)
+                .SetTransition(EnemyState.RageBuildup_Glowstick, RageBuildup_Glowstick)
+                .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
+                .SetTransition(EnemyState.Dead, Dead)
+                .Done();
+            
+            StateConfigurer.Create(RageBuildup_Glowstick)
+                .SetTransition(EnemyState.Idle, Idle)
+                .SetTransition(EnemyState.Blinded, Blinded)
+                .SetTransition(EnemyState.ChasePlayer, ChasePlayer)
+                .SetTransition(EnemyState.RageBuildup_Player, RageBuildup_Player)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
                 .Done();
@@ -404,10 +336,16 @@ namespace Game.Enemies
                 TrySetAnimationTrigger(idleAnimationTrigger, "idle");
             };
             
-            Idle.OnFixedUpdate += () =>
+            Idle.OnUpdate += () =>
             {
                 if (HasPlayerInSight(sightRadius_Idle))
-                    _Fsm.SendInput(EnemyState.HuntingPlayer);
+                {
+                    _Fsm.SendInput(EnemyState.CertainKillMode);
+                    return;
+                }
+                
+                PlayerLightBehaviors();
+                GlowstickBehaviors();
             };
             
             
@@ -416,16 +354,12 @@ namespace Game.Enemies
             {
                 Debug.Log($"{gameObject.name}: BLINDED");
                 
-                if (currentState != EnemyState.Blinded && currentState != EnemyState.RageBuildup)
-                {
-                    lastState = currentState;
-                }
+                CheckAndSaveLastState();
                 
                 currentState = EnemyState.Blinded;
-                
-                SetLastPlayerPosition();
 
                 NavAgent.isStopped = true;
+                NavAgent.speed = initialSpeed;
                 NavAgent.velocity = Vector3.zero;
 
                 IsInBlindAnimation = true;
@@ -434,59 +368,17 @@ namespace Game.Enemies
                 {
                     //If you were not able to set the animation, end the animation yourself
                     //(This part is usually called at the end of the animation)
-                    FinishedAnimation(EnemyState.Blinded);
-                }
-                    
-                
-            };
-
-
-
-            HuntingPlayer.OnEnter += x =>
-            {
-                Debug.Log($"{gameObject.name}: HUNTING PLAYER");
-                currentState = EnemyState.HuntingPlayer;
-                NavAgent.isStopped = false;
-                NavAgent.speed = initialSpeed;
-                bool success = NavAgent.SetDestination(LastPlayerPosition);
-                Debug.Assert(success);
-
-                TrySetAnimationTrigger(huntAnimationTrigger, "hunt");
-            };
-            
-            HuntingPlayer.OnFixedUpdate += () =>
-            {
-                if (!HasPlayerInSight(sightRadius_Active))
-                {
-                    _Fsm.SendInput(EnemyState.ChasingPlayer);
-                    return;
-                }
-
-                bool success = NavAgent.SetDestination(LastPlayerPosition);
-                Debug.Assert(success);
-                
-                
-                float sqrDistance = (LastPlayerPosition - transform.position).sqrMagnitude;
-                if (sqrDistance <= startMeleeRadius)
-                {
-                    _Fsm.SendInput(EnemyState.Melee);
-                }
-                else if (sqrDistance <= startChargeRadius)
-                    _Fsm.SendInput(EnemyState.ChargeToPlayer);
-                else if (sqrDistance <= startShootingRadius)
-                {
-                    _Fsm.SendInput(EnemyState.Shoot);
+                    FinishedAnimation(Animations.Blinded);
                 }
             };
+            
 
-            
-            
-            
-            ChasingPlayer.OnEnter += x =>
+
+            ChasePlayer.OnEnter += x =>
             {
                 Debug.Log($"{gameObject.name}: CHASING PLAYER");
                 
-                currentState = EnemyState.ChasingPlayer;
+                currentState = EnemyState.ChasePlayer;
                 NavAgent.isStopped = false;
                 NavAgent.speed = initialSpeed;
                 bool success = NavAgent.SetDestination(LastPlayerPosition);
@@ -495,27 +387,14 @@ namespace Game.Enemies
                 TrySetAnimationTrigger(chaseAnimationTrigger, "chase");
             };
             
-            ChasingPlayer.OnFixedUpdate += () =>
+            ChasePlayer.OnUpdate += () =>
             {
+                PlayerLightBehaviors();
+                GlowstickBehaviors();
+
                 if (HasPlayerInSight(sightRadius_Active))
                 {
-                    float sqrDistance = (LastPlayerPosition - transform.position).sqrMagnitude;
-                    if (sqrDistance <= startMeleeRadius)
-                    {
-                        _Fsm.SendInput(EnemyState.Melee);
-                    }
-                    else if (sqrDistance <= startChargeRadius)
-                    {
-                        _Fsm.SendInput(EnemyState.ChargeToPlayer);
-                    }
-                    else if (sqrDistance <= startShootingRadius)
-                    {
-                        _Fsm.SendInput(EnemyState.Shoot);
-                    }
-                    else
-                    {
-                        _Fsm.SendInput(EnemyState.HuntingPlayer);
-                    }
+                    _Fsm.SendInput(EnemyState.CertainKillMode);
                 }
                 else if (NavAgent.remainingDistance == 0)
                 {
@@ -531,148 +410,15 @@ namespace Game.Enemies
                     }
                 }
             };
-            
-            
-            
-            
-            ChargeToPlayer.OnEnter += x =>
+
+
+
+            RageBuildup_Player.OnEnter += x =>
             {
-                Debug.Log($"{gameObject.name}: CHARGE TO PLAYER");
-                currentState = EnemyState.ChasingPlayer;
-                NavAgent.isStopped = false;
-                NavAgent.speed = initialSpeed * chargingSpeedMultiplier;
-                bool success = NavAgent.SetDestination(LastPlayerPosition);
-                Debug.Assert(success);
-
-                TrySetAnimationTrigger(chargeAnimationTrigger, "charge");
-            };
-            
-            ChargeToPlayer.OnFixedUpdate += () =>
-            {
-                if (!HasPlayerInSight(sightRadius_Active))
-                {
-                    _Fsm.SendInput(EnemyState.ChasingPlayer);
-                    return;
-                }
-
-                float sqrDistance = (LastPlayerPosition - transform.position).sqrMagnitude;
-                if (sqrDistance <= startMeleeRadius)
-                {
-                    _Fsm.SendInput(EnemyState.Melee);
-                    return;
-                }
-
-                bool success = NavAgent.SetDestination(LastPlayerPosition);
-                Debug.Assert(success);
-            };
-            
-            
-            
-            
-            Melee.OnEnter += x =>
-            {
-                Debug.Log($"{gameObject.name}: MELEE");
-                currentState = EnemyState.Melee;
-                isInMeleeAnimation = false; // Sometimes the flag may have a false positive if the animation was terminated abruptly.
-                NavAgent.isStopped = true;
-                NavAgent.velocity = Vector3.zero;
-            };
-            
-            Melee.OnFixedUpdate += () =>
-            {
-                if (isInMeleeAnimation)
-                    return;
-
-                if (!HasPlayerInSight(sightRadius_Active))
-                {
-                    _Fsm.SendInput(EnemyState.ChasingPlayer);
-                    return;
-                }
-
-                LookAtPlayer();
-
-                float sqrDistance = (LastPlayerPosition - transform.position).sqrMagnitude;
-                if (sqrDistance > startMeleeRadius)
-                {
-                    _Fsm.SendInput(EnemyState.HuntingPlayer);
-                    return;
-                }
-
-                isInMeleeAnimation = true;
-
-                Try.PlayOneShoot(transform, meleeSound, "melee");
-
-                if (!TrySetAnimationTrigger(meleeAnimationTrigger, "melee"))
-                {
-                    this.Melee();
-                    FinishedAnimation(EnemyState.Melee);
-                }
-            };
-
-
-
-
-            Shoot.OnEnter += x =>
-            {
-                Debug.Log($"{gameObject.name}: SHOOT");
-                currentState = EnemyState.Shoot;
-                isInShootingAnimation = false; // Sometimes the flag may have a false positive if the animation was terminated abruptly.
-                NavAgent.isStopped = true;
-            };
-
-            Shoot.OnFixedUpdate += () =>
-            {
-                if (isInShootingAnimation)
-                    return;
-
-                if (!HasPlayerInSight(sightRadius_Active))
-                {
-                    _Fsm.SendInput(EnemyState.ChasingPlayer);
-                    return;
-                }
-
-                float sqrDistance = (LastPlayerPosition - transform.position).sqrMagnitude;
+                Debug.Log($"{gameObject.name}: RAGE BUILDUP PLAYER");
+                CheckAndSaveLastState();
                 
-                if (sqrDistance > stopShootingRadius)
-                {
-                    _Fsm.SendInput(EnemyState.HuntingPlayer);
-                    return;
-                }
-                else if (sqrDistance <= startMeleeRadius)
-                {
-                    _Fsm.SendInput(EnemyState.Melee);
-                    return;
-                }
-                else if (sqrDistance <= startChargeRadius)
-                {
-                    _Fsm.SendInput(EnemyState.ChargeToPlayer);
-                    return;
-                }
-
-                LookAtPlayer();
-
-                isInShootingAnimation = true;
-
-                Try.PlayOneShoot(transform, shootSound, "shoot");
-
-                if (!TrySetAnimationTrigger(shootAnimationTrigger, "shoot"))
-                {
-                    FinishedAnimation(EnemyState.Shoot);
-                }
-            };
-            
-            
-            
-            
-            RageBuildup.OnEnter += x =>
-            {
-                Debug.Log($"{gameObject.name}: RAGE BUILDUP");
-                if (currentState != EnemyState.Blinded && currentState != EnemyState.RageBuildup)
-                {
-                    lastState = currentState;
-                }
-                
-                currentState = EnemyState.RageBuildup;
+                currentState = EnemyState.RageBuildup_Player;
 
                 NavAgent.isStopped = true;
                 NavAgent.velocity = Vector3.zero;
@@ -680,14 +426,71 @@ namespace Game.Enemies
                 TrySetAnimationTrigger(rageBuildupAnimationTrigger, "rage");
             };
             
-            RageBuildup.OnFixedUpdate += () =>
+            RageBuildup_Player.OnUpdate += () =>
             {
-                if (CheckRage())
+                if (CheckRage_Player())
                 {
                     LoadLastState();
                 }
             };
             
+            
+            
+            ChaseGlowstick.OnEnter += x =>
+            {
+                Debug.Log($"{gameObject.name}: CHASE GLOWSTICK");
+                currentState = EnemyState.ChaseGlowstick;
+                NavAgent.isStopped = false;
+                NavAgent.speed = initialSpeed * chargingSpeedMultiplier;
+
+                TrySetAnimationTrigger(chaseAnimationTrigger, "chase");
+            };
+            
+            ChaseGlowstick.OnUpdate += () =>
+            {
+                PlayerLightBehaviors();
+
+                if (GlowstickToChase == null)
+                {
+                    _Fsm.SendInput(EnemyState.Idle);
+                    return;
+                }
+                
+                bool success = NavAgent.SetDestination(GlowstickToChase.transform.position);
+                Debug.Assert(success);
+                
+                float sqrDistance = (GlowstickToChase.transform.position - transform.position).sqrMagnitude;
+                if (sqrDistance <= rageKillDistance)
+                {
+                    Destroy(GlowstickToChase.gameObject);
+                    _Fsm.SendInput(EnemyState.Idle);
+                }
+            };
+            
+
+
+            RageBuildup_Glowstick.OnEnter += x =>
+            {
+                Debug.Log($"{gameObject.name}: RAGE BUILDUP GLOWSTICK");
+                CheckAndSaveLastState();
+                
+                currentState = EnemyState.RageBuildup_Glowstick;
+
+                NavAgent.isStopped = true;
+                NavAgent.velocity = Vector3.zero;
+                
+                TrySetAnimationTrigger(rageBuildupAnimationTrigger, "rage");
+            };
+            
+            RageBuildup_Glowstick.OnUpdate += () =>
+            {
+                PlayerLightBehaviors();
+
+                if (GlowstickToChase == null)
+                {
+                    LoadLastState();
+                }
+            };
             
             
             
@@ -701,16 +504,16 @@ namespace Game.Enemies
                 bool success = NavAgent.SetDestination(LastPlayerPosition);
                 Debug.Assert(success);
                 
-                LookAtPlayer();
                 TrySetAnimationTrigger(chargeAnimationTrigger, "certainKill");
+
+                OnCertainKill_Enter(x);
             };
-            CertainKillMode.OnEnter += OnCertainKill_Enter;
-            
-            CertainKillMode.OnFixedUpdate += () =>
+
+            CertainKillMode.OnUpdate += () =>
             {
                 if (!HasPlayerInSight(sightRadius_Active))
                 {
-                    _Fsm.SendInput(EnemyState.ChasingPlayer);
+                    _Fsm.SendInput(EnemyState.ChasePlayer);
                     return;
                 }
 
@@ -734,39 +537,22 @@ namespace Game.Enemies
                 
             };
             
-            ChaseGlowstick.OnEnter += x =>
-            {
-                Debug.Log($"{gameObject.name}: CHARGE TO GLOWSTICK");
-                currentState = EnemyState.ChasingPlayer;
-                NavAgent.isStopped = false;
-                NavAgent.speed = initialSpeed * chargingSpeedMultiplier;
-                bool success = NavAgent.SetDestination(GlowstickToChase.transform.position);
-                Debug.Assert(success);
-
-                TrySetAnimationTrigger(chargeAnimationTrigger, "charge");
-            };
             
-            ChaseGlowstick.OnFixedUpdate += () =>
-            {
-                float sqrDistance = (GlowstickToChase.transform.position - transform.position).sqrMagnitude;
-                if (sqrDistance <= startMeleeRadius)
-                {
-                    Destroy(GlowstickToChase.gameObject);
-                    _Fsm.SendInput(EnemyState.Idle);
-                    return;
-                }
-                
-                bool success = NavAgent.SetDestination(GlowstickToChase.transform.position);
-                Debug.Assert(success);
-            };
             #endregion
             
             _Fsm = new EventFSM<EnemyState>(Idle);
         }
 
+        protected void CheckAndSaveLastState()
+        {
+            if (currentState != EnemyState.Blinded && currentState != EnemyState.RageBuildup_Player && currentState != EnemyState.RageBuildup_Glowstick)
+            {
+                lastState = currentState;
+            }
+        }
+
         protected void LoadLastState()
         {
-            Debug.Log("TRIPOD LOAD LAST STATE");
             _Fsm.SendInput(lastState);
         }
 
@@ -782,7 +568,7 @@ namespace Game.Enemies
                 meleePosition.enabled = false;
             }
         }
-        protected abstract bool CheckRage();
+        protected abstract bool CheckRage_Player();
 
         protected virtual void OnCertainKill_Update()
         {
@@ -792,23 +578,17 @@ namespace Game.Enemies
         {
             
         }
-        
-        public void FinishedAnimation(EnemyState state)
+
+        public enum Animations
         {
-            switch (state)
+            Blinded, Melee, RageBuildup, Shoot
+        }
+        public void FinishedAnimation(Animations anim)
+        {
+            switch (anim)
             {
-                case EnemyState.Blinded:
+                case Animations.Blinded:
                 {
-                    Lantern.DistanceEffect light = HasPlayerLightInRange();
-                    Debug.Log("LIGHT WAS " + light);
-                    
-                    if (light == Lantern.DistanceEffect.Close &&
-                        Lantern.ActiveLantern.lightType == Lantern.LightType.Red)
-                    {
-                        
-                        break;
-                    }
-                    
                     NavAgent.isStopped = false;
                     
                     Animator.SetBool("Blinded", false);
@@ -818,23 +598,25 @@ namespace Game.Enemies
 
                     isInStunAnimation = false; // Sometimes the flag may have a false positive if the animation was terminated abruptly.
                     if (currentState == EnemyState.Idle)
-                        _Fsm.SendInput(EnemyState.ChasingPlayer);
+                        _Fsm.SendInput(EnemyState.CertainKillMode);
                     break;
                 }
 
-                case EnemyState.Melee:
+                case Animations.Melee:
                 {
                     isInMeleeAnimation = false;
                     break;
                 }
 
-                case EnemyState.RageBuildup:
+                case Animations.RageBuildup:
                 {
-                    if (GlowstickToChase != null)
+                    if (currentState == EnemyState.RageBuildup_Glowstick)
                     {
                         _Fsm.SendInput(EnemyState.ChaseGlowstick);
+                        break;
                     }
-                    else
+                    
+                    if (currentState == EnemyState.RageBuildup_Player)
                     {
                         _Fsm.SendInput(EnemyState.CertainKillMode);
                     }
@@ -842,7 +624,7 @@ namespace Game.Enemies
                     break;
                 }
 
-                case EnemyState.Shoot:
+                case Animations.Shoot:
                 {
                     isInShootingAnimation = false;
                     break;
@@ -859,6 +641,24 @@ namespace Game.Enemies
             }
         }
 
+        protected virtual void PlayerLightBehaviors()
+        {
+            Lantern.DistanceEffect lightEffect = HasPlayerLightInRange();
+            if (lightEffect != Lantern.DistanceEffect.None)
+            {
+                LightEffect(lightEffect);
+            }
+        }
+        
+        protected virtual void GlowstickBehaviors()
+        {
+            Lantern.DistanceEffect glowstickEffect = HasGlowstickInRange();
+            if (glowstickEffect != Lantern.DistanceEffect.None)
+            {
+                GlowstickEffect(glowstickEffect);
+            }
+        }
+        
         protected virtual void LightEffect(Lantern.DistanceEffect lightEffect)
         {
             switch (lightEffect)
@@ -1145,12 +945,12 @@ namespace Game.Enemies
             
             switch (currentState)
             {
-                case EnemyState.ChasingPlayer:
+                case EnemyState.ChasePlayer:
                     bool result = NavAgent.SetDestination(LastPlayerPosition);
                     Debug.Assert(result);
                     break;
                 case EnemyState.Idle:
-                    _Fsm.SendInput(EnemyState.ChasingPlayer);
+                    _Fsm.SendInput(EnemyState.ChasePlayer);
                     break;
             }
         }
@@ -1226,7 +1026,7 @@ namespace Game.Enemies
                 GlowstickToChase = null;
                 return Lantern.DistanceEffect.None;
             }
-
+            
             List<Tuple<Lantern.DistanceEffect, Glowstick>> stickEffects = new List<Tuple<Lantern.DistanceEffect, Glowstick>>();
             foreach (var stick in Glowstick.activeGlowsticks)
             {

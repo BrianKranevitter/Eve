@@ -35,7 +35,7 @@ namespace Game.Enemies
                 case Lantern.DistanceEffect.Far:
                 {
                     //Rage
-                    _Fsm.SendInput(EnemyState.RageBuildup);
+                    _Fsm.SendInput(EnemyState.RageBuildup_Player);
                     break;
                 }
 
@@ -53,7 +53,7 @@ namespace Game.Enemies
                         case Lantern.LightType.Red:
                         {
                             //Rage
-                            _Fsm.SendInput(EnemyState.RageBuildup);
+                            _Fsm.SendInput(EnemyState.RageBuildup_Player);
                             break;
                         }
                     }
@@ -73,7 +73,7 @@ namespace Game.Enemies
                     if (currentState == EnemyState.Idle)
                     {
                         //Rage
-                        _Fsm.SendInput(EnemyState.RageBuildup);
+                        _Fsm.SendInput(EnemyState.RageBuildup_Glowstick);
                     }
                     break;
                 }
@@ -83,6 +83,7 @@ namespace Game.Enemies
                     if (currentState == EnemyState.Idle)
                     {
                         //Stunned
+                        Debug.Log("AYO HE BLIND AS HEL");
                         _Fsm.SendInput(EnemyState.Blinded);
                     }
                     break;
@@ -92,7 +93,7 @@ namespace Game.Enemies
             base.GlowstickEffect(lightEffect);
         }
 
-        protected override bool CheckRage()
+        protected override bool CheckRage_Player()
         {
             Lantern.DistanceEffect distance = HasPlayerLightInRange();
                 
