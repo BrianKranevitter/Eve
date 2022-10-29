@@ -10,6 +10,9 @@ namespace Game.Player.Weapons
 {
     public sealed class Lantern : MonoBehaviour
     {
+        [SerializeField]
+        Animator handAnimator;
+
         public static Light ActiveLight { get; private set; }
         public static Lantern ActiveLantern { get; private set; }
         public static bool Active { get; private set; }
@@ -173,10 +176,12 @@ namespace Game.Player.Weapons
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 SetType(LightType.White);
+                handAnimator.SetTrigger("GoUp");
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 SetType(LightType.Red);
+                handAnimator.SetTrigger("GoDown");
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
