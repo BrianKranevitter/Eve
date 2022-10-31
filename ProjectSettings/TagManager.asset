@@ -29,7 +29,7 @@ TagManager:
   - PostProccesingWeapon
   - TransparentWindow
   - PlayerNonCollisionable
-  - 
+  - ExclusiveLight
   - 
   - 
   - 

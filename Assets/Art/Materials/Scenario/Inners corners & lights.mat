@@ -99,7 +99,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Range: 40
+    - _Range: 20
     - _RoughnessValue: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -110,6 +110,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 0}
-    - _Emission_Color: {r: 0.99215686, g: 0.7463526, b: 0.043137245, a: 1}
+    - _Emission_Color: {r: 0.92, g: 0.6698618, b: 0, a: 1}
     - _PlayerPosition: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
