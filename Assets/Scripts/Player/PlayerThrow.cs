@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Enderlook.Unity.AudioManager;
 using Game.Utility;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerThrow : MonoBehaviour
@@ -13,13 +14,19 @@ public class PlayerThrow : MonoBehaviour
     
     [Header("Assignables")]
     public Transform firePoint;
+    public Transform useDirectionOf;
     public GameObject glowstick;
 
     [Header("Throw Settings")]
     public KeyCode key;
-    public AudioFile throwSFX;
     public float forwardForce;
     public float upwardsForce;
+    
+    [Header("Visuals/Effects")]
+    public AudioFile throwSFX;
+    public bool useAnimationToSpawn;
+    public Animator animator;
+    public string throwTrigger;
     
     private bool readyToThrow;
 
@@ -40,7 +47,12 @@ public class PlayerThrow : MonoBehaviour
             }
             else
             {
-                Throw();
+                if (!useAnimationToSpawn)
+                {
+                    Throw();
+                }
+                
+                animator.SetTrigger(throwTrigger);
             }
         }
     }
@@ -52,8 +64,8 @@ public class PlayerThrow : MonoBehaviour
         GameObject obj = Instantiate(glowstick, firePoint.position, firePoint.rotation);
 
         Rigidbody rb = obj.GetComponent<Rigidbody>();
-        Vector3 forwardForce = firePoint.forward * this.forwardForce;
-        Vector3 upwardsForce = firePoint.up * this.upwardsForce;
+        Vector3 forwardForce = useDirectionOf.forward * this.forwardForce;
+        Vector3 upwardsForce = useDirectionOf.up * this.upwardsForce;
         rb.AddForceAtPosition(forwardForce + upwardsForce, obj.transform.position + (Vector3.down * 0.4f), ForceMode.Impulse);
         
         readyToThrow = false;

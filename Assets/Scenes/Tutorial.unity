@@ -8164,6 +8164,24 @@ Transform:
   m_Father: {fileID: 147311562}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &275551980 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4743705383299813151, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
+  m_PrefabInstance: {fileID: 1191955327}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &275551984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275551980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d77bc7391b907489802bf28af01a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lutManager: {fileID: 1914069517}
 --- !u!1001 &278206590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30543,6 +30561,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1167984000, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 612445508668841842}
+    - target: {fileID: 1167984000, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 8259462671856737306}
+    - target: {fileID: 1167984000, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
+      propertyPath: throwTrigger
+      value: Go
+      objectReference: {fileID: 0}
+    - target: {fileID: 1167984000, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
+      propertyPath: useDirectionOf
+      value: 
+      objectReference: {fileID: 2066257347}
+    - target: {fileID: 1167984000, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
+      propertyPath: useAnimationToSpawn
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 26915587892658105, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
       propertyPath: ppVolume
       value: 
@@ -30922,6 +30960,10 @@ PrefabInstance:
     - target: {fileID: 3432957788358339775, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 53.533
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805862830599049844, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
+      propertyPath: m_Name
+      value: RightArm
       objectReference: {fileID: 0}
     - target: {fileID: 3805862830599049844, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
       propertyPath: m_IsActive
@@ -31431,7 +31473,9 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4085059453965233492, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
+    - {fileID: 6722449038876309527, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
 --- !u!1001 &1196781959
 PrefabInstance:
@@ -33168,6 +33212,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7825275534150036856, guid: 63df0757eed3d8742a387d3390ae4081, type: 3}
   m_PrefabInstance: {fileID: 1261143310}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1267113064 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -42782180611663586, guid: c7b0f302b72b7684eb2dd0789d62d9e0, type: 3}
+  m_PrefabInstance: {fileID: 814931140}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1268781114
 PrefabInstance:
@@ -37893,6 +37942,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8405689217465465974, guid: e9b1ba5b4c98c1845b309093a29802ee, type: 3}
   m_PrefabInstance: {fileID: 1392939741}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1393216486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1167984000, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
+  m_PrefabInstance: {fileID: 1191955327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aebf36e7047a3d74c9a2d46f8b974d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1395590391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38390,7 +38450,7 @@ GameObject:
   - component: {fileID: 1419674521}
   - component: {fileID: 1419674520}
   m_Layer: 11
-  m_Name: Light
+  m_Name: Flashlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38426,7 +38486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handAnimator: {fileID: 1607951155}
   lightKey: 102
-  duration: 1000
+  duration: 20
   interactionRange_Close: 50
   interactionRange_Far: 500
   interactionAngle: 20
@@ -38440,9 +38500,12 @@ MonoBehaviour:
   outOfBatterySound: {fileID: 0}
   turnOnSound: {fileID: 11400000, guid: 49bb813b315d1b041959fc2c7cb65a9a, type: 2}
   turnOffSound: {fileID: 11400000, guid: c62aa8e3445420f4bb7a6c74796db911, type: 2}
-  objectWithLanternRenderer: {fileID: 0}
-  batteryPercentFieldName: _Battery_level
-  batteryPercentFactor: 0.3
+  objectWithLanternRenderer: {fileID: 1267113064}
+  batteryPercentFieldName: _Battery_Level
+  batteryColorFieldName: _Indicator_Color
+  batteryWhiteColor: {r: 1, g: 1, b: 1, a: 1}
+  batteryRedColor: {r: 1, g: 0, b: 0, a: 1}
+  batteryBlueColor: {r: 0, g: 0.0377028, b: 1, a: 1}
   haloLightRenderer: {fileID: 617383042}
   haloLightOpacityFieldName: _AlphaValue
   haloLightColorFieldName: _HaloColor
@@ -43411,6 +43474,47 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1607951156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607951154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 853924b8f773e5841ad11871f76449f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1419674520}
+        m_TargetAssemblyTypeName: Game.Player.Weapons.Lantern, Assembly-CSharp
+        m_MethodName: ScrollUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1419674520}
+        m_TargetAssemblyTypeName: Game.Player.Weapons.Lantern, Assembly-CSharp
+        m_MethodName: ScrollDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1608332991
 GameObject:
   m_ObjectHideFlags: 0
@@ -43758,6 +43862,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8405689217465465974, guid: e9b1ba5b4c98c1845b309093a29802ee, type: 3}
   m_PrefabInstance: {fileID: 1613646359}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1614310847 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6722449039101695446, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
+  m_PrefabInstance: {fileID: 1191955327}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1614310850 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6722449039101695449, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
+  m_PrefabInstance: {fileID: 1191955327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614310847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2fd0b11cfb2fb4ca4ed47adfcc3b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1614310852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614310847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5d77bc7391b907489802bf28af01a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lutManager: {fileID: 1614310850}
 --- !u!1 &1616267379
 GameObject:
   m_ObjectHideFlags: 0
@@ -51372,7 +51505,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4085059454860378716, guid: c9251889d1971ed47933d35ddcd0cf60, type: 3}
   m_PrefabInstance: {fileID: 1191955327}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 275551980}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab2fd0b11cfb2fb4ca4ed47adfcc3b26, type: 3}
@@ -58532,7 +58665,7 @@ Transform:
   - {fileID: 1292777477524548069}
   - {fileID: 2959745073705778737}
   m_Father: {fileID: 2066257347}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -27.221, y: 145.448, z: -156.537}
 --- !u!4 &341572343816420484
 Transform:
@@ -58647,6 +58780,7 @@ GameObject:
   m_Component:
   - component: {fileID: 230817578640803275}
   - component: {fileID: 612445508668841842}
+  - component: {fileID: 612445508668841843}
   m_Layer: 0
   m_Name: LeftArm(GlowStick)
   m_TagString: Untagged
@@ -58673,6 +58807,33 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &612445508668841843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612445508668841841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 853924b8f773e5841ad11871f76449f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1393216486}
+        m_TargetAssemblyTypeName: PlayerThrow, Assembly-CSharp
+        m_MethodName: Throw
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!23 &616938700167660339
 MeshRenderer:
   m_ObjectHideFlags: 0

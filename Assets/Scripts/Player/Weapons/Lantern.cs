@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Enderlook.Unity.AudioManager;
 using Enderlook.Unity.Toolset.Attributes;
 
@@ -5,6 +6,7 @@ using Game.Utility;
 
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 namespace Game.Player.Weapons
 {
@@ -35,6 +37,8 @@ namespace Game.Player.Weapons
         public float interactionAngle;
 
         public LightType lightType = LightType.White;
+        private List<LightType> lightList = new List<LightType> {LightType.White, LightType.Red, LightType.Blue};
+        private int currentIndex = 0;
 
         [Header("Animation Triggers")]
         [SerializeField, Tooltip("Animation trigger when replacing batteries. (The animation must execute FromReloadLantern() method.)")]
@@ -71,9 +75,17 @@ namespace Game.Player.Weapons
 
         [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery percent.")]
         private string batteryPercentFieldName;
-
-        [SerializeField, ShowIf(nameof(batteryPercentFieldName), typeof(string), null, false), Min(0.001f), Tooltip("Factor at which battery percent is reduced.")]
-        private float batteryPercentFactor = 1;
+        
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery color.")]
+        private string batteryColorFieldName;
+        
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery percent.")]
+        private Color batteryWhiteColor;
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery percent.")]
+        private Color batteryRedColor;
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery percent.")]
+        private Color batteryBlueColor;
+        
 
         [SerializeField, Tooltip("The object with the material that has the halo light effect.")]
         private Renderer haloLightRenderer;
@@ -173,21 +185,6 @@ namespace Game.Player.Weapons
             if (light == null)
                 return;
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                SetType(LightType.White);
-                handAnimator.SetTrigger("GoUp");
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                SetType(LightType.Red);
-                handAnimator.SetTrigger("GoDown");
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                SetType(LightType.Blue);
-            }
-
             if (Input.GetKeyDown(lightKey))
             {
                 if (!Active)
@@ -221,15 +218,24 @@ namespace Game.Player.Weapons
                     haloLightRenderer.enabled = true;
             }
 
+            if (batteryShader != null && !string.IsNullOrEmpty(batteryPercentFieldName))
+                batteryShader.SetFloat(batteryPercentFieldName, Mathf.Max(currentDuration, 0) / duration);
+            
             if (light.enabled)
             {
+                if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse))
+                {
+                    handAnimator.SetTrigger("GoUp");
+                }
+                else if (Input.GetMouseButtonDown((int)MouseButton.RightMouse))
+                {
+                    handAnimator.SetTrigger("GoDown");
+                }
+                
                 if (currentDuration > 0)
                 {
                     turnedOff = false;
                     currentDuration -= Time.deltaTime;
-
-                    if (batteryShader != null && !string.IsNullOrEmpty(batteryPercentFieldName))
-                        batteryShader.SetFloat(batteryPercentFieldName, Mathf.Pow(Mathf.Max(currentDuration, 0) / duration, batteryPercentFactor));
                 }
                 else
                 {
@@ -260,20 +266,43 @@ namespace Game.Player.Weapons
                 case LightType.White: 
                     light.color = Color.white;
                     haloLightShader.SetColor(haloLightColorFieldName, Color.white);
+                    batteryShader.SetColor(batteryColorFieldName, batteryWhiteColor);
                     break;
                 case LightType.Red:
                     light.color = Color.red;
                     haloLightShader.SetColor(haloLightColorFieldName, Color.red);
+                    batteryShader.SetColor(batteryColorFieldName, batteryRedColor);
                     break;
                 case LightType.Blue:
                     light.color = Color.blue;
                     haloLightShader.SetColor(haloLightColorFieldName, Color.blue);
+                    batteryShader.SetColor(batteryColorFieldName, batteryBlueColor);
                     break;
                 
                 default:
                     SetType(LightType.White);
                     break;
             }
+        }
+
+        public void ScrollUp()
+        {
+            currentIndex++;
+            if (currentIndex > lightList.Count - 1)
+            {
+                currentIndex = 0;
+            }
+            SetType(lightList[currentIndex]);
+        }
+
+        public void ScrollDown()
+        {
+            currentIndex--;
+            if (currentIndex < 0)
+            {
+                currentIndex = lightList.Count - 1;
+            }
+            SetType(lightList[currentIndex]);
         }
         public void SetOnImmediately()
         {

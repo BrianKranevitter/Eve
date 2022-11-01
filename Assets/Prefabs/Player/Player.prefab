@@ -355,11 +355,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 3
   firePoint: {fileID: 524148683035444195}
+  useDirectionOf: {fileID: 0}
   glowstick: {fileID: 2461495076793183747, guid: 05d68e9935218504e91aac00cc59df5b, type: 3}
   key: 113
-  throwSFX: {fileID: 0}
   forwardForce: 22.27
   upwardsForce: 0
+  throwSFX: {fileID: 0}
+  useAnimationToSpawn: 0
+  animator: {fileID: 0}
+  throwTrigger: 
 --- !u!1 &26915588501338358
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,9 +399,8 @@ Transform:
   - {fileID: 524148683035444195}
   - {fileID: 9079966147810888273}
   - {fileID: 8101667292374182571}
-  - {fileID: 6722449038585434818}
   m_Father: {fileID: 2674594811716081504}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 75, z: 0}
 --- !u!20 &26915588501338352
 Camera:
@@ -1904,6 +1907,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 6722449038585434818}
   - {fileID: 26915588501338355}
   m_Father: {fileID: 26915587998503261}
   m_RootOrder: 0
@@ -13426,13 +13430,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6722449038585434817}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -4.58, y: -0.61, z: 0.28}
-  m_LocalScale: {x: 1.8024318, y: 1.8024318, z: 1.8024318}
+  m_LocalRotation: {x: 0.0000000037252867, y: -0.70710677, z: -0.000000029802303, w: 0.70710677}
+  m_LocalPosition: {x: -4.58, y: -0.6100004, z: 0.2800004}
+  m_LocalScale: {x: 1.8024322, y: 1.8024317, z: 1.8024324}
   m_Children:
   - {fileID: 6722449038444298707}
-  m_Father: {fileID: 26915588501338355}
-  m_RootOrder: 3
+  m_Father: {fileID: 2674594811716081504}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!95 &6722449038585434819
 Animator:
@@ -13881,6 +13885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b4ac21883a04f4da980a43f5bf7cae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handAnimator: {fileID: 0}
   lightKey: 102
   duration: 1000
   interactionRange_Close: 50
