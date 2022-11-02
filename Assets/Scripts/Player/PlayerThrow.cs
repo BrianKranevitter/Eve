@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Enderlook.Unity.AudioManager;
 using Game.Utility;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerThrow : MonoBehaviour

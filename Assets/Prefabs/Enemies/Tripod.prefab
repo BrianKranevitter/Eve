@@ -884,10 +884,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maximumHealth: 140
-  sightRadius: 2.85
+  sightRadius_Idle: 2.85
+  sightRadius_Active: 500
   <BlockSight>k__BackingField:
     serializedVersion: 2
-    m_Bits: 12736
+    m_Bits: 8640
+  <BlockInteraction>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 4202944
   eyeOffset: 0.5
   rageKillDistance: 10
   startShootingRadius: 0

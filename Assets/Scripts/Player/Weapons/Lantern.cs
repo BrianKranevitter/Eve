@@ -200,6 +200,15 @@ namespace Game.Player.Weapons
                     
             }
             
+            if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse))
+            {
+                handAnimator.SetTrigger("GoUp");
+            }
+            else if (Input.GetMouseButtonDown((int)MouseButton.RightMouse))
+            {
+                handAnimator.SetTrigger("GoDown");
+            }
+            
             light.range = originalRange * animationRangeMultiplier;
             haloLightShader.SetFloat(haloLightOpacityFieldName, originalOpacity * animationOpacityMultiplier);
             
@@ -220,18 +229,9 @@ namespace Game.Player.Weapons
 
             if (batteryShader != null && !string.IsNullOrEmpty(batteryPercentFieldName))
                 batteryShader.SetFloat(batteryPercentFieldName, Mathf.Max(currentDuration, 0) / duration);
-            
+
             if (light.enabled)
             {
-                if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse))
-                {
-                    handAnimator.SetTrigger("GoUp");
-                }
-                else if (Input.GetMouseButtonDown((int)MouseButton.RightMouse))
-                {
-                    handAnimator.SetTrigger("GoDown");
-                }
-                
                 if (currentDuration > 0)
                 {
                     turnedOff = false;

@@ -1321,7 +1321,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1026665569849112673}
   m_Enabled: 1
   m_AgentTypeID: -334000983
-  m_Radius: 2
+  m_Radius: 0.7
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -1359,10 +1359,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maximumHealth: 50
-  sightRadius: 3.8
+  sightRadius_Idle: 3.8
+  sightRadius_Active: 500
   <BlockSight>k__BackingField:
     serializedVersion: 2
-    m_Bits: 12736
+    m_Bits: 8640
+  <BlockInteraction>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 4202944
   eyeOffset: 0.5
   rageKillDistance: 10
   startShootingRadius: 12
@@ -1398,6 +1402,8 @@ MonoBehaviour:
   lastState: 0
   mouthAnimator: {fileID: 2017175246127563881}
   mouthAnimationTrigger: Puke
+  flashingAmount: 5
+  flashingTime: 3
 --- !u!114 &7941654875151135831
 MonoBehaviour:
   m_ObjectHideFlags: 0

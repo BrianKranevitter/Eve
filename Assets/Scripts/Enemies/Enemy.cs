@@ -35,8 +35,11 @@ namespace Game.Enemies
         [SerializeField, Min(0), Tooltip("Determines at which radius the creature can see the player.")]
         protected float sightRadius_Active = 500;
         
-        [field: SerializeField, IsProperty, Tooltip("Layer that can block enemy sight.")]
+        [field: SerializeField, IsProperty, Tooltip("Layers that can block enemy sight.")]
         protected LayerMask BlockSight { get; set; }
+        
+        [field: SerializeField, IsProperty, Tooltip("Layers that can block enemy interactions, but not sight.")]
+        protected LayerMask BlockInteraction { get; set; }
 
         [SerializeField, Min(0), Tooltip("Height offset of eyes.")]
         private float eyeOffset = .5f;
@@ -231,18 +234,18 @@ namespace Game.Enemies
         protected EventFSM<EnemyState> _Fsm;
         public enum EnemyState
         {
-            Idle, Blinded, ChasePlayer, RageBuildup_Player, ChaseGlowstick, RageBuildup_Glowstick, CertainKillMode, Dead
+            Idle, Blinded_Player, ChasePlayer, RageBuildup_Player, ChaseGlowstick, RageBuildup_Glowstick, CertainKillMode, Dead, Blinded_Glowstick
         }
         private void SetupFSM()
         {
             #region Declare
             
             var Idle = new State<EnemyState>("Idle");
-            var Blinded = new State<EnemyState>("Blinded");
-            
+            var Blinded_Player = new State<EnemyState>("Blinded_Player");
             var ChasePlayer = new State<EnemyState>("ChasingPlayer");
             var RageBuildup_Player = new State<EnemyState>("RageBuildup_Player");
             
+            var Blinded_Glowstick = new State<EnemyState>("Blinded_Glowstick");
             var ChaseGlowstick = new State<EnemyState>("ChaseGlowstick");
             var RageBuildup_Glowstick = new State<EnemyState>("RageBuildup_Glowstick");
             
@@ -255,19 +258,21 @@ namespace Game.Enemies
             #region MakeTransitions
 
             StateConfigurer.Create(Idle)
-                .SetTransition(EnemyState.Blinded, Blinded)
+                .SetTransition(EnemyState.Blinded_Player, Blinded_Player)
                 .SetTransition(EnemyState.ChasePlayer, ChasePlayer)
                 .SetTransition(EnemyState.RageBuildup_Player, RageBuildup_Player)
+                .SetTransition(EnemyState.Blinded_Glowstick, Blinded_Glowstick)
                 .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .SetTransition(EnemyState.RageBuildup_Glowstick, RageBuildup_Glowstick)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
                 .Done();
             
-            StateConfigurer.Create(Blinded)
+            StateConfigurer.Create(Blinded_Player)
                 .SetTransition(EnemyState.Idle, Idle)
                 .SetTransition(EnemyState.ChasePlayer, ChasePlayer)
                 .SetTransition(EnemyState.RageBuildup_Player, RageBuildup_Player)
+                .SetTransition(EnemyState.Blinded_Glowstick, Blinded_Glowstick)
                 .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .SetTransition(EnemyState.RageBuildup_Glowstick, RageBuildup_Glowstick)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
@@ -276,8 +281,9 @@ namespace Game.Enemies
 
             StateConfigurer.Create(ChasePlayer)
                 .SetTransition(EnemyState.Idle, Idle)
-                .SetTransition(EnemyState.Blinded, Blinded)
+                .SetTransition(EnemyState.Blinded_Player, Blinded_Player)
                 .SetTransition(EnemyState.RageBuildup_Player, RageBuildup_Player)
+                .SetTransition(EnemyState.Blinded_Glowstick, Blinded_Glowstick)
                 .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .SetTransition(EnemyState.RageBuildup_Glowstick, RageBuildup_Glowstick)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
@@ -286,8 +292,9 @@ namespace Game.Enemies
 
             StateConfigurer.Create(RageBuildup_Player)
                 .SetTransition(EnemyState.Idle, Idle)
-                .SetTransition(EnemyState.Blinded, Blinded)
+                .SetTransition(EnemyState.Blinded_Player, Blinded_Player)
                 .SetTransition(EnemyState.ChasePlayer, ChasePlayer)
+                .SetTransition(EnemyState.Blinded_Glowstick, Blinded_Glowstick)
                 .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .SetTransition(EnemyState.RageBuildup_Glowstick, RageBuildup_Glowstick)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
@@ -296,17 +303,31 @@ namespace Game.Enemies
             
             StateConfigurer.Create(CertainKillMode)
                 .SetTransition(EnemyState.Idle, Idle)
+                .SetTransition(EnemyState.RageBuildup_Glowstick, RageBuildup_Glowstick)
+                .SetTransition(EnemyState.Blinded_Glowstick, Blinded_Glowstick)
                 .SetTransition(EnemyState.Dead, Dead)
                 .Done();
 
             StateConfigurer.Create(Dead)
                 .Done();
             
-            StateConfigurer.Create(ChaseGlowstick)
+            StateConfigurer.Create(Blinded_Glowstick)
                 .SetTransition(EnemyState.Idle, Idle)
-                .SetTransition(EnemyState.Blinded, Blinded)
+                .SetTransition(EnemyState.Blinded_Player, Blinded_Player)
                 .SetTransition(EnemyState.ChasePlayer, ChasePlayer)
                 .SetTransition(EnemyState.RageBuildup_Player, RageBuildup_Player)
+                .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
+                .SetTransition(EnemyState.RageBuildup_Glowstick, RageBuildup_Glowstick)
+                .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
+                .SetTransition(EnemyState.Dead, Dead)
+                .Done();
+            
+            StateConfigurer.Create(ChaseGlowstick)
+                .SetTransition(EnemyState.Idle, Idle)
+                .SetTransition(EnemyState.Blinded_Player, Blinded_Player)
+                .SetTransition(EnemyState.ChasePlayer, ChasePlayer)
+                .SetTransition(EnemyState.RageBuildup_Player, RageBuildup_Player)
+                .SetTransition(EnemyState.Blinded_Glowstick, Blinded_Glowstick)
                 .SetTransition(EnemyState.RageBuildup_Glowstick, RageBuildup_Glowstick)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
@@ -314,9 +335,10 @@ namespace Game.Enemies
             
             StateConfigurer.Create(RageBuildup_Glowstick)
                 .SetTransition(EnemyState.Idle, Idle)
-                .SetTransition(EnemyState.Blinded, Blinded)
+                .SetTransition(EnemyState.Blinded_Player, Blinded_Player)
                 .SetTransition(EnemyState.ChasePlayer, ChasePlayer)
                 .SetTransition(EnemyState.RageBuildup_Player, RageBuildup_Player)
+                .SetTransition(EnemyState.Blinded_Glowstick, Blinded_Glowstick)
                 .SetTransition(EnemyState.ChaseGlowstick, ChaseGlowstick)
                 .SetTransition(EnemyState.CertainKillMode, CertainKillMode)
                 .SetTransition(EnemyState.Dead, Dead)
@@ -333,7 +355,7 @@ namespace Game.Enemies
 
                 NavAgent.isStopped = true;
 
-                TrySetAnimationTrigger(idleAnimationTrigger, "idle");
+                TrySetAnimationTrigger(idleAnimationTrigger, "idle",false, true);
             };
             
             Idle.OnUpdate += () =>
@@ -350,13 +372,13 @@ namespace Game.Enemies
             
             
             
-            Blinded.OnEnter += x =>
+            Blinded_Player.OnEnter += x =>
             {
-                Debug.Log($"{gameObject.name}: BLINDED");
+                Debug.Log($"{gameObject.name}: BLINDED PLAYER");
                 
                 CheckAndSaveLastState();
                 
-                currentState = EnemyState.Blinded;
+                currentState = EnemyState.Blinded_Player;
 
                 NavAgent.isStopped = true;
                 NavAgent.speed = initialSpeed;
@@ -417,13 +439,17 @@ namespace Game.Enemies
             {
                 Debug.Log($"{gameObject.name}: RAGE BUILDUP PLAYER");
                 CheckAndSaveLastState();
-                
+
+                bool wasInGlowstickRage = currentState == EnemyState.RageBuildup_Glowstick;
                 currentState = EnemyState.RageBuildup_Player;
 
                 NavAgent.isStopped = true;
                 NavAgent.velocity = Vector3.zero;
-                
-                TrySetAnimationTrigger(rageBuildupAnimationTrigger, "rage");
+
+                if (!wasInGlowstickRage)
+                {
+                    TrySetAnimationTrigger(rageBuildupAnimationTrigger, "rage");
+                }
             };
             
             RageBuildup_Player.OnUpdate += () =>
@@ -431,6 +457,30 @@ namespace Game.Enemies
                 if (CheckRage_Player())
                 {
                     LoadLastState();
+                }
+            };
+            
+            
+            
+            Blinded_Glowstick.OnEnter += x =>
+            {
+                Debug.Log($"{gameObject.name}: BLINDED GLOWSTICK");
+                
+                CheckAndSaveLastState();
+                
+                currentState = EnemyState.Blinded_Glowstick;
+
+                NavAgent.isStopped = true;
+                NavAgent.speed = initialSpeed;
+                NavAgent.velocity = Vector3.zero;
+
+                IsInBlindAnimation = true;
+                Animator.SetBool("Blinded", true);
+                if (!TrySetAnimationTrigger(blindAnimationTrigger, "blind", false))
+                {
+                    //If you were not able to set the animation, end the animation yourself
+                    //(This part is usually called at the end of the animation)
+                    FinishedAnimation(Animations.Blinded);
                 }
             };
             
@@ -460,7 +510,7 @@ namespace Game.Enemies
                 Debug.Assert(success);
                 
                 float sqrDistance = (GlowstickToChase.transform.position - transform.position).sqrMagnitude;
-                if (sqrDistance <= rageKillDistance)
+                if (sqrDistance <= rageKillDistance && CheckInteraction(GlowstickToChase.transform.position))
                 {
                     Destroy(GlowstickToChase.gameObject);
                     _Fsm.SendInput(EnemyState.Idle);
@@ -473,13 +523,17 @@ namespace Game.Enemies
             {
                 Debug.Log($"{gameObject.name}: RAGE BUILDUP GLOWSTICK");
                 CheckAndSaveLastState();
-                
+
+                bool wasInPlayerRage = currentState == EnemyState.RageBuildup_Player;
                 currentState = EnemyState.RageBuildup_Glowstick;
 
                 NavAgent.isStopped = true;
                 NavAgent.velocity = Vector3.zero;
-                
-                TrySetAnimationTrigger(rageBuildupAnimationTrigger, "rage");
+
+                if (!wasInPlayerRage)
+                {
+                    TrySetAnimationTrigger(rageBuildupAnimationTrigger, "rage");
+                }
             };
             
             RageBuildup_Glowstick.OnUpdate += () =>
@@ -511,6 +565,8 @@ namespace Game.Enemies
 
             CertainKillMode.OnUpdate += () =>
             {
+                GlowstickBehaviors();
+                
                 if (!HasPlayerInSight(sightRadius_Active))
                 {
                     _Fsm.SendInput(EnemyState.ChasePlayer);
@@ -518,7 +574,7 @@ namespace Game.Enemies
                 }
 
                 float sqrDistance = (LastPlayerPosition - transform.position).sqrMagnitude;
-                if (sqrDistance <= rageKillDistance)
+                if (sqrDistance <= rageKillDistance && CheckInteraction(LastPlayerPosition))
                 {
                     PlayerBody.Player.TakeDamage(PlayerBody.Player.currentHp);
                     return;
@@ -545,7 +601,7 @@ namespace Game.Enemies
 
         protected void CheckAndSaveLastState()
         {
-            if (currentState != EnemyState.Blinded && currentState != EnemyState.RageBuildup_Player && currentState != EnemyState.RageBuildup_Glowstick)
+            if (currentState != EnemyState.Blinded_Player && currentState != EnemyState.RageBuildup_Player && currentState != EnemyState.RageBuildup_Glowstick)
             {
                 lastState = currentState;
             }
@@ -594,11 +650,20 @@ namespace Game.Enemies
                     Animator.SetBool("Blinded", false);
                     IsInBlindAnimation = false;
                     
-                    LoadLastState();
+                    //LoadLastState();
 
                     isInStunAnimation = false; // Sometimes the flag may have a false positive if the animation was terminated abruptly.
-                    if (currentState == EnemyState.Idle)
+                    
+                    if (currentState == EnemyState.Blinded_Glowstick)
+                    {
+                        _Fsm.SendInput(EnemyState.ChaseGlowstick);
+                        break;
+                    }
+                    
+                    if(currentState == EnemyState.Blinded_Player)
+                    {
                         _Fsm.SendInput(EnemyState.CertainKillMode);
+                    }
                     break;
                 }
 
@@ -783,7 +848,16 @@ namespace Game.Enemies
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Checks if you can interact with a point.
+        /// </summary>
+        /// <param name="point">The point you're trying to interact with</param>
+        /// <returns>Returns false if there is something in between your eye position and the point you want to interact with.</returns>
+        public bool CheckInteraction(Vector3 point)
+        {
+            return !Physics.Linecast(PlayerBody.Player.transform.position, EyePosition, BlockInteraction);
+        }
         protected void SetEscapeDestination(Vector3 playerPosition)
         {
             float distance = float.NegativeInfinity;

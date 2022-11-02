@@ -46,7 +46,7 @@ namespace Game.Enemies
                         case Lantern.LightType.White:
                         {
                             //Stunned
-                            _Fsm.SendInput(EnemyState.Blinded);
+                            _Fsm.SendInput(EnemyState.Blinded_Player);
                             break;
                         }
 
@@ -70,22 +70,23 @@ namespace Game.Enemies
             {
                 case Lantern.DistanceEffect.Far:
                 {
-                    if (currentState == EnemyState.Idle)
+                    if (currentState != EnemyState.ChaseGlowstick)
                     {
                         //Rage
                         _Fsm.SendInput(EnemyState.RageBuildup_Glowstick);
                     }
+                    
                     break;
                 }
 
                 case Lantern.DistanceEffect.Close:
                 {
-                    if (currentState == EnemyState.Idle)
+                    if (currentState != EnemyState.ChaseGlowstick)
                     {
                         //Stunned
-                        Debug.Log("AYO HE BLIND AS HEL");
-                        _Fsm.SendInput(EnemyState.Blinded);
+                        _Fsm.SendInput(EnemyState.Blinded_Glowstick);
                     }
+
                     break;
                 }
             }
