@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DoorMark_Closed
+  m_Name: Door_Closed Blue
   m_Shader: {fileID: 4800000, guid: 30b847f8e04a6954f8eb195e766174c3, type: 3}
   m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP _SPECGLOSSMAP
   m_LightmapFlags: 2
@@ -20,15 +20,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: 2f3f79b11914bb04c903b62632334c14, type: 3}
+        m_Texture: {fileID: 2800000, guid: 69ab591d0e309924dabb7335d147a077, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AmbientOclussion:
-        m_Texture: {fileID: 2800000, guid: 4b098e8db45678d4eb6eee6751227cbd, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: a06e996a43a343046a466b2739a7c269, type: 3}
+        m_Texture: {fileID: 2800000, guid: b4e93f6b5fdc89c489cfafe8881a0404, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -44,31 +44,31 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission:
-        m_Texture: {fileID: 2800000, guid: a6a89e1771e27ab49b6e99df7da4ae3b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 86b23314f3c4cef4aa729e447218b04c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: a6a89e1771e27ab49b6e99df7da4ae3b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 86b23314f3c4cef4aa729e447218b04c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2f3f79b11914bb04c903b62632334c14, type: 3}
+        m_Texture: {fileID: 2800000, guid: 69ab591d0e309924dabb7335d147a077, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metallic:
-        m_Texture: {fileID: 2800000, guid: 1d7150c6792709246b734a7d66e610c5, type: 3}
+        m_Texture: {fileID: 2800000, guid: ef1d14ef6d55ae345b9772cc4ac93cb3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 1d7150c6792709246b734a7d66e610c5, type: 3}
+        m_Texture: {fileID: 2800000, guid: ef1d14ef6d55ae345b9772cc4ac93cb3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: a06e996a43a343046a466b2739a7c269, type: 3}
+        m_Texture: {fileID: 2800000, guid: b4e93f6b5fdc89c489cfafe8881a0404, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 4b098e8db45678d4eb6eee6751227cbd, type: 3}
+        m_Texture: {fileID: 2800000, guid: cd3a3fd388205b143bed9f48e763b3f5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -76,11 +76,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Roughness:
-        m_Texture: {fileID: 2800000, guid: d3aa61260933937409e3ee38f79ee137, type: 3}
+        m_Texture: {fileID: 2800000, guid: ae15fde0fd29ae348930553bf98525f4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: d3aa61260933937409e3ee38f79ee137, type: 3}
+        m_Texture: {fileID: 2800000, guid: ae15fde0fd29ae348930553bf98525f4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -110,6 +110,6 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Emission_Color: {r: 0.31132078, g: 0.027564863, b: 0, a: 1}
+    - _Emission_Color: {r: 0.24528301, g: 0, b: 0.044247158, a: 1}
     - _PlayerPosition: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

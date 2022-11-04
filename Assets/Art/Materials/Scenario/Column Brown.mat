@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Column
+  m_Name: Column Brown
   m_Shader: {fileID: 4800000, guid: 30b847f8e04a6954f8eb195e766174c3, type: 3}
   m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _SPECGLOSSMAP
   m_LightmapFlags: 2
@@ -20,11 +20,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: cfb2278639e779b4ab5ae7da4d8c8d17, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5c1855dea755b514d8a865e4abf9be55, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AmbientOclussion:
-        m_Texture: {fileID: 2800000, guid: 3e6ad4b6dd2f0454c8cfaa6f58553b02, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1106c18f267443a49bcb98a3a30e24b7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission:
-        m_Texture: {fileID: 2800000, guid: 31d5902d8bf5d814ebbad8dcc30946be, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2d5a73a38053af14da17c593c21b115f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metallic:
-        m_Texture: {fileID: 2800000, guid: 8813e2a99769fb545b1da5560d4d9947, type: 3}
+        m_Texture: {fileID: 2800000, guid: cabe3aaa7323b6244804e15c3db31788, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -64,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: 20281f3ac77a69944abc0b0bc7baa99f, type: 3}
+        m_Texture: {fileID: 2800000, guid: a86d1077173e9e449aafbc420bd44f7d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -76,7 +76,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Roughness:
-        m_Texture: {fileID: 2800000, guid: c871119a5a16c4c418822bfcdbf2aa43, type: 3}
+        m_Texture: {fileID: 2800000, guid: 13ad087b43cfcfd49b8883af4f524dc5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:

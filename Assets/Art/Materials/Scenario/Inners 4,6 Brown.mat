@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WiresWall
+  m_Name: Inners 4,6 Brown
   m_Shader: {fileID: 47, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP _SPECGLOSSMAP
   m_LightmapFlags: 4
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 22f169908daa95e44a682aba299dd3c3, type: 3}
+        m_Texture: {fileID: 2800000, guid: fa65ad22e26e63940b0a26a17567e9bd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -40,15 +40,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2d05ce3230e7a71468e48bfad3c71906, type: 3}
+        m_Texture: {fileID: 2800000, guid: 79376dc9d84d76e419c2781d163d81c8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 3577f40d5b1273a4f9167f00ca4f26a5, type: 3}
+        m_Texture: {fileID: 2800000, guid: af9eb01fe96ebe243bd7c8bcd23cf54d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 947a58687a873204b996c7496c439999, type: 3}
+        m_Texture: {fileID: 2800000, guid: d65c3259ed7ae90449bd6653be837739, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: 9e8134dd59ac839488a455c6e70c39ba, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8f5aa9aaa2d9df14894e6732627f8fcd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
