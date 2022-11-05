@@ -2231,20 +2231,11 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.51666665
-        value: 0.33647794
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._FaceColor.r
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -2252,15 +2243,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.51666665
         value: 1
         inSlope: 0
         outSlope: 0
@@ -2272,7 +2254,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._FaceColor.g
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -2280,15 +2262,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.3891518
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.51666665
         value: 0.3891518
         inSlope: 0
         outSlope: 0
@@ -2300,7 +2273,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._FaceColor.b
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -2308,15 +2281,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.51666665
         value: 1
         inSlope: 0
         outSlope: 0
@@ -2328,7 +2292,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._FaceColor.a
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -2336,15 +2300,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.87548995
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.8666667
         value: 0.87548995
         inSlope: 0
         outSlope: 0
@@ -2356,7 +2311,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._OutlineColor.r
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -2364,15 +2319,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.8666667
         value: 1
         inSlope: 0
         outSlope: 0
@@ -2384,7 +2330,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._OutlineColor.g
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -2392,15 +2338,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.8666667
         value: 0
         inSlope: 0
         outSlope: 0
@@ -2412,7 +2349,140 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._OutlineColor.b
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._OutlineColor.a
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.33647794
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._FaceColor.r
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._FaceColor.g
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.3891518
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._FaceColor.b
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._FaceColor.a
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.87548995
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._OutlineColor.r
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._OutlineColor.g
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -2427,8 +2497,18 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._OutlineColor.b
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
       - serializedVersion: 3
-        time: 0.8666667
+        time: 0
         value: 1
         inSlope: 0
         outSlope: 0
@@ -2440,7 +2520,152 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._OutlineColor.a
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4.3
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4.4
+        value: 0.757
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4.5
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4.6
+        value: 0.75
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4.8166666
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 6
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 6.983333
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 7.15
+        value: 0.261
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 7.3166666
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 10.45
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 12.383333
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 12.5
+        value: 0.757
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 12.716666
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 14.9
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._Opacity
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel
     classID: 23
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -2613,15 +2838,8 @@ AnimationClip:
       customType: 22
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1862403747
-      attribute: 2039363450
-      script: {fileID: 0}
-      typeID: 23
-      customType: 22
-      isPPtrCurve: 0
-    - serializedVersion: 2
-      path: 1862403747
-      attribute: 1951967125
+      path: 2172144145
+      attribute: 2282272135
       script: {fileID: 0}
       typeID: 23
       customType: 22
@@ -2634,43 +2852,113 @@ AnimationClip:
       customType: 22
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1862403747
+      path: 1069243966
       attribute: 1234057082
       script: {fileID: 0}
       typeID: 23
       customType: 22
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1862403747
+      path: 1069243966
       attribute: 1502492538
       script: {fileID: 0}
       typeID: 23
       customType: 22
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1862403747
+      path: 1069243966
       attribute: 1770927994
       script: {fileID: 0}
       typeID: 23
       customType: 22
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1862403747
+      path: 1069243966
+      attribute: 2039363450
+      script: {fileID: 0}
+      typeID: 23
+      customType: 22
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1069243966
       attribute: 1146660757
       script: {fileID: 0}
       typeID: 23
       customType: 22
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1862403747
+      path: 1069243966
       attribute: 1415096213
       script: {fileID: 0}
       typeID: 23
       customType: 22
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1862403747
+      path: 1069243966
       attribute: 1683531669
+      script: {fileID: 0}
+      typeID: 23
+      customType: 22
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1069243966
+      attribute: 1951967125
+      script: {fileID: 0}
+      typeID: 23
+      customType: 22
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1747508761
+      attribute: 1234057082
+      script: {fileID: 0}
+      typeID: 23
+      customType: 22
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1747508761
+      attribute: 1502492538
+      script: {fileID: 0}
+      typeID: 23
+      customType: 22
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1747508761
+      attribute: 1770927994
+      script: {fileID: 0}
+      typeID: 23
+      customType: 22
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1747508761
+      attribute: 2039363450
+      script: {fileID: 0}
+      typeID: 23
+      customType: 22
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1747508761
+      attribute: 1146660757
+      script: {fileID: 0}
+      typeID: 23
+      customType: 22
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1747508761
+      attribute: 1415096213
+      script: {fileID: 0}
+      typeID: 23
+      customType: 22
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1747508761
+      attribute: 1683531669
+      script: {fileID: 0}
+      typeID: 23
+      customType: 22
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1747508761
+      attribute: 1951967125
       script: {fileID: 0}
       typeID: 23
       customType: 22
@@ -7737,20 +8025,11 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.51666665
-        value: 0.33647794
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._FaceColor.r
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -7758,15 +8037,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.51666665
         value: 1
         inSlope: 0
         outSlope: 0
@@ -7778,7 +8048,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._FaceColor.g
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -7786,15 +8056,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.3891518
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.51666665
         value: 0.3891518
         inSlope: 0
         outSlope: 0
@@ -7806,7 +8067,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._FaceColor.b
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -7814,15 +8075,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.51666665
         value: 1
         inSlope: 0
         outSlope: 0
@@ -7834,7 +8086,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._FaceColor.a
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -7842,15 +8094,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.87548995
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.8666667
         value: 0.87548995
         inSlope: 0
         outSlope: 0
@@ -7862,7 +8105,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._OutlineColor.r
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -7870,15 +8113,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.8666667
         value: 1
         inSlope: 0
         outSlope: 0
@@ -7890,7 +8124,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._OutlineColor.g
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -7898,15 +8132,6 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.8666667
         value: 0
         inSlope: 0
         outSlope: 0
@@ -7918,7 +8143,140 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._OutlineColor.b
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._OutlineColor.a
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/Press F
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.33647794
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._FaceColor.r
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._FaceColor.g
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.3891518
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._FaceColor.b
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._FaceColor.a
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.87548995
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._OutlineColor.r
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._OutlineColor.g
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
     classID: 23
     script: {fileID: 0}
   - curve:
@@ -7933,8 +8291,18 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._OutlineColor.b
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
       - serializedVersion: 3
-        time: 0.8666667
+        time: 0
         value: 1
         inSlope: 0
         outSlope: 0
@@ -7946,7 +8314,152 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: material._OutlineColor.a
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/Press F
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel/CurrentText/PressQToExit
+    classID: 23
+    script: {fileID: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4.3
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4.4
+        value: 0.757
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4.5
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4.6
+        value: 0.75
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4.8166666
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 6
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 6.983333
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 7.15
+        value: 0.261
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 7.3166666
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 10.45
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 12.383333
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 12.5
+        value: 0.757
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 12.716666
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 14.9
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: material._Opacity
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Watch/Panel
     classID: 23
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -8017,7 +8530,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Arm_Bone/PreArm_Bone
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Finger2_Bone1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -8027,7 +8540,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Arm_Bone/PreArm_Bone
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Finger2_Bone1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -8037,7 +8550,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Arm_Bone/PreArm_Bone
+    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Finger2_Bone1
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -8467,7 +8980,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Finger2_Bone1
+    path: Arm_Bone/PreArm_Bone
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -8477,7 +8990,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Finger2_Bone1
+    path: Arm_Bone/PreArm_Bone
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -8487,7 +9000,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Arm_Bone/PreArm_Bone/Wrist_Bone/Finger2_Bone1
+    path: Arm_Bone/PreArm_Bone
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
