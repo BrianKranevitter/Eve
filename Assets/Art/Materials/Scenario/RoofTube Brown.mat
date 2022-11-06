@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: RoofTube Brown
   m_Shader: {fileID: 47, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP _SPECGLOSSMAP
-  m_LightmapFlags: 4
+  m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _SPECGLOSSMAP
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 2f0ab9eadb047a2439df2d018cc59251, type: 3}
+        m_Texture: {fileID: 2800000, guid: c2f62d4d890084946b6658aba11ff55a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -48,11 +48,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: ac91154fb9011f542a92af4dfe4e5c18, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1ee07ba4416909a42984673f2f988362, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 16bbda091b6e35a449ae875aeda3709d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3cd73de9edaf66e4f93a8d8fdabb10e9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metallic:
@@ -60,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: ba00f65fa8896ee4eaf7dc7e2e599eb2, type: 3}
+        m_Texture: {fileID: 2800000, guid: df987b2a8f6529043b4ac730424b5ec2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
@@ -68,7 +68,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: dd88886709569ef4c8b65d874b0c0705, type: 3}
+        m_Texture: {fileID: 2800000, guid: 29a0953c4a14525498c021338830066f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -80,7 +80,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: 04c89602ea8e1ed4586cf8062f99b458, type: 3}
+        m_Texture: {fileID: 2800000, guid: cda3fe0951b4b5a4f81e5f9f7da4e2ed, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -109,7 +109,7 @@ Material:
     - __dirty: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0}
+    - _EmissionColor: {r: 0.39200002, g: 0.39200002, b: 0.39200002, a: 0}
     - _Emission_Color: {r: 0, g: 0.24758244, b: 1, a: 1}
     - _PlayerPosition: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
