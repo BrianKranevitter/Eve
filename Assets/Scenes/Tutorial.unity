@@ -73871,7 +73871,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1834955439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84983,7 +84983,7 @@ GameObject:
   - component: {fileID: 2082954008}
   - component: {fileID: 2082954007}
   m_Layer: 11
-  m_Name: Body (1)
+  m_Name: StartAnimation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
