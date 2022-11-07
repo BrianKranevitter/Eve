@@ -20,11 +20,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: 54d18e97c906ffe41b7400995c9e1659, type: 3}
+        m_Texture: {fileID: 2800000, guid: 04410fe234af23646a200f942d5547e5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AmbientOclussion:
-        m_Texture: {fileID: 2800000, guid: cd680912567d55040ab99f3df0db5fd4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9dad65d49b9fa004a91456a3cf017d9b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission:
-        m_Texture: {fileID: 2800000, guid: faa8120b8ff5f8148967c9b3cab092fa, type: 3}
+        m_Texture: {fileID: 2800000, guid: 51887f02b57651d44a2c95b8820645f4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metallic:
-        m_Texture: {fileID: 2800000, guid: d329cd1951beb90458bb31b010873bff, type: 3}
+        m_Texture: {fileID: 2800000, guid: 93cef21fcd792074c916e2d63909a976, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -64,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: 33bda7eff139ff042aef0d8f71214b62, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9142b7badca113545bc6eb90f426bc6c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -76,7 +76,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Roughness:
-        m_Texture: {fileID: 2800000, guid: af4229adee2e2ed4aa8ac7eaba35ca0b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 78afd556b4d4fdf4c82b45a94d538dfe, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -108,6 +108,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
+    - _Albedo_Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _Emission_Color: {r: 1, g: 0.70869625, b: 0, a: 0}

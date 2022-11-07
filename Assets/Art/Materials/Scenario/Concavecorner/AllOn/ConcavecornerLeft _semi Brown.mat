@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Inners corners & lights Brown
+  m_Name: ConcavecornerLeft _semi Brown
   m_Shader: {fileID: 4800000, guid: 30b847f8e04a6954f8eb195e766174c3, type: 3}
-  m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _SPECGLOSSMAP
+  m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP _SPECGLOSSMAP
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -20,15 +20,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: 3f72ed62e29d50749b99c30ad3415c3e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 71464ede71ca04f45822aee0be680e35, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AmbientOclussion:
-        m_Texture: {fileID: 2800000, guid: 1a999e0a2824d914e9bc1c2c66ebac09, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9618e82d865554449a215ccb41a7eddc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: af1edef1ee19be74bac90e98b2991d94, type: 3}
+        m_Texture: {fileID: 2800000, guid: b4e93f6b5fdc89c489cfafe8881a0404, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -44,31 +44,31 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission:
-        m_Texture: {fileID: 2800000, guid: ec81cbba6924930459ac3f9fe10b0c67, type: 3}
+        m_Texture: {fileID: 2800000, guid: e32b8cf7b18fed34cba9d890c810024f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 04bd31f4cf02cc64daa38a22c47b83c5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 86b23314f3c4cef4aa729e447218b04c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 14f4adfc9737e084db60cfd3d223a17b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 69ab591d0e309924dabb7335d147a077, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metallic:
-        m_Texture: {fileID: 2800000, guid: a5acb70b0f77a374e9d3c6e90d944240, type: 3}
+        m_Texture: {fileID: 2800000, guid: e1f72be5e4c8e3040a91e1d604115389, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: dc75f086993665a47aa3c1ac8aec9f1e, type: 3}
+        m_Texture: {fileID: 2800000, guid: ef1d14ef6d55ae345b9772cc4ac93cb3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: 2de545cf45290ea4b9b3691e503877b5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5240793ac1ab74242b8affe0ac3294be, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 0f4b24e701ff2c14981d304cd4b7c271, type: 3}
+        m_Texture: {fileID: 2800000, guid: cd3a3fd388205b143bed9f48e763b3f5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -76,11 +76,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Roughness:
-        m_Texture: {fileID: 2800000, guid: e09c91aa90d775b4cb9f5f8d9169475e, type: 3}
+        m_Texture: {fileID: 2800000, guid: e42d1ad699bda3d429f3015bc625c4c7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
-        m_Texture: {fileID: 2800000, guid: 96dd0c922493c124697841bc1d9e2362, type: 3}
+        m_Texture: {fileID: 2800000, guid: ae15fde0fd29ae348930553bf98525f4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -100,7 +100,7 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Range: 50
-    - _RoughnessValue: 1
+    - _RoughnessValue: 0.87
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -110,7 +110,7 @@ Material:
     m_Colors:
     - _Albedo_Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1, g: 1, b: 1, a: 0}
-    - _Emission_Color: {r: 0.92, g: 0.6698618, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _Emission_Color: {r: 1, g: 0.70869625, b: 0, a: 0}
     - _PlayerPosition: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

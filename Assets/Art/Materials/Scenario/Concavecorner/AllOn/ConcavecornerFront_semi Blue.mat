@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ConcavecornerFront_semi
+  m_Name: ConcavecornerFront_semi Blue
   m_Shader: {fileID: 4800000, guid: 30b847f8e04a6954f8eb195e766174c3, type: 3}
   m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP _SPECGLOSSMAP
   m_LightmapFlags: 2

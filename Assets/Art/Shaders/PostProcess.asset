@@ -91,6 +91,9 @@ MonoBehaviour:
   _ExplosionBlurIntensity:
     overrideState: 1
     value: 0
+  _BlackScreen_Value:
+    overrideState: 1
+    value: 1
 --- !u!114 &-560159490901889125
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -103,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98aa99c10fb71a249b2644f8eeb3646e, type: 3}
   m_Name: NightVisionPPSSettings
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -187,6 +190,9 @@ MonoBehaviour:
   _ExplosionBlurIntensity:
     overrideState: 0
     value: 0
+  _BlackScreen_Value:
+    overrideState: 0
+    value: 1
 --- !u!114 &4619208868105466351
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -292,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f93bd9ef0c6fff4194504f1231d9b2f, type: 3}
   m_Name: HurtShaderPPSSettings
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1

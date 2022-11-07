@@ -23,6 +23,8 @@ public sealed class FatiguePPSSettings : PostProcessEffectSettings
 	public FloatParameter _GlobalIntensity = new FloatParameter { value = 0.5f };
 	[Tooltip( "ExplosionBlurIntensity" )]
 	public FloatParameter _ExplosionBlurIntensity = new FloatParameter { value = 0f };
+	[Tooltip( "BlackScreen_Value" )]
+	public FloatParameter _BlackScreen_Value = new FloatParameter { value = 1f };
 }
 
 public sealed class FatiguePPSRenderer : PostProcessEffectRenderer<FatiguePPSSettings>
@@ -37,6 +39,7 @@ public sealed class FatiguePPSRenderer : PostProcessEffectRenderer<FatiguePPSSet
 		sheet.properties.SetFloat( "_Vignete_Intensity", settings._Vignete_Intensity );
 		sheet.properties.SetFloat( "_GlobalIntensity", settings._GlobalIntensity );
 		sheet.properties.SetFloat( "_ExplosionBlurIntensity", settings._ExplosionBlurIntensity );
+		sheet.properties.SetFloat( "_BlackScreen_Value", settings._BlackScreen_Value );
 		context.command.BlitFullscreenTriangle( context.source, context.destination, sheet, 0 );
 	}
 }
