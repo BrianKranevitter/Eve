@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,6 +71,13 @@ namespace Kam.Utils
             }
 
             return nearby;
+        }
+        
+        public static IEnumerator Delay(float time, Action action)
+        {
+            yield return new WaitForSeconds(time);
+        
+            action.Invoke();
         }
     }
 

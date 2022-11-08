@@ -1103,8 +1103,8 @@ MonoBehaviour:
   unlockSound: {fileID: 11400000, guid: ac35244b65cb43849b86c9a1ed793b9c, type: 2}
   lockedSound: {fileID: 0}
   blockeSideSound: {fileID: 0}
-  unlockAnimationTrigger: 
-  lockedAnimationTrigger: 
+  unlockAnimationTrigger: Open
+  lockedAnimationTrigger: NeedKey
 --- !u!95 &6148537645625307510
 Animator:
   serializedVersion: 3

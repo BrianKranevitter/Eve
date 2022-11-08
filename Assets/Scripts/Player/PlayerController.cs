@@ -6,6 +6,9 @@ namespace Game.Player
     public sealed class PlayerController : MonoBehaviour
     {
         [Header("Configuration")]
+        [SerializeField]
+        private bool activated = true;
+        
         [SerializeField, Min(1), Tooltip("Determines the walking speed of the player.")]
         private float walkingSpeed = 15;
 
@@ -49,6 +52,8 @@ namespace Game.Player
         [SerializeField, Tooltip("The body animator that controls walking and run animation.")]
         private Animator bodyAnimator;
 
+        
+
         private new Rigidbody rigidbody;
         private PlayerStamina stamina;
 
@@ -62,19 +67,21 @@ namespace Game.Player
             rigidbody = GetComponent<Rigidbody>();
             stamina = GetComponent<PlayerStamina>();
 
-            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.lockState = CursorLockMode.Locked;
+            Activated(activated);
             Cursor.visible = false;
 
+            startingRot = rigidbody.transform.eulerAngles;
             // Negation of Y-axis fixes camera rotating to opposite side on start
-            targetRotation = currentRotation = new Vector2(head.transform.localEulerAngles.x, -rigidbody.rotation.eulerAngles.y);
-            rigidbody.rotation = Quaternion.AngleAxis(currentRotation.y, Vector3.up);
-            head.transform.localRotation = Quaternion.AngleAxis(currentRotation.x, Vector3.left);
+            //targetRotation = currentRotation = new Vector2(head.transform.localEulerAngles.x, -rigidbody.rotation.eulerAngles.y);
+            //rigidbody.rotation = Quaternion.AngleAxis(currentRotation.y, Vector3.up);
+            //head.transform.localRotation = Quaternion.AngleAxis(currentRotation.x, Vector3.left);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
-        private void FixedUpdate()
+        private void Update()
         {
-            if (PauseMenu.Paused)
+            if (PauseMenu.Paused || !activated)
             {
                 bodyAnimator.SetFloat("PlayerSpeed", 0);
                 return;
@@ -112,6 +119,19 @@ namespace Game.Player
             }
 
             Rotate();
+            //RotateButGood(400, 400);
+        }
+
+        public void Activated(bool state)
+        {
+            activated = state;
+            if (state)
+            {
+                Vector2 rot = new Vector2(head.transform.eulerAngles.x, rigidbody.rotation.eulerAngles.y);
+                currentRotation = rot;
+                targetRotation = rot;
+                Cursor.lockState = CursorLockMode.Confined;
+            }
         }
 
         private void Move(float speed, float acceleration, Vector3 axis)
@@ -119,7 +139,7 @@ namespace Game.Player
             Vector3 targetSpeed = axis * speed;
             targetSpeed = transform.TransformDirection(targetSpeed);
 
-            rigidbody.velocity = Vector3.MoveTowards(rigidbody.velocity, targetSpeed, acceleration * Time.fixedDeltaTime);
+            rigidbody.velocity = Vector3.MoveTowards(rigidbody.velocity, targetSpeed, acceleration * Time.deltaTime);
         }
 
         private Vector2 currentRotation;
@@ -176,6 +196,22 @@ namespace Game.Player
 
             Vector2 GetMousePosition(Vector3 rawMousePosition)
                 => new Vector2((rawMousePosition.y - .5f) * maximumVerticalAngle, rawMousePosition.x * 360);
+        }
+
+        private Vector3 startingRot;
+        private float xRot;
+        private float yRot;
+        private void RotateButGood(float sensitivityX, float sensitivityY)
+        {
+            float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivityX;
+            float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitivityY;
+
+            yRot += mouseX;
+            xRot -= mouseY;
+            xRot = Mathf.Clamp(xRot, -90f, 90f);
+
+            head.transform.eulerAngles = startingRot + new Vector3(xRot, yRot, 0);
+            rigidbody.transform.eulerAngles = startingRot + new Vector3(0, yRot, 0);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
