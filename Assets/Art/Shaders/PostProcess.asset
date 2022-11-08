@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f93bd9ef0c6fff4194504f1231d9b2f, type: 3}
   m_Name: HurtShaderPPSSettings
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1

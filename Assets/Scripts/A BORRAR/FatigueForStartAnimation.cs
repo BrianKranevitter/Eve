@@ -23,4 +23,9 @@ public class FatigueForStartAnimation : MonoBehaviour
         fatigueShader._ExplosionBlurIntensity.value = blurIntensity;
         fatigueShader._BlackScreen_Value.value = blackScreen;
     }
+
+    public void TurnOffForcer()
+    {
+        this.enabled = false;
+    }
 }

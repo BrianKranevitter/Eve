@@ -134,7 +134,7 @@ Shader "Fatigue"
 }
 /*ASEBEGIN
 Version=18900
-1263.333;782;698;269.6667;-974.0922;-224.2138;1.470967;True;False
+1340.667;664;616.6667;389.6667;-1177.576;-110.9494;1.470967;False;False
 Node;AmplifyShaderEditor.RangedFloatNode;67;-2127.074,-127.5452;Inherit;False;Property;_GlobalIntensity;GlobalIntensity;5;0;Create;True;0;0;0;False;0;False;0.5;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.RegisterLocalVarNode;68;-1914.622,-117.1671;Inherit;False;Global_Intensity;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
 Node;AmplifyShaderEditor.RangedFloatNode;49;-3535.008,328.7023;Inherit;False;Property;_Beat_Speed;Beat_Speed;1;0;Create;True;0;0;0;False;0;False;0.8;1;0;0;0;1;FLOAT;0
@@ -246,4 +246,4 @@ WireConnection;76;1;59;0
 WireConnection;76;2;77;0
 WireConnection;14;0;76;0
 ASEEND*/
-//CHKSM=89574BE1F1313C1BFC6F97269DDC8B9716EA4CEA
+//CHKSM=F61C82C0A0113A948A1853C50A936C3F7C17B6FD
