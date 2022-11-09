@@ -18,12 +18,10 @@ public class PlayerInstructionArm : MonoBehaviour
         {
             if (active)
             {
-                active = false;
                 HideInfo();
             }
             else
             {
-                active = true;
                 ShowInfo();
             }
         }
@@ -36,11 +34,13 @@ public class PlayerInstructionArm : MonoBehaviour
 
     public void ShowInfo()
     {
+        active = true;
         anim.SetTrigger("Go");
     }
 
     public void HideInfo()
     {
+        active = false;
         anim.SetTrigger("Out");
     }
 }
