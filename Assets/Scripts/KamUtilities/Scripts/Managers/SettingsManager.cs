@@ -9,5 +9,5 @@ public static class SettingsManager
     public static float Contrast = 0;
     public static float Sharpness = 0;
     
-    public static float mouseSensitivity = 3;
+    public static float mouseSensitivity = 1;
 }

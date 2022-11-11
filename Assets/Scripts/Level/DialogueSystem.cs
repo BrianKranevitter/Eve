@@ -55,6 +55,7 @@ public class DialogueSystem : MonoBehaviour
         dialogueSource.clip = dialogue.audio;
         subtitleText.text = dialogue.subtitleText;
         dialogueSource.Play();
+        Debug.Log("DIALOGUE PLAY");
 
         dialogueCoroutines.Add(StartCoroutine(KamUtilities.Delay(dialogue.length, delegate
         {
@@ -87,14 +88,14 @@ public class DialogueSystem : MonoBehaviour
         while (index < dialogueSequence._dialogues.Count)
         {
             bool nextTrigger = false;
+            PlayDialogue(dialogueSequence._dialogues[index], () =>
+            {
+                index++;
+                nextTrigger = true;
+            });
+            
             while (!nextTrigger)
             {
-                PlayDialogue(dialogueSequence._dialogues[index], () =>
-                {
-                    index++;
-                    nextTrigger = true;
-                });
-            
                 yield return null;
             }
         }

@@ -10,7 +10,7 @@ public class PlayerInstructionArm : MonoBehaviour
     public TextMeshPro text;
 
     public KeyCode infoKey;
-
+    public string currentObjective;
     private bool active = false;
     private void Update()
     {
@@ -35,6 +35,8 @@ public class PlayerInstructionArm : MonoBehaviour
     public void ShowInfo()
     {
         active = true;
+        anim.gameObject.SetActive(false);
+        anim.gameObject.SetActive(true);
         anim.SetTrigger("Go");
     }
 
@@ -42,5 +44,11 @@ public class PlayerInstructionArm : MonoBehaviour
     {
         active = false;
         anim.SetTrigger("Out");
+    }
+
+    public void OnHideInfoAnimationEnd()
+    {
+        anim.gameObject.SetActive(false);
+        SetInfo(currentObjective);
     }
 }

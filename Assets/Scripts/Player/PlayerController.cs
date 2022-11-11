@@ -70,12 +70,13 @@ namespace Game.Player
             Cursor.lockState = CursorLockMode.Locked;
             Activated(activated);
             Cursor.visible = false;
-
-            startingRot = rigidbody.transform.eulerAngles;
+            
             // Negation of Y-axis fixes camera rotating to opposite side on start
             //targetRotation = currentRotation = new Vector2(head.transform.localEulerAngles.x, -rigidbody.rotation.eulerAngles.y);
             //rigidbody.rotation = Quaternion.AngleAxis(currentRotation.y, Vector3.up);
             //head.transform.localRotation = Quaternion.AngleAxis(currentRotation.x, Vector3.left);
+            
+            
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
@@ -119,7 +120,6 @@ namespace Game.Player
             }
 
             Rotate();
-            //RotateButGood(400, 400);
         }
 
         public void Activated(bool state)
@@ -127,10 +127,8 @@ namespace Game.Player
             activated = state;
             if (state)
             {
-                Vector2 rot = new Vector2(head.transform.eulerAngles.x, rigidbody.rotation.eulerAngles.y);
-                currentRotation = rot;
-                targetRotation = rot;
-                Cursor.lockState = CursorLockMode.Confined;
+                bodyRotationBase = transform.rotation;
+                headRotationBase = head.transform.localRotation;
             }
         }
 
@@ -142,76 +140,65 @@ namespace Game.Player
             rigidbody.velocity = Vector3.MoveTowards(rigidbody.velocity, targetSpeed, acceleration * Time.deltaTime);
         }
 
+        private Quaternion bodyRotationBase;
+        private Quaternion headRotationBase;
         private Vector2 currentRotation;
         private Vector2 targetRotation;
         private Vector2 lastFrameRotation;
+
+        private Quaternion bodyAddedRotation;
+        private Quaternion headAddedRotation;
         private void Rotate()
         {
             const float wrapAt = .05f;
-
+ 
             Vector3 rawMousePosition = GetRawMousePosition();
             if (Cursor.lockState == CursorLockMode.Locked)
             {
                 Cursor.lockState = CursorLockMode.Confined;
                 lastFrameRotation = GetMousePosition(rawMousePosition);
             }
-
+ 
             Vector2 mousePosition = GetMousePosition(rawMousePosition);
             Vector2 difference = mousePosition - lastFrameRotation;
             lastFrameRotation = mousePosition;
-            targetRotation += difference;
+            targetRotation += SettingsManager.mouseSensitivity * difference;
             targetRotation = new Vector2(Mathf.Clamp(targetRotation.x, -maximumVerticalAngle, maximumVerticalAngle), targetRotation.y);
-
+ 
             if (rawMousePosition.x < wrapAt || rawMousePosition.x > 1 - wrapAt || rawMousePosition.y < wrapAt || rawMousePosition.y > 1 - wrapAt)
                 Cursor.lockState = CursorLockMode.Locked;
-
+ 
             float multiplier = PlayerBody.IsAlive ? 1 : rotationSpeedWhenDead;
-
+ 
             if (rotationSpeed > 0)
                 currentRotation = Vector3.MoveTowards(currentRotation, targetRotation, rotationSpeed * multiplier);
             else
                 currentRotation = targetRotation;
-
+ 
             Quaternion xQ = Quaternion.AngleAxis(currentRotation.x, Vector3.left);
             Quaternion yQ = Quaternion.AngleAxis(currentRotation.y, Vector3.up);
-
+ 
             if (smoothRotation > 0)
             {
                 // Horizontal rotation is applied on the player body.
                 float delta = Time.fixedDeltaTime * smoothRotation * multiplier;
-                rigidbody.rotation = Quaternion.Lerp(rigidbody.rotation, yQ, delta);
+                transform.rotation = Quaternion.Lerp(transform.rotation, bodyRotationBase * yQ, delta);
                 // Vertical rotation is only applied on the player head.
-                head.transform.localRotation = Quaternion.Lerp(head.transform.localRotation, xQ, delta);
+                head.transform.localRotation = Quaternion.Lerp(head.transform.localRotation, headRotationBase * xQ, delta);
             }
             else
             {
                 // Horizontal rotation is applied on the player body.
-                rigidbody.rotation = yQ;
+                transform.rotation = bodyRotationBase * yQ;
                 // Vertical rotation is only applied on the player head.
-                head.transform.localRotation = xQ;
+                head.transform.localRotation = headRotationBase * xQ;
             }
-
+ 
             Vector3 GetRawMousePosition()
                 => Camera.main.ScreenToViewportPoint(Input.mousePosition);
-
+ 
             Vector2 GetMousePosition(Vector3 rawMousePosition)
                 => new Vector2((rawMousePosition.y - .5f) * maximumVerticalAngle, rawMousePosition.x * 360);
-        }
-
-        private Vector3 startingRot;
-        private float xRot;
-        private float yRot;
-        private void RotateButGood(float sensitivityX, float sensitivityY)
-        {
-            float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivityX;
-            float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitivityY;
-
-            yRot += mouseX;
-            xRot -= mouseY;
-            xRot = Mathf.Clamp(xRot, -90f, 90f);
-
-            head.transform.eulerAngles = startingRot + new Vector3(xRot, yRot, 0);
-            rigidbody.transform.eulerAngles = startingRot + new Vector3(0, yRot, 0);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
