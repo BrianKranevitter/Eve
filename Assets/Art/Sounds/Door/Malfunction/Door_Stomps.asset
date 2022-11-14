@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e9dda9c02c19b4d828cd995b06f312, type: 3}
+  m_Name: Door_Stomps
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: cf72b5087d8f38746acf5c060e3628df, type: 3}
+  - {fileID: 8300000, guid: 7b7bc16bce0037948b774a41b0da5e56, type: 3}
+  - {fileID: 8300000, guid: 7ab9e4ced22e26f45b68df90760eb408, type: 3}
+  volume: 1
+  minDistance: 5
+  maxDistance: 50
