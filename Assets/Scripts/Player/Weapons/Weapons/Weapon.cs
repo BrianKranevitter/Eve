@@ -166,7 +166,11 @@ namespace Game.Player.Weapons
 
         public void ForceTotalAmmunitionUIUpdate() => CurrentTotalAmmo = CurrentTotalAmmo; // Trigger UI update for total ammo.
 
-        public void PlayAudioOneShoot(AudioUnit audio) => AudioController.PlayOneShoot(audio, transform.position);
+        public void PlayAudioOneShoot(AudioUnit audio)
+        {
+            KamAudioManager.instance.PlaySFX_AudioUnit(audio, transform.position);
+            //AudioController.PlayOneShoot(audio, transform.position);
+        }
 
         private void Update()
         {

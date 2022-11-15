@@ -9,53 +9,53 @@ namespace Enderlook.Unity.AudioManager
     public sealed class AudioUnit : AudioFile
     {
         [SerializeField, Tooltip("Audio clip of this unit.")]
-        private AudioClip audioClip;
+        public AudioClip audioClip;
 
         [SerializeField, Tooltip("Type of audio.")]
-        private AudioType audioType;
+        public AudioType audioType;
 
         [SerializeField, ValueRangeFloat(0, 1), Tooltip("Relative volume of this audio.")]
-        private ValueFloat volume = new ValueFloat(1);
+        public ValueFloat volume = new ValueFloat(1);
 
         [SerializeField, ValueRangeFloat(-3, 3), Tooltip("Relative pitch of this audio.")]
-        private ValueFloat pitch = new ValueFloat(1);
+        public ValueFloat pitch = new ValueFloat(1);
 
         [SerializeField, Range(0, 256), Tooltip("Sets the priority of the source. " +
             "Note that a sound with a larger priority value will more likely be stolen by sounds with smaller priority values.")]
-        private byte priority = 128;
+        public byte priority = 128;
 
         [SerializeField, Range(-1, 1), Tooltip("Only valid for Mono and Stereo AudioClips. " +
             "Mono sounds will be panned at constant power left and right. " +
             "Stereo sounds will have each left/right value faded up and down according to the specified pan value.")]
-        private float stereoSpan;
+        public float stereoSpan;
 
         [SerializeField, Tooltip("Sets how much the AudioSource that will play this clip is treated as a 3D source. " +
             "3D sources are affected by spatial position and spread." +
             "If a 3D Pan Level is 0, all spatial attenaution is ignored.")]
-        private AnimationCurve spatialBlend = new AnimationCurve(new Keyframe(0, 1));
+        public AnimationCurve spatialBlend = new AnimationCurve(new Keyframe(0, 1));
 
         [SerializeField, Tooltip("Sets how much of the signal the AudioSource that will play this clip is mixing into the global reveb associated with the zones. " +
             "[0, 1] is a lineal range (like volume) while [1, 1.1] lest you boost the reverb mix by 10 dB.")]
-        private AnimationCurve reverbZoneMix = new AnimationCurve(new Keyframe(0, 1));
+        public AnimationCurve reverbZoneMix = new AnimationCurve(new Keyframe(0, 1));
 
         [SerializeField, Range(0, 5f), Tooltip("Specifies how much the pitch is changed based on the relative velocity between AudioListener and the AudioSource tht will play this clip.")]
-        private float dopplerLevel = 1;
+        public float dopplerLevel = 1;
 
         [SerializeField, Tooltip("Sets the spread of a 3d sound in speaker space.")]
-        private AnimationCurve spread = new AnimationCurve(new Keyframe(0, 0));
+        public AnimationCurve spread = new AnimationCurve(new Keyframe(0, 0));
 
         [SerializeField, Tooltip("Which type of rolloff curve to use.")]
-        private AudioRolloffMode volumeRolloff;
+        public AudioRolloffMode volumeRolloff;
 
         [SerializeField, Tooltip("Withing the minDistance, the volume will stay at the loudest possible. " +
             "Outside of this minDistance it beings to attenuate.")]
-        private float minDistance = 1;
+        public float minDistance = 1;
 
         [SerializeField, Tooltip("MaxDistance is the distance a sound stops attenuating at.")]
-        private float maxDistance = 500;
+        public float maxDistance = 500;
 
         [SerializeField]
-        private AnimationCurve customRolloffCurve;
+        public AnimationCurve customRolloffCurve;
 
         private OnceEnumerator once;
         private LoopEnumerator loop;

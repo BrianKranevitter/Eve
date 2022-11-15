@@ -37,7 +37,7 @@ namespace Game.Player.Weapons
         public float interactionAngle;
 
         public LightType lightType = LightType.White;
-        private List<LightType> lightList = new List<LightType> {LightType.White, LightType.Red, LightType.Blue};
+        private List<LightType> lightList = new List<LightType> {LightType.White};
         private int currentIndex = 0;
 
         [Header("Animation Triggers")]
@@ -58,16 +58,16 @@ namespace Game.Player.Weapons
 
         [Header("Sound")]
         [SerializeField, Tooltip("Sound played when replacing batteries.")]
-        private AudioFile reloadSound;
+        private AudioUnit reloadSound;
 
         [SerializeField, Tooltip("Sound played when running out of battery.")]
-        private AudioFile outOfBatterySound;
+        private AudioUnit outOfBatterySound;
 
         [SerializeField, Tooltip("Sound played when turn on lantern.")]
-        private AudioFile turnOnSound;
+        private AudioUnit turnOnSound;
 
         [SerializeField, Tooltip("Sound played when turn off lantern.")]
-        private AudioFile turnOffSound;
+        private AudioUnit turnOffSound;
 
         [Header("Shader")]
         [SerializeField, Tooltip("Object with the material that presents lantern feedback.")]
@@ -199,16 +199,19 @@ namespace Game.Player.Weapons
                 }
                     
             }
-            
-            if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse))
+
+            if (lightList.Count > 1)
             {
-                handAnimator.SetTrigger("GoUp");
+                if (Input.GetMouseButtonDown((int)MouseButton.LeftMouse))
+                {
+                    handAnimator.SetTrigger("GoUp");
+                }
+                else if (Input.GetMouseButtonDown((int)MouseButton.RightMouse))
+                {
+                    handAnimator.SetTrigger("GoDown");
+                }
             }
-            else if (Input.GetMouseButtonDown((int)MouseButton.RightMouse))
-            {
-                handAnimator.SetTrigger("GoDown");
-            }
-            
+
             light.range = originalRange * animationRangeMultiplier;
             haloLightShader.SetFloat(haloLightOpacityFieldName, originalOpacity * animationOpacityMultiplier);
             
@@ -282,6 +285,14 @@ namespace Game.Player.Weapons
                 default:
                     SetType(LightType.White);
                     break;
+            }
+        }
+
+        public void UnlockType(LightType type)
+        {
+            if (!lightList.Contains(type))
+            {
+                lightList.Add(type);
             }
         }
 

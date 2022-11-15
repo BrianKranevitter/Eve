@@ -28,7 +28,10 @@ namespace Game.Level.Doors
             DoorKeysManager.AddKey(key);
 
             if (audioOnPickup != null)
-                AudioController.PlayOneShoot(audioOnPickup, transform.position);
+            {
+                KamAudioManager.instance.PlaySFX_AudioUnit(audioOnPickup,transform.position);
+                //AudioController.PlayOneShoot(audioOnPickup, transform.position);
+            }
             else
                 Debug.LogWarning("Missing on pickup audio.");
 

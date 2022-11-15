@@ -8,6 +8,6 @@ public class GenericAudioManagerSFX : MonoBehaviour
 
     public void PlaySFX()
     {
-        AudioManager.instance.PlaySFX(KamAssetDatabase.i.GetSFX(sfx));
+        KamAudioManager.instance.PlaySFX(KamAssetDatabase.i.GetSFX(sfx));
     }
 }

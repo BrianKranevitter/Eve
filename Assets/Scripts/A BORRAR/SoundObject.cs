@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundObject : MonoBehaviour
 {
@@ -28,12 +29,13 @@ public class SoundObject : MonoBehaviour
         }
     }
 
-    public void SetAudio(AudioClip clip, float volume, float minRange, float maxRange)
+    public void SetAudio(AudioClip clip, float volume, float minRange, float maxRange, AudioMixerGroup group)
     {
         _as.clip = clip;
         _as.volume = volume;
         _as.minDistance = minRange;
         _as.maxDistance = maxRange;
+        _as.outputAudioMixerGroup = group;
 
         _as.Play();
     }

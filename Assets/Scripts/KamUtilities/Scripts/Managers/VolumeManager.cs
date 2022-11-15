@@ -25,8 +25,15 @@ public class VolumeManager : MonoBehaviour
     public void SetVolume(string volumeName)
     {
         VolumeSetting setting = settings.First(x => x.name == volumeName);
+
+        if (setting.slider == null) return;
+        
         masterMixer.SetFloat(setting.name, -80f + (80 * volumeCurve.Evaluate(setting.slider.value)));
-        setting.text.text = Mathf.RoundToInt(setting.slider.value * 100) + "%";
+
+        if (setting.text != null)
+        {
+            setting.text.text = Mathf.RoundToInt(setting.slider.value * 100) + "%";
+        }
     }
 
     public void SaveVolume()
@@ -34,6 +41,7 @@ public class VolumeManager : MonoBehaviour
         foreach (var setting in settings)
         {
             PlayerPrefs.SetFloat(setting.name, setting.slider.value);
+            Debug.Log($"Saving {setting.name} as {setting.slider.value}");
         }
     }
     public void LoadVolume()
@@ -52,14 +60,16 @@ public class VolumeManager : MonoBehaviour
             SetVolume(setting.name);
         }
     }
-
+    
     private void OnApplicationQuit()
     {
         SaveVolume();
     }
 
-    private void Start()
+    private void Awake()
     {
         LoadVolume();
+        
+        Debug.Log("LOAD VOLUME");
     }
 }

@@ -9,7 +9,7 @@ namespace Game.Level.Triggers
     public sealed class ChangeBackgroundMusicPlayerTriggerAction : PlayerTriggerAction
     {
         [SerializeField, Tooltip("Audio to play in background.")]
-        private AudioFile audio;
+        private AudioUnit audio;
 
         [SerializeField, Tooltip("If true, the audio will loop.")]
         private bool loop;

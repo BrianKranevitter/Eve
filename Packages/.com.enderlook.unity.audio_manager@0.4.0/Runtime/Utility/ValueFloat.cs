@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 namespace Enderlook.Unity.AudioManager
 {
     [Serializable]
-    internal struct ValueFloat
+    public struct ValueFloat
     {
         // Keep field names in sync with ValueFloatDrawer.
 

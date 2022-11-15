@@ -104,22 +104,22 @@ namespace Game.Enemies
 
         [Header("Sounds")]
         [SerializeField, Tooltip("Sound played when creature is hurt.")]
-        private AudioFile hurtSound;
+        private AudioUnit hurtSound;
 
         [SerializeField, Tooltip("Sound played when creature is hurt on the weakspot.")]
-        private AudioFile hurtWeakspotSound;
+        private AudioUnit hurtWeakspotSound;
 
         [SerializeField, Tooltip("Sound played when creature die.")]
-        private AudioFile deathSound;
+        private AudioUnit deathSound;
 
         [SerializeField, Tooltip("Sound played when creature die on the weakspot.")]
-        private AudioFile deathWeakspotSound;
+        private AudioUnit deathWeakspotSound;
         
         [SerializeField, Tooltip("Sound played on melee.")]
-        private AudioFile meleeSound;
+        private AudioUnit meleeSound;
         
         [SerializeField, Tooltip("Sound played on shoot.")]
-        private AudioFile shootSound;
+        private AudioUnit shootSound;
         
         
         
@@ -155,7 +155,11 @@ namespace Game.Enemies
         private bool isInMeleeAnimation;
         private bool isInStunAnimation;
 
-        public void PlayAudioOneShoot(AudioUnit audio) => AudioController.PlayOneShoot(audio, transform.position);
+        public void PlayAudioOneShoot(AudioUnit audio)
+        {
+            KamAudioManager.instance.PlaySFX_AudioUnit(audio, transform.position);
+            //AudioController.PlayOneShoot(audio, transform.position);
+        }
 
         protected NavMeshAgent NavAgent { get; private set; }
         protected Animator Animator { get; private set; }

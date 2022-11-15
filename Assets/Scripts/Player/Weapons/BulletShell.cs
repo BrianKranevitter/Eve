@@ -17,7 +17,8 @@ namespace Game.Player.Weapons
         {
             if (collision.gameObject.IsContainedIn(groundLayer))
             {
-                AudioController.PlayOneShoot(onHitGroundSound, transform.position);
+                KamAudioManager.instance.PlaySFX_AudioUnit(onHitGroundSound, transform.position);
+                //AudioController.PlayOneShoot(onHitGroundSound, transform.position);
                 Destroy(this);
             }
         }

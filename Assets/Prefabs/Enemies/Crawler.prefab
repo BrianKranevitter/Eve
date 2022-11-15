@@ -1098,7 +1098,7 @@ AudioSource:
   m_GameObject: {fileID: 1026665569849112673}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 2137357044146010125, guid: b83ca02f8eea17242a5de939103ca8d0, type: 2}
   m_audioClip: {fileID: 8300000, guid: a6792fb52392b2745b8f23f82838e06a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
@@ -1390,8 +1390,8 @@ MonoBehaviour:
   hurtWeakspotSound: {fileID: 11400000, guid: 334241750ceaa084cafd4f6edb300354, type: 2}
   deathSound: {fileID: 0}
   deathWeakspotSound: {fileID: 0}
-  meleeSound: {fileID: 11400000, guid: 4ac536ca6481eed408a3fec5806b8862, type: 2}
-  shootSound: {fileID: 11400000, guid: e3826e49c537256429c4916669c2fed8, type: 2}
+  meleeSound: {fileID: 0}
+  shootSound: {fileID: 0}
   oscillationWidth: 1.5
   oscillationFrequency: 3
   escapingSpeedMultiplier: 1

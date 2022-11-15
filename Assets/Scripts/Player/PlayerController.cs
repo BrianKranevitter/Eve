@@ -57,7 +57,7 @@ namespace Game.Player
         private new Rigidbody rigidbody;
         private PlayerStamina stamina;
 
-        private static readonly new Collider[] collider = new Collider[1];
+        private new static readonly Collider[] collider = new Collider[1];
 
         public static bool IsMoving { get; private set; }
 

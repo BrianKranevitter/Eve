@@ -11,7 +11,7 @@ namespace Game.Level
     public sealed class BackgroundMusic : MonoBehaviour
     {
         [SerializeField, Tooltip("Initial background sound.")]
-        private AudioFile backgroundSound;
+        private AudioUnit backgroundSound;
 
         private AudioPlay backgroundSoundPlay;
         private AudioPlay otherPlay;
@@ -36,13 +36,13 @@ namespace Game.Level
                 backgroundSoundPlay.Play();
         }
 
-        public static void PlayLoop(AudioFile audio, string name)
+        public static void PlayLoop(AudioUnit audio, string name)
         {
             if (Try.PlayLoop(PlayerBody.Player.transform, audio, out instance.otherPlay, name, "player") && !instance.backgroundSoundPlay.IsDefault)
                 instance.backgroundSoundPlay.Stop();
         }
 
-        public static void PlayOneShoot(AudioFile audio, string name)
+        public static void PlayOneShoot(AudioUnit audio, string name)
         {
             if (Try.PlayOneShoot(PlayerBody.Player.transform, audio, out instance.otherPlay, name, "player") && !instance.backgroundSoundPlay.IsDefault)
                 instance.backgroundSoundPlay.Stop();

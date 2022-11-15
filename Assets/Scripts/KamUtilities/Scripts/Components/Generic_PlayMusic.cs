@@ -8,6 +8,6 @@ public class Generic_PlayMusic : MonoBehaviour
     public Music song;
     private void Start()
     {
-        AudioManager.instance.PlayMusic(KamAssetDatabase.i.GetSong(song));
+        KamAudioManager.instance.PlayMusic(KamAssetDatabase.i.GetSong(song));
     }
 }

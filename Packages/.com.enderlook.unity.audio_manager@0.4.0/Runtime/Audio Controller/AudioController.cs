@@ -44,74 +44,9 @@ namespace Enderlook.Unity.AudioManager
         }
 
         /// <summary>
-        /// Determines if the game is muted.
-        /// </summary>
-        public static bool MasterVolumeMuted {
-            get => Instance.masterVolumeMuted;
-            set => Instance.masterVolumeMuted = value;
-        }
-
-        /// <summary>
-        /// Global modifier of all audios.
-        /// </summary>
-        public static float MasterVolume {
-            get => Instance.masterVolume;
-            set {
-                if (value > 1 || value < 0)
-                    ThrowVolumeOutOfRangeException();
-                Instance.masterVolume = value;
-            }
-        }
-
-        /// <summary>
-        /// Global audio mixter group.
-        /// </summary>
-        public static AudioMixerGroup MasterAudioMixer => Instance.masterAudioMixer;
-
-        /// <summary>
-        /// Global audio mixter group.
-        /// </summary>
-        public static bool MusicVolumeMuted {
-            get => Instance.musicVolumeMuted;
-            set => Instance.musicVolumeMuted = value;
-        }
-
-        /// <summary>
-        /// Global modifier of all musics.
-        /// </summary>
-        public static float MusicVolume {
-            get => Instance.musicVolume;
-            set {
-                if (value > 1 || value < 0)
-                    ThrowVolumeOutOfRangeException();
-                Instance.musicVolume = value;
-            }
-        }
-
-        /// <summary>
         /// Music audio mixter group.
         /// </summary>
         public static AudioMixerGroup MusicAudioMixer => Instance.musicAudioMixer;
-
-        /// <summary>
-        /// Determines if sounds are muted.
-        /// </summary>
-        public static bool SoundVolumeMuted {
-            get => Instance.soundVolumeMuted;
-            set => Instance.soundVolumeMuted = value;
-        }
-
-        /// <summary>
-        /// Global modifier of all sounds.
-        /// </summary>
-        public static float SoundVolume {
-            get => Instance.soundVolume;
-            set {
-                if (value > 1 || value < 0)
-                    ThrowVolumeOutOfRangeException();
-                Instance.soundVolume = value;
-            }
-        }
 
         /// <summary>
         /// Sound audio mixter group.

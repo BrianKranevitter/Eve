@@ -36,19 +36,19 @@ namespace Game.Level.Doors
 
         [Header("Sounds")]
         [SerializeField, Tooltip("Sound played when door is opening.")]
-        private AudioFile openSound;
+        private AudioUnit openSound;
 
         [SerializeField, Tooltip("Sound played when door is closing.")]
-        private AudioFile closeSound;
+        private AudioUnit closeSound;
 
         [SerializeField, Tooltip("Sound played when door is unlocked.")]
-        private AudioFile unlockSound;
+        private AudioUnit unlockSound;
 
         [SerializeField, Tooltip("Sound played when player try to interact with a locked door and doesn't have the required key.")]
-        private AudioFile lockedSound;
+        private AudioUnit lockedSound;
 
         [SerializeField, Tooltip("Sound played when door interacted from the blocked side of the door.")]
-        private AudioFile blockeSideSound;
+        private AudioUnit blockeSideSound;
 
         [Header("Animation Triggers")]
         [SerializeField, Tooltip("Name of the animation trigger when door is unlocked with a key.")]

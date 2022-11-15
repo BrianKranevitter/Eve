@@ -51,11 +51,14 @@ public class DialogueSystem : MonoBehaviour
     public void PlayDialogue(Dialogue dialogue, Action onFinish = null)
     {
         subtitleRoot.SetActive(true);
+
+        if (dialogue.audio != null)
+        {
+            dialogueSource.clip = dialogue.audio;
+            dialogueSource.Play();
+        }
         
-        dialogueSource.clip = dialogue.audio;
         subtitleText.text = dialogue.subtitleText;
-        dialogueSource.Play();
-        Debug.Log("DIALOGUE PLAY");
 
         dialogueCoroutines.Add(StartCoroutine(KamUtilities.Delay(dialogue.length, delegate
         {

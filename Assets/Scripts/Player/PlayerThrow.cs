@@ -22,7 +22,7 @@ public class PlayerThrow : MonoBehaviour
     public float upwardsForce;
     
     [Header("Visuals/Effects")]
-    public AudioFile throwSFX;
+    public AudioUnit throwSFX;
     public bool useAnimationToSpawn;
     public Animator animator;
     public string throwTrigger;

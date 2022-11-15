@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,14 @@ public class Utilities_CanvasGroupReveal : MonoBehaviour
     
     [SerializeField] private UnityEvent onTempRevealed;
     [SerializeField] private UnityEvent onTempHidden;
-    
+
+    public bool revealed = false;
+
+    private void Awake()
+    {
+        revealed = obj.alpha == 1;
+    }
+
     public void RevealTemporary()
     {
         StopAllCoroutines();
@@ -102,6 +110,7 @@ public class Utilities_CanvasGroupReveal : MonoBehaviour
         }
         
         onRevealed.Invoke();
+        revealed = true;
     }
 
     private bool hiding { get => hide != null;}
@@ -115,5 +124,6 @@ public class Utilities_CanvasGroupReveal : MonoBehaviour
         }
         
         onHidden.Invoke();
+        revealed = false;
     }
 }

@@ -28,7 +28,7 @@ namespace Game.Utility
             }
         }
 
-        public static bool PlayOneShoot(Transform transform, AudioFile file, string fileName)
+        public static bool PlayOneShoot(Transform transform, AudioUnit file, string fileName)
         {
             if (file == null)
             {
@@ -36,31 +36,12 @@ namespace Game.Utility
                 return false;
             }
 
-            AudioController.PlayOneShoot(file, transform);
+            KamAudioManager.instance.PlaySFX_AudioUnit(file,transform.position);
+            //AudioController.PlayOneShoot(file, transform);
             return true;
         }
 
-        public static bool PlayOneShoot(Transform transform, AudioFile file, out AudioPlay audioPlay, string fileName, string transformName)
-        {
-            if (file == null)
-            {
-                Debug.LogWarning($"Missing {fileName} sound.");
-                audioPlay = default;
-                return false;
-            }
-
-            if (transform == null)
-            {
-                Debug.LogWarning($"Missing {transformName} transform.");
-                audioPlay = default;
-                return false;
-            }
-
-            audioPlay = AudioController.PlayOneShoot(file, transform);
-            return true;
-        }
-
-        public static bool PlayLoop(Transform transform, AudioFile file, out AudioPlay audioPlay, string fileName, string transformName)
+        public static bool PlayOneShoot(Transform transform, AudioUnit file, out AudioPlay audioPlay, string fileName, string transformName)
         {
             if (file == null)
             {
@@ -76,11 +57,36 @@ namespace Game.Utility
                 return false;
             }
 
-            audioPlay = AudioController.PlayLoop(file, transform);
+            
+            KamAudioManager.instance.PlaySFX_AudioUnit(file, transform.position);
+            audioPlay = default;
+            //audioPlay = AudioController.PlayOneShoot(file, transform);
             return true;
         }
 
-        public static bool PlayOneShoot(Vector3 position, AudioFile file, string fileName)
+        public static bool PlayLoop(Transform transform, AudioUnit file, out AudioPlay audioPlay, string fileName, string transformName)
+        {
+            if (file == null)
+            {
+                Debug.LogWarning($"Missing {fileName} sound.");
+                audioPlay = default;
+                return false;
+            }
+
+            if (transform == null)
+            {
+                Debug.LogWarning($"Missing {transformName} transform.");
+                audioPlay = default;
+                return false;
+            }
+
+            KamAudioManager.instance.PlaySFX_AudioUnit(file, transform.position, true);
+            //audioPlay = AudioController.PlayLoop(file, transform);
+            audioPlay = default;
+            return true;
+        }
+
+        public static bool PlayOneShoot(Vector3 position, AudioUnit file, string fileName)
         {
             if (file == null)
             {
@@ -89,7 +95,8 @@ namespace Game.Utility
             }
             else
             {
-                AudioController.PlayOneShoot(file, position);
+                KamAudioManager.instance.PlaySFX_AudioUnit(file, position);
+                //AudioController.PlayOneShoot(file, position);
                 return true;
             }
         }

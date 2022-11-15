@@ -20,7 +20,7 @@ namespace Game.Level.Triggers
         private struct Pack
         {
             [Tooltip("Audio file to play.")]
-            public AudioFile audio;
+            public AudioUnit audio;
 
             [Tooltip("Center position where sound will be played.")]
             public Transform center;
