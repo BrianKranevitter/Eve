@@ -55,6 +55,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 6d840fd2be766d34f95db45d63cd06f2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emission_BatteryLevel:
+        m_Texture: {fileID: 2800000, guid: 52660c3b2042dbe4ca39571abaea2afa, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Emission_Indicator:
         m_Texture: {fileID: 2800000, guid: e7e19b7b11b3ee94ca2dee5e379b9948, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -124,6 +128,7 @@ Material:
     - _GlossyReflections: 1
     - _IndicatorHegithLimit: -0.899
     - _IndicatorLowLimit: 0.066
+    - _LowBatteryLerp: 0
     - _Metallic: 0
     - _Mode: 0
     - _Normal_Scale: 0
