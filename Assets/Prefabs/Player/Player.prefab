@@ -4990,12 +4990,15 @@ MonoBehaviour:
   turnOffAnimationTrigger: 
   ammunitionName: Battery
   reloadSound: {fileID: 0}
-  outOfBatterySound: {fileID: 0}
+  outOfBatterySound: {fileID: 11400000, guid: 551e635ae579a2845b089b0b5d945c56, type: 2}
   turnOnSound: {fileID: 11400000, guid: 49bb813b315d1b041959fc2c7cb65a9a, type: 2}
   turnOffSound: {fileID: 11400000, guid: c62aa8e3445420f4bb7a6c74796db911, type: 2}
+  batteryLowLevelSound: {fileID: 11400000, guid: cda3d7328281a08439769e04b7aaf886, type: 2}
   objectWithLanternRenderer: {fileID: 9180589855513890469}
   batteryPercentFieldName: _Battery_Level
   batteryColorFieldName: _Indicator_Color
+  batteryLowLevelPercentThreshhold: 25
+  batteryLowLevelFieldName: _LowBatteryLerp
   batteryWhiteColor: {r: 1, g: 1, b: 1, a: 1}
   batteryRedColor: {r: 1, g: 0, b: 0, a: 1}
   batteryBlueColor: {r: 0, g: 0.0377028, b: 1, a: 1}
@@ -5004,6 +5007,7 @@ MonoBehaviour:
   haloLightColorFieldName: _HaloColor
   animationOpacityMultiplier: 1
   animationRangeMultiplier: 1
+  batteryAmount: 0
 --- !u!1 &1424764567
 GameObject:
   m_ObjectHideFlags: 0
@@ -7067,9 +7071,12 @@ MonoBehaviour:
   outOfBatterySound: {fileID: 0}
   turnOnSound: {fileID: 11400000, guid: 49bb813b315d1b041959fc2c7cb65a9a, type: 2}
   turnOffSound: {fileID: 11400000, guid: c62aa8e3445420f4bb7a6c74796db911, type: 2}
+  batteryLowLevelSound: {fileID: 0}
   objectWithLanternRenderer: {fileID: 9180589855715408989}
   batteryPercentFieldName: _Battery_Level
   batteryColorFieldName: _Indicator_Color
+  batteryLowLevelPercentThreshhold: 0
+  batteryLowLevelFieldName: 
   batteryWhiteColor: {r: 1, g: 1, b: 1, a: 1}
   batteryRedColor: {r: 1, g: 0, b: 0, a: 1}
   batteryBlueColor: {r: 0, g: 0.0377028, b: 1, a: 1}
@@ -7078,6 +7085,7 @@ MonoBehaviour:
   haloLightColorFieldName: _HaloColor
   animationOpacityMultiplier: 1
   animationRangeMultiplier: 1
+  batteryAmount: 0
 --- !u!1 &1849360161
 GameObject:
   m_ObjectHideFlags: 0
@@ -24219,9 +24227,12 @@ MonoBehaviour:
   outOfBatterySound: {fileID: 0}
   turnOnSound: {fileID: 11400000, guid: 49bb813b315d1b041959fc2c7cb65a9a, type: 2}
   turnOffSound: {fileID: 11400000, guid: c62aa8e3445420f4bb7a6c74796db911, type: 2}
+  batteryLowLevelSound: {fileID: 0}
   objectWithLanternRenderer: {fileID: 0}
   batteryPercentFieldName: _Battery_level
   batteryColorFieldName: 
+  batteryLowLevelPercentThreshhold: 0
+  batteryLowLevelFieldName: 
   batteryWhiteColor: {r: 0, g: 0, b: 0, a: 0}
   batteryRedColor: {r: 0, g: 0, b: 0, a: 0}
   batteryBlueColor: {r: 0, g: 0, b: 0, a: 0}
@@ -24230,6 +24241,7 @@ MonoBehaviour:
   haloLightColorFieldName: _HaloColor
   animationOpacityMultiplier: 1
   animationRangeMultiplier: 1
+  batteryAmount: 0
 --- !u!1 &6722449038845219728
 GameObject:
   m_ObjectHideFlags: 0

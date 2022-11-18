@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Enderlook.Unity.AudioManager;
 using Enderlook.Unity.Toolset.Attributes;
@@ -68,6 +69,9 @@ namespace Game.Player.Weapons
 
         [SerializeField, Tooltip("Sound played when turn off lantern.")]
         private AudioUnit turnOffSound;
+        
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Sound that will be played on low battery.")]
+        private AudioUnit batteryLowLevelSound;
 
         [Header("Shader")]
         [SerializeField, Tooltip("Object with the material that presents lantern feedback.")]
@@ -78,6 +82,17 @@ namespace Game.Player.Weapons
         
         [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery color.")]
         private string batteryColorFieldName;
+        
+        [Range(0,100)]
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Threshhold of batteryLevel used to set low battery.")]
+        private float batteryLowLevelPercentThreshhold;
+        
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery low level.")]
+        private string batteryLowLevelFieldName;
+        
+        
+
+        private bool playedSound = false;
         
         [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery percent.")]
         private Color batteryWhiteColor;
@@ -108,12 +123,13 @@ namespace Game.Player.Weapons
 
         public float animationOpacityMultiplier;
         public float animationRangeMultiplier;
-        private bool turnedOff = false;
+        private bool outOfBattery = false;
 
         private Material batteryShader;
         private Material haloLightShader;
 
         private float currentDuration;
+        public int batteryAmount;
 
         private bool isInAnimation;
 
@@ -187,17 +203,21 @@ namespace Game.Player.Weapons
 
             if (Input.GetKeyDown(lightKey))
             {
-                if (!Active)
+                if (outOfBattery)
                 {
-                    Active = true;
-                    SetOn();
+                    Debug.Log("Active: " + Active);
                 }
-                else
+                if (!outOfBattery || batteryAmount > 0)
                 {
-                    Active = false;
-                    SetOff();;
+                    if (!Active)
+                    {
+                        SetOn();
+                    }
+                    else
+                    {
+                        SetOff();;
+                    }
                 }
-                    
             }
 
             if (lightList.Count > 1)
@@ -230,31 +250,64 @@ namespace Game.Player.Weapons
                     haloLightRenderer.enabled = true;
             }
 
-            if (batteryShader != null && !string.IsNullOrEmpty(batteryPercentFieldName))
-                batteryShader.SetFloat(batteryPercentFieldName, Mathf.Max(currentDuration, 0) / duration);
+            float batteryPercent = Mathf.Max(currentDuration, 0) / duration;
+            if (batteryShader != null)
+            {
+                if (!string.IsNullOrEmpty(batteryPercentFieldName))
+                    batteryShader.SetFloat(batteryPercentFieldName, Mathf.Ceil(batteryPercent * 10f) / 10f);
+
+                if (!string.IsNullOrEmpty(batteryLowLevelFieldName))
+                {
+                    if (batteryPercent < (batteryLowLevelPercentThreshhold / 100))
+                    {
+                        float speedScale = 3;
+                        float sine = Mathf.Abs(Mathf.Sin((Time.time * speedScale)));
+                        batteryShader.SetFloat(batteryLowLevelFieldName, sine);
+
+                        if (light.enabled && !outOfBattery)
+                        {
+                            if (Math.Abs(sine - 1) < 0.1f && !playedSound)
+                            {
+                                //play sound once.
+                                playedSound = true;
+                                KamAudioManager.instance.PlaySFX_AudioUnit(batteryLowLevelSound, transform.position);
+                            }
+                            else if(sine < 0.1f && playedSound)
+                            {
+                                playedSound = false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        batteryShader.SetFloat(batteryLowLevelFieldName, 0);
+                    }
+                    
+                }
+                    
+            }
+
+
+
 
             if (light.enabled)
             {
                 if (currentDuration > 0)
                 {
-                    turnedOff = false;
+                    outOfBattery = false;
                     currentDuration -= Time.deltaTime;
-                }
-                else
-                {
-                    if (!turnedOff)
+                    
+                    if (currentDuration < 0)
                     {
+                        outOfBattery = true;
+                        Active = false;
                         if (!Try.SetAnimationTrigger(animator, outOfBatteryAnimationTrigger, "out of battery"))
                         {
                             SetOffImmediately();
                         }
-                        else
-                        {
-                            turnedOff = true;
-                        }
+
+                        Try.PlayOneShoot(transform, outOfBatterySound, "out of battery");
                     }
-                    
-                    Try.PlayOneShoot(transform, outOfBatterySound, "out of battery");
                 }
             }
         }
@@ -319,10 +372,10 @@ namespace Game.Player.Weapons
         {
             if (light == null)
                 return;
-
+            
             if (currentDuration <= 0)
                 return;
-
+            
             light.intensity = originalIntensity;
             light.range = originalRange;
             light.spotAngle = originalAngle;
@@ -330,6 +383,8 @@ namespace Game.Player.Weapons
 
             haloLightShader.SetFloat(haloLightOpacityFieldName, originalOpacity);
             haloLightRenderer.enabled = true;
+            
+            Active = true;
         }
 
         public void SetOn()
@@ -362,6 +417,8 @@ namespace Game.Player.Weapons
 
             haloLightShader.SetFloat(haloLightOpacityFieldName, 0);
             haloLightRenderer.enabled = false;
+            
+            Active = false;
         }
 
         public void SetOff()
@@ -373,13 +430,16 @@ namespace Game.Player.Weapons
 
         public void TryReload()
         {
-            isInAnimation = true;
-
-            Try.PlayOneShoot(transform, reloadSound, "reload");
-            if (!Try.SetAnimationTrigger(animator, reloadAnimationTrigger, "reload"))
+            if (batteryAmount > 0)
             {
-                FromReloadLantern();
-                SetOnImmediately();
+                batteryAmount--;
+                isInAnimation = true;
+
+                Try.PlayOneShoot(transform, reloadSound, "reload");
+                if (!Try.SetAnimationTrigger(animator, reloadAnimationTrigger, "reload"))
+                {
+                    FromReloadLantern();
+                }
             }
         }
 
@@ -388,6 +448,7 @@ namespace Game.Player.Weapons
             isInAnimation = false;
             animator.ResetTrigger("TurnOff");
             currentDuration = duration;
+            SetOnImmediately();
         }
     }
 }

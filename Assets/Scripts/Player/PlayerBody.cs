@@ -61,12 +61,6 @@ namespace Game.Player
         
         private (int, float) lastValue;
 
-        [SerializeField, Tooltip("Point where the player appears when �Tp key` is pressed")]
-        private Transform tpPoint;
-
-        [SerializeField, Tooltip("Key to tp at new spawn point")]
-        private KeyCode tpKey;
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
         private void Awake()
         {
@@ -81,9 +75,6 @@ namespace Game.Player
         private void Update()
         {
             if (PauseMenu.Paused) return;
-            
-            if (Input.GetKeyDown(tpKey))
-                transform.position = tpPoint.position;
 
             if (lastValue != ((int)currentHealth, health))
             {

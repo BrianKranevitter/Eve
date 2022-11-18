@@ -43,11 +43,9 @@ public class SkipCutsceneManager : MonoBehaviour
 
     public void SkipAction()
     {
-        textReveal.Hide();
         currentCutscene.OnSkip.Invoke();
 
-        currentCutscene = null;
-        onUpdate = delegate {  };
+        UnloadSkippable();
     }
 
     public void Skip()
@@ -62,5 +60,12 @@ public class SkipCutsceneManager : MonoBehaviour
         currentCutscene = cutscene;
 
         onUpdate = Controls_Start;
+    }
+    
+    public void UnloadSkippable()
+    {
+        textReveal.Hide();
+        currentCutscene = null;
+        onUpdate = delegate{};
     }
 }

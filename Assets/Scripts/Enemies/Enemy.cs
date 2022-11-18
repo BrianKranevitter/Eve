@@ -422,7 +422,7 @@ namespace Game.Enemies
                 {
                     _Fsm.SendInput(EnemyState.CertainKillMode);
                 }
-                else if (NavAgent.remainingDistance == 0)
+                else if (NavAgent.remainingDistance < 1f)
                 {
                     _Fsm.SendInput(EnemyState.Idle);
                 }
@@ -559,6 +559,7 @@ namespace Game.Enemies
 
                 NavAgent.isStopped = false;
                 NavAgent.speed = initialSpeed * chargingSpeedMultiplier;
+                SetLastPlayerPosition();
                 bool success = NavAgent.SetDestination(LastPlayerPosition);
                 Debug.Assert(success);
                 
@@ -573,8 +574,10 @@ namespace Game.Enemies
                 
                 if (!HasPlayerInSight(sightRadius_Active))
                 {
-                    _Fsm.SendInput(EnemyState.ChasePlayer);
-                    return;
+                    if (NavAgent.remainingDistance < 0.1f)
+                    {
+                        _Fsm.SendInput(EnemyState.Idle);
+                    }
                 }
 
                 float sqrDistance = (LastPlayerPosition - transform.position).sqrMagnitude;
