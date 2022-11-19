@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666e47bb3c869194983ada56a027b507, type: 3}
   m_Name: Watch_Noise
   m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: 48bd874e4ae27594f9ab7aae0b70bd00, type: 3}
+  audioClip: {fileID: 8300000, guid: 247dc86d77bb423459b26ab695b27756, type: 3}
   audioType: 0
   volume:
     isRandom: 0
@@ -29,13 +29,13 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
-      outWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

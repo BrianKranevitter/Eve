@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04fee737ef44bcf4cbf3b3964d828dbd, type: 3}
+  m_Name: Door_Glibes 1
+  m_EditorClassIdentifier: 
+  files:
+  - {fileID: 11400000, guid: 8b40bac2fc8b1b641856f060c394c59e, type: 2}
+  - {fileID: 11400000, guid: 3dcfdd85cb9d92344a0ae040f52791aa, type: 2}
+  - {fileID: 11400000, guid: f236af2e8215d634a9d86e1b5bb668b1, type: 2}

@@ -644,58 +644,58 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.71666664
-    functionName: PlayAudio
+    functionName: PlayAudioOneShootBag
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11400000, guid: 94cc50ec30cc1bf418173732c9090188, type: 2}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.2833333
-    functionName: PlayAudio
+    functionName: PlayAudioOneShootBag
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11400000, guid: 94cc50ec30cc1bf418173732c9090188, type: 2}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.8166667
-    functionName: PlayAudio
+    functionName: PlayAudioOneShootBag
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11400000, guid: faa9716bf54b18c459a67a61806ae2f8, type: 2}
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
   - time: 1.95
-    functionName: PlayAudio
+    functionName: PlayAudioOneShootBag
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11400000, guid: 94cc50ec30cc1bf418173732c9090188, type: 2}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 2.4166667
-    functionName: PlayAudio
+    functionName: PlayAudioOneShootBag
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11400000, guid: 94cc50ec30cc1bf418173732c9090188, type: 2}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 2.55
-    functionName: PlayAudio
+    functionName: PlayAudioOneShootBag
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11400000, guid: faa9716bf54b18c459a67a61806ae2f8, type: 2}
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
   - time: 2.6333334
-    functionName: PlayAudio
+    functionName: PlayAudioOneShootBag
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11400000, guid: 94cc50ec30cc1bf418173732c9090188, type: 2}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 2.9666667
-    functionName: PlayAudio
+    functionName: PlayAudioOneShootBag
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11400000, guid: 94cc50ec30cc1bf418173732c9090188, type: 2}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

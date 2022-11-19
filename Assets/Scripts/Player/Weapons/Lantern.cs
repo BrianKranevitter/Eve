@@ -24,10 +24,13 @@ namespace Game.Player.Weapons
         
         [SerializeField, Tooltip("Key used to toggle light.")]
         private KeyCode lightKey = KeyCode.F;
-        
+
         [SerializeField, Min(0), Tooltip("Duration of light in seconds.")]
         private float duration;
-        
+
+        [SerializeField, Min(0), Tooltip("Starting level of battery.")]
+        private float durationStart;
+
         [FormerlySerializedAs("interactionRange")] [Min(0), Tooltip("Minimum Range at which the light starts interacting with things, such as enemies, at CLOSE range.")]
         public float interactionRange_Close;
         
@@ -156,7 +159,7 @@ namespace Game.Player.Weapons
             originalIntensity = light.intensity;
             originalAngle = light.spotAngle;
 
-            currentDuration = duration;
+            currentDuration = durationStart;
 
             if (objectWithLanternRenderer != null)
             {
