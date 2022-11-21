@@ -1,0 +1,157 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CrawlerProjection
+  m_Shader: {fileID: 4800000, guid: 3bddd1d7ebb61744b9d16702814830ce, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Clouds_1:
+        m_Texture: {fileID: 2800000, guid: 3b78ad6594e52c84697416ba2a12cc9d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Clouds_2:
+        m_Texture: {fileID: 2800000, guid: 87dbd29693e793846ad279c2ae3900f3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HologramGrid_Big:
+        m_Texture: {fileID: 2800000, guid: c6f153915268a8d478fe9b55425d393f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HologramGrid_Little:
+        m_Texture: {fileID: 2800000, guid: c6f153915268a8d478fe9b55425d393f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture0:
+        m_Texture: {fileID: 2800000, guid: 646718291b2fbbf40831bcf139711de1, type: 3}
+        m_Scale: {x: 5.84, y: 2.46}
+        m_Offset: {x: 8.7, y: 0.33}
+    - _Texture1:
+        m_Texture: {fileID: 2800000, guid: 0b876b64811075c4584fff030e911b79, type: 3}
+        m_Scale: {x: -10.87, y: 1.54}
+        m_Offset: {x: 2.58, y: 0}
+    - _Texture3:
+        m_Texture: {fileID: 2800000, guid: 3b78ad6594e52c84697416ba2a12cc9d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 2800000, guid: 646718291b2fbbf40831bcf139711de1, type: 3}
+        m_Scale: {x: 0.72, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TopTexture0:
+        m_Texture: {fileID: 2800000, guid: 646718291b2fbbf40831bcf139711de1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BumpScale: 1
+    - _Clouds1_Strenght: 0.1
+    - _Clouds2_Strenght: 0.3
+    - _Clouds3_Strenght: 0.4
+    - _Clouds_1_Remap: 0.19
+    - _Clouds_1_Remap_Added: 0.3
+    - _Clouds_1_Remap_Frecuency: 1
+    - _Clouds_1_Remap_Strenght: 0.035
+    - _Clouds_1_X_offset: 7.82
+    - _Clouds_1_X_offset_Speed: 0.1
+    - _Clouds_1_Y_Offset_Speed: 0.05
+    - _Clouds_2_Remap_Added: 0.3
+    - _Clouds_2_Remap_Frecuency: 1.5
+    - _Clouds_2_Remap_Strenght: 0.035
+    - _Clouds_2_X_offset_Speed: -0.05
+    - _Clouds_2_Y_Offset_Speed: 0.02
+    - _Clouds_3_Remap_Added: 0.3
+    - _Clouds_3_Remap_Frecuency: 2
+    - _Clouds_3_Remap_Strenght: 0.035
+    - _Clouds_3_X_offset_Speed: 0.02
+    - _Clouds_3_Y_Offset_Speed: 0.035
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _Falloff: 5
+    - _Float0: 8.21
+    - _Float1: 6.55
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GridBig_Strenght: 1
+    - _GridLittle_Strenght: 4
+    - _LerpSpeed: 0.67
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Tiling: 0.29
+    - _Tiling_Big: 0.22
+    - _Tiling_Little: 0.65
+    - _UVSec: 0
+    - _ZWrite: 1
+    - __dirty: 0
+    m_Colors:
+    - _Clouds_1_Color: {r: 0, g: 1, b: 0.1972687, a: 0}
+    - _Clouds_Color: {r: 0.45911944, g: 1, b: 0.56485546, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color0: {r: 0.14582503, g: 1, b: 0, a: 1}
+    - _ColorGrid_Big: {r: 0, g: 1, b: 0.055754423, a: 1}
+    - _ColorGrid_Little: {r: 0.0016648325, g: 0.084905684, b: 0, a: 0.24705882}
+    - _Color_Grid: {r: 0, g: 1, b: 0.17099166, a: 0}
+    - _Color_Grid_Big: {r: 0, g: 1, b: 0.18292975, a: 1}
+    - _Color_Grid_Little: {r: 0, g: 1, b: 0.14799094, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Pos: {r: 0.28, g: 2.105962, b: 5.7, a: 0}
+  m_BuildTextureStacks: []
