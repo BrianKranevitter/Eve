@@ -47,6 +47,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _HologramGradients:
+        m_Texture: {fileID: 2800000, guid: 4b056a6b173996d45a33c8eacb50d296, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _HologramGrid_Big:
         m_Texture: {fileID: 2800000, guid: c6f153915268a8d478fe9b55425d393f, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -97,9 +101,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _Clouds1_Strenght: 0.1
+    - _Clouds1_Strenght: 0.2
     - _Clouds2_Strenght: 0.3
-    - _Clouds3_Strenght: 0.4
+    - _Clouds3_Strenght: 0.3
     - _Clouds_1_Remap: 0.19
     - _Clouds_1_Remap_Added: 0.3
     - _Clouds_1_Remap_Frecuency: 1
@@ -126,10 +130,14 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Gradient_Speed: 0.1
+    - _Gradient_Tiling: 2.68
     - _GridBig_Strenght: 1
     - _GridLittle_Strenght: 4
     - _LerpSpeed: 0.67
+    - _MaxOld: 1
     - _Metallic: 0
+    - _MinOld: 1
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
