@@ -26,6 +26,10 @@ public class Transform_SetPositions : MonoBehaviour
             positions[current].onMove.Invoke();
 
             current++;
+            if(current >= positions.Count)
+            {
+                current = 0;
+            }
         }
     }
 }

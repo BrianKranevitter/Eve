@@ -23,7 +23,7 @@ namespace Game.Player.Weapons
 
         public void Pickup()
         {
-            Lantern.ActiveLantern.batteryAmount++;
+            Lantern.ActiveLantern.PickupBattery();
 
             Try.PlayOneShoot(transform.position, audioOnPickup, "on pickup");
 

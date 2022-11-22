@@ -16,6 +16,7 @@ namespace Enderlook.Unity.AudioManager
 
         private static readonly string[] options = new string[] { "Constant", "Curve" };
         private SerializedProperty audioClip;
+        private SerializedProperty loopOnPlay;
         private SerializedProperty audioType;
         private SerializedProperty volume;
         private SerializedProperty pitch;
@@ -49,6 +50,7 @@ namespace Enderlook.Unity.AudioManager
             minDistance = serializedObject.FindProperty("minDistance");
             maxDistance = serializedObject.FindProperty("maxDistance");
             customRolloffCurve = serializedObject.FindProperty("customRolloffCurve");
+            loopOnPlay = serializedObject.FindProperty("loopOnPlay");
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
@@ -59,6 +61,7 @@ namespace Enderlook.Unity.AudioManager
             this.DrawScriptField();
 
             EditorGUILayout.PropertyField(audioClip);
+            EditorGUILayout.PropertyField(loopOnPlay);
             EditorGUILayout.PropertyField(audioType);
             EditorGUILayout.PropertyField(volume);
             EditorGUILayout.PropertyField(pitch);

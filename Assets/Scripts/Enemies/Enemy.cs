@@ -21,6 +21,8 @@ namespace Game.Enemies
     public abstract class Enemy : MonoBehaviour, IDamagable
     {
         public static List<Enemy> allEnemies = new List<Enemy>();
+
+        public bool tutorialEnemyBehavior = false;
         
         [SerializeField, Min(0), Tooltip("Maximum health of enemy.")]
         private float maximumHealth;
@@ -195,6 +197,11 @@ namespace Game.Enemies
             NavAgent = GetComponent<NavMeshAgent>();
             Animator = GetComponent<Animator>();
 
+            if (tutorialEnemyBehavior)
+            {
+                NavAgent.speed = 0;
+            }
+            
             initialSpeed = NavAgent.speed;
             
             meleePosition.enabled = false;
@@ -240,7 +247,7 @@ namespace Game.Enemies
         {
             Idle, Blinded_Player, ChasePlayer, RageBuildup_Player, ChaseGlowstick, RageBuildup_Glowstick, CertainKillMode, Dead, Blinded_Glowstick
         }
-        private void SetupFSM()
+        protected virtual void SetupFSM()
         {
             #region Declare
             
@@ -405,6 +412,7 @@ namespace Game.Enemies
                 Debug.Log($"{gameObject.name}: CHASING PLAYER");
                 
                 currentState = EnemyState.ChasePlayer;
+                
                 NavAgent.isStopped = false;
                 NavAgent.speed = initialSpeed;
                 bool success = NavAgent.SetDestination(LastPlayerPosition);
@@ -583,6 +591,8 @@ namespace Game.Enemies
                 float sqrDistance = (LastPlayerPosition - transform.position).sqrMagnitude;
                 if (sqrDistance <= rageKillDistance && CheckInteraction(LastPlayerPosition))
                 {
+                    if (tutorialEnemyBehavior) return;
+                    
                     PlayerBody.Player.TakeDamage(PlayerBody.Player.currentHp);
                     return;
                 }

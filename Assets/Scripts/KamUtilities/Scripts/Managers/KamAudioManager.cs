@@ -74,7 +74,7 @@ public class KamAudioManager : MonoBehaviour
 		Destroy(source.gameObject, effect.length);
 	}
 	
-	public void PlaySFX_AudioUnit(AudioUnit audio, Vector3 position = default, bool loop = false, AudioMixerGroup mixerGroup = null)
+	public AudioSource PlaySFX_AudioUnit(AudioUnit audio, Vector3 position = default, bool loop = false, AudioMixerGroup mixerGroup = null)
 	{
 		AudioMixerGroup resultMixerGroup = sfxMixerGroup;
 		
@@ -99,7 +99,8 @@ public class KamAudioManager : MonoBehaviour
 		AudioSource source = position == Vector3.zero ? 
 			CreateNewSource(string.Format("SFX [{0}]", audio.name), resultMixerGroup) 
 			: CreateNewSource(string.Format("SFX [{0}]", audio.name), position, resultMixerGroup);
-		
+
+		source.loop = audio.loopOnPlay;
 		source.clip = audio.audioClip;
 		source.priority = audio.priority;
 		source.volume = audio.volume.Value;
@@ -139,7 +140,8 @@ public class KamAudioManager : MonoBehaviour
 		{
 			Destroy(source.gameObject, audio.audioClip.length);
 		}
-		
+
+		return source;
 	}
 
 	public void PlayMusic(AudioClip music, float maxVolume = 1f, float pitch = 1f, float startingVolume = 0f, bool playOnStart = true, bool loop = true)

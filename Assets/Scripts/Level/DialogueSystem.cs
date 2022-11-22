@@ -13,6 +13,7 @@ public class DialogueSystem : MonoBehaviour
     [System.Serializable]
     public struct DialogueSequence
     {
+        public string name;
         public List<Dialogue> _dialogues;
     }
 

@@ -6,6 +6,7 @@ using Enderlook.Unity.Toolset.Attributes;
 using Game.Utility;
 
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
@@ -19,11 +20,15 @@ namespace Game.Player.Weapons
         public static Light ActiveLight { get; private set; }
         public static Lantern ActiveLantern { get; private set; }
         public static bool Active { get; private set; }
+        
 
         [Header("Configuration")]
         
         [SerializeField, Tooltip("Key used to toggle light.")]
         private KeyCode lightKey = KeyCode.F;
+        
+        [SerializeField, Tooltip("Key used to recharge light.")]
+        private KeyCode rechargeKey = KeyCode.R;
 
         [SerializeField, Min(0), Tooltip("Duration of light in seconds.")]
         private float duration;
@@ -44,9 +49,12 @@ namespace Game.Player.Weapons
         private List<LightType> lightList = new List<LightType> {LightType.White};
         private int currentIndex = 0;
 
-        [Header("Animation Triggers")]
+        [Header("Animation")]
         [SerializeField, Tooltip("Animation trigger when replacing batteries. (The animation must execute FromReloadLantern() method.)")]
         private string reloadAnimationTrigger;
+        
+        [SerializeField, Tooltip("Animation trigger when replacing batteries. (The animation must execute FromReloadLantern() method.)")]
+        private GameObject reloadAnimationObject;
 
         [SerializeField, Tooltip("Animation trigger when run out of battery.")]
         private string outOfBatteryAnimationTrigger;
@@ -56,9 +64,6 @@ namespace Game.Player.Weapons
 
         [SerializeField, Tooltip("Animation trigger when turn off lantern.")]
         private string turnOffAnimationTrigger;
-
-        [SerializeField, Tooltip("Name of the ammunition type used.")]
-        private string ammunitionName;
 
         [Header("Sound")]
         [SerializeField, Tooltip("Sound played when replacing batteries.")]
@@ -221,6 +226,11 @@ namespace Game.Player.Weapons
                         SetOff();;
                     }
                 }
+            }
+            
+            if (Input.GetKeyDown(rechargeKey))
+            {
+                TryReload();
             }
 
             if (lightList.Count > 1)
@@ -438,15 +448,23 @@ namespace Game.Player.Weapons
                 batteryAmount--;
                 isInAnimation = true;
 
-                Try.PlayOneShoot(transform, reloadSound, "reload");
+                PlayerArmsManager.i.RechargeBatteryAnim();
+                
+                /*Try.PlayOneShoot(transform, reloadSound, "reload");
                 if (!Try.SetAnimationTrigger(animator, reloadAnimationTrigger, "reload"))
                 {
                     FromReloadLantern();
-                }
+                }*/
             }
         }
 
-        private void FromReloadLantern()
+        public void PickupBattery()
+        {
+            PlayerArmsManager.i.FirstTimeBatteryPickupAnim();
+            batteryAmount++;
+        }
+
+        public void FromReloadLantern()
         {
             isInAnimation = false;
             animator.ResetTrigger("TurnOff");

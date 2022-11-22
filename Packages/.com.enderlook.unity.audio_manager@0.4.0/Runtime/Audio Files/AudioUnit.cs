@@ -57,6 +57,9 @@ namespace Enderlook.Unity.AudioManager
         [SerializeField]
         public AnimationCurve customRolloffCurve;
 
+        [SerializeField, Tooltip("Loop Audio.")]
+        public bool loopOnPlay = false;
+        
         private OnceEnumerator once;
         private LoopEnumerator loop;
 

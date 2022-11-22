@@ -143,42 +143,77 @@ namespace Game.Level.Doors
             Switch();
         }
 
+        bool open = false;
         private void Switch()
         {
             locking = Locking.None;
-            bool open = false;
-            switch (state)
+
+            if (state == State.Moving)
             {
-                case State.Moving:
-                    return;
-                case State.Opened:
-                    state = State.Moving;
-                    open = false;
-                    Try.PlayOneShoot(transform, closeSound, "close");
-                    break;
-                case State.Closed:
-                    state = State.Moving;
-                    open = true;
-                    Try.PlayOneShoot(transform, openSound, "open");
-                    break;
+                return;
             }
 
-            StartCoroutine(Work());
-
-            IEnumerator Work()
+            if (open)
             {
-                for (float progress = 0; progress < 1; progress += doorSpeed * Time.fixedDeltaTime)
-                {
-                    for (int i = 0; i < doors.Length; i++)
-                    {
-                        doors[i].Move(open, progress);
-                    }
-                    yield return wait;
-                }
-                state = open ? State.Opened : State.Closed;
+                Close();
+            }
+            else
+            {
+                Open();
             }
         }
 
+        public void Open()
+        {
+            if (open) return;
+            
+            state = State.Moving;
+            open = true;
+            Try.PlayOneShoot(transform, openSound, "open");
+            
+            StopAllCoroutines();
+            StartCoroutine(Work());
+        }
+        public void Close()
+        {
+            if (!open) return;
+            
+            state = State.Moving;
+            open = false;
+            Try.PlayOneShoot(transform, closeSound, "close");
+        
+            StopAllCoroutines();
+            StartCoroutine(Work());
+        }
+
+        public void LockFront()
+        {
+            locking = Locking.Front;
+        }
+        
+        public void LockBack()
+        {
+            locking = Locking.Back;
+        }
+        
+        public void Unlock()
+        {
+            locking = Locking.None;
+        }
+
+        IEnumerator Work()
+        {
+            for (float progress = 0; progress < 1; progress += doorSpeed * Time.fixedDeltaTime)
+            {
+                for (int i = 0; i < doors.Length; i++)
+                {
+                    doors[i].Move(open, progress);
+                }
+                yield return wait;
+            }
+            state = open ? State.Opened : State.Closed;
+        }
+        
         public void FromUnlock()
         {
             isInAnimation = false;
