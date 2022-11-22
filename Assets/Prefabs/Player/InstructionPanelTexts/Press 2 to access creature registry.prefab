@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5496175305302452891}
   - component: {fileID: 5496175305302452890}
   m_Layer: 17
-  m_Name: Bestiary
+  m_Name: Press 2 to access creature registry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
