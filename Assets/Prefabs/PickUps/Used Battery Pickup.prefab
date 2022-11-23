@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 339919138001668463}
   - component: {fileID: 6327798340034671196}
   - component: {fileID: 4292929560558642}
-  m_Layer: 17
+  m_Layer: 0
   m_Name: Battery-int
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 1342690093097112632}
   - component: {fileID: 3187363063097618559}
   - component: {fileID: 259822331213474895}
-  m_Layer: 17
+  m_Layer: 0
   m_Name: Battery-ext
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 8719025427133939286}
   - component: {fileID: 2710850221585369600}
   - component: {fileID: 5284680432763435899}
-  m_Layer: 17
+  m_Layer: 0
   m_Name: Used Battery Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}

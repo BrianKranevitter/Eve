@@ -71,11 +71,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   volumeRolloff: 1
-  minDistance: 2
-  maxDistance: 10
+  minDistance: 4
+  maxDistance: 13
   customRolloffCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  loopOnPlay: 0
