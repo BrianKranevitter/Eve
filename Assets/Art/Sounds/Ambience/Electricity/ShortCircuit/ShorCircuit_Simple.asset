@@ -16,8 +16,8 @@ MonoBehaviour:
   audioType: 0
   volume:
     isRandom: 1
-    a: 0.5
-    b: 1
+    a: 0.05
+    b: 0.1
   pitch:
     isRandom: 1
     a: 0.8
@@ -71,11 +71,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   volumeRolloff: 1
-  minDistance: 2
-  maxDistance: 8
+  minDistance: 1
+  maxDistance: 15
   customRolloffCurve:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  loopOnPlay: 0

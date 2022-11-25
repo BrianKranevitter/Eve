@@ -1373,4 +1373,25 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.7
+    functionName: PlayAudioOneShootBag
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: b0a46bb6ff354654ab41e631f7482898, type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.7166667
+    functionName: PlayAudioOneShootBag
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: b0a46bb6ff354654ab41e631f7482898, type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.85
+    functionName: PlayAudioOneShootBag
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: b0a46bb6ff354654ab41e631f7482898, type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
