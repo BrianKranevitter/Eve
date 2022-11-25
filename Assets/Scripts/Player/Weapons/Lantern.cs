@@ -141,6 +141,7 @@ namespace Game.Player.Weapons
 
         private bool isInAnimation;
 
+        public UnityEvent onFirstTimeOutOfBattery;
         public enum LightType
         {
             Red, Blue, White
@@ -313,6 +314,12 @@ namespace Game.Player.Weapons
                     if (currentDuration < 0)
                     {
                         outOfBattery = true;
+                        if (PlayerArmsManager.FirstTimeOutOfBattery)
+                        {
+                            PlayerArmsManager.FirstTimeOutOfBattery = false;
+                            onFirstTimeOutOfBattery.Invoke();
+                        }
+                        
                         Active = false;
                         if (!Try.SetAnimationTrigger(animator, outOfBatteryAnimationTrigger, "out of battery"))
                         {
@@ -469,6 +476,7 @@ namespace Game.Player.Weapons
             isInAnimation = false;
             animator.ResetTrigger("TurnOff");
             currentDuration = duration;
+            outOfBattery = false;
             SetOnImmediately();
         }
     }

@@ -8,6 +8,7 @@ public class PlayerArmsManager : MonoBehaviour
 {
     public static PlayerArmsManager i;
     public static bool HasPickedUpBattery = false;
+    public static bool FirstTimeOutOfBattery = true;
     
     [Header("Left")]
     public PlayerInstructionArm instructionArm;
