@@ -71,8 +71,15 @@ public class TutorialCrawler : MonoBehaviour
     public struct TutorialPhaseAction
     {
         public TutorialPhase phase;
-        public UnityEvent onFail;
+        public List<TutorialPhaseFailAction> failActions;
         public UnityEvent onSuccess;
+    }
+    
+    [System.Serializable]
+    public struct TutorialPhaseFailAction
+    {
+        public string name;
+        public UnityEvent onFail;
     }
     
     private bool isInShootingAnimation;
@@ -287,7 +294,17 @@ public class TutorialCrawler : MonoBehaviour
         
         Idle.OnUpdate += () =>
         {
-            PlayerLightBehaviors();
+            if (readyToFail)
+            {
+                PlayerLightBehaviors();
+                
+                Lantern.DistanceEffect lightEffect = HasPlayerLightInRange();
+                if (lightEffect == Lantern.DistanceEffect.Close)
+                {
+                    TrySetAnimationTrigger(blindAnimationTrigger, "blind");
+                    Fail("TooClose");
+                }
+            }
         };
 
         RageBuildup_Player.OnEnter += x =>
@@ -490,6 +507,9 @@ public class TutorialCrawler : MonoBehaviour
 
             IsInBlindAnimation = true;
             Animator.SetBool("Blinded", true);
+            
+            Fail();
+            
             if (!TrySetAnimationTrigger(blindAnimationTrigger, "blind", false))
             {
                 //If you were not able to set the animation, end the animation yourself
@@ -513,7 +533,7 @@ public class TutorialCrawler : MonoBehaviour
             if (CheckRage_Player())
             {
                 _Fsm.SendInput(EnemyState.Idle);
-                Fail();
+                Fail("InterruptedAnimation");
             }
         };
         
@@ -612,15 +632,14 @@ public class TutorialCrawler : MonoBehaviour
     }
 
     private bool readyToFail = true;
-    void Fail()
+    void Fail(string failName = "default")
     {
         if (!readyToFail) return;
         
-        PhaseActions.First(x => x.phase == currentPhase).onFail.Invoke();
+        Succeeded = false;
+        PhaseActions.First(x => x.phase == currentPhase).failActions.First(x => x.name.ToLower() == failName.ToLower()).onFail.Invoke();
         readyToFail = false;
         Invoke(nameof(ResetFail), failingCD);
-
-        
     }
 
     void ResetFail()
@@ -671,7 +690,8 @@ public class TutorialCrawler : MonoBehaviour
     private float timeSinceStart = 0;
     protected void CrawlerFlashingBehavior()
     {
-        if (HasPlayerLightInRange() != Lantern.DistanceEffect.Close)
+        Lantern.DistanceEffect lightEffect = HasPlayerLightInRange();
+        if (lightEffect == Lantern.DistanceEffect.Close)
         {
             if (Lantern.ActiveLantern.lightType == Lantern.LightType.White)
             {
@@ -681,7 +701,7 @@ public class TutorialCrawler : MonoBehaviour
                     
                     flashCount++;
                     
-                    if (flashCount > flashingAmount)
+                    if (flashCount >= flashingAmount)
                     {
                         _Fsm.SendInput(EnemyState.Idle);
                     }
@@ -695,11 +715,12 @@ public class TutorialCrawler : MonoBehaviour
         }
         else
         {
-            if (currentPhase == TutorialPhase.AngryInterrupt)
-            {
-                Fail();
-            }
             affectedByLight = false;
+        }
+        
+        if (lightEffect == Lantern.DistanceEffect.Far && currentPhase == TutorialPhase.AngryInterrupt)
+        {
+            Fail("TooFar");
         }
 
         if (flashCount > 0)
@@ -710,6 +731,8 @@ public class TutorialCrawler : MonoBehaviour
             {
                 flashCount = 0;
                 timeSinceStart = 0;
+                
+                Fail();
             }
         }
     }
@@ -739,7 +762,6 @@ public class TutorialCrawler : MonoBehaviour
                 if (currentPhase == TutorialPhase.Angry)
                 {
                     _Fsm.SendInput(EnemyState.Idle);
-                    Fail();
                 }
                 else
                 {
@@ -769,6 +791,7 @@ public class TutorialCrawler : MonoBehaviour
                 if (currentPhase == TutorialPhase.RageInterruption || currentPhase == TutorialPhase.Stun)
                 {
                     Fail();
+                    _Fsm.SendInput(EnemyState.Idle);
                 }
                 else
                 {

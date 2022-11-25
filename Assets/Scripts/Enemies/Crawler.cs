@@ -121,19 +121,28 @@ namespace Game.Enemies
         {
             base.OnCertainKill_Update();
             
-            if (HasPlayerLightInRange() != Lantern.DistanceEffect.Close && Lantern.ActiveLantern.lightType == Lantern.LightType.White)
+            Lantern.DistanceEffect lightEffect = HasPlayerLightInRange();
+            if (lightEffect == Lantern.DistanceEffect.Close)
             {
-                if (!affectedByLight)
+                if (Lantern.ActiveLantern.lightType == Lantern.LightType.White)
                 {
-                    affectedByLight = true;
-                    
-                    flashCount++;
-                    
-                    if (flashCount > flashingAmount)
+                    if (!affectedByLight)
                     {
-                        _Fsm.SendInput(EnemyState.Idle);
+                        affectedByLight = true;
+                    
+                        flashCount++;
+                    
+                        if (flashCount >= flashingAmount)
+                        {
+                            _Fsm.SendInput(EnemyState.Idle);
+                        }
                     }
                 }
+                else
+                {
+                    affectedByLight = false;
+                }
+            
             }
             else
             {

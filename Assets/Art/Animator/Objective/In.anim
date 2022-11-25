@@ -7121,8 +7121,8 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.05
-    functionName: PlayAudioOneShootBag
+  - time: 1
+    functionName: Play
     data: 
     objectReferenceParameter: {fileID: 11400000, guid: acada208ef13d0f4aaf725476c9a2f08, type: 2}
     floatParameter: 0
