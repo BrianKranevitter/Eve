@@ -101,9 +101,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _Clouds1_Strenght: 0.5
-    - _Clouds2_Strenght: 0.4
-    - _Clouds3_Strenght: 0.3
+    - _Clouds1_Strenght: 0.3
+    - _Clouds2_Strenght: 0.2
+    - _Clouds3_Strenght: 0.1
     - _Clouds_1_Remap: 0.19
     - _Clouds_1_Remap_Added: 0.3
     - _Clouds_1_Remap_Frecuency: 1
