@@ -16,8 +16,8 @@ MonoBehaviour:
   audioType: 0
   volume:
     isRandom: 1
-    a: 0.9
-    b: 1
+    a: 0.3812213
+    b: 0.4812213
   pitch:
     isRandom: 1
     a: 0.9

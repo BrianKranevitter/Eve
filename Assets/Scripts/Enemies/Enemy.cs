@@ -1225,6 +1225,10 @@ namespace Game.Enemies
                 Animator.SetTrigger(LastAnimationTrigger);
         }
 
+        public void SendInput(EnemyState state)
+        {
+            _Fsm.SendInput(state);
+        }
 #if UNITY_EDITOR
         protected virtual void OnDrawGizmosSelected()
         {

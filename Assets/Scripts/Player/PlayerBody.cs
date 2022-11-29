@@ -98,12 +98,13 @@ namespace Game.Player
                 
                 OnDeath();
             }
-
-
-            if (amount.ToPercentageOfRange(0, health) < 10)
-                playerCameraAnimator.SetTrigger(shakeLightTrigger);
             else
-                playerCameraAnimator.SetTrigger(shakeHardTrigger);
+            {
+                if (amount.ToPercentageOfRange(0, health) < 10)
+                    playerCameraAnimator.SetTrigger(shakeLightTrigger);
+                else
+                    playerCameraAnimator.SetTrigger(shakeHardTrigger);
+            }
         }
 
         private void OnDeath()

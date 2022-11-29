@@ -65,6 +65,14 @@ public class TutorialCrawler : MonoBehaviour
 
 
     [Header("Tutorial Success and Fails")]
+    public MonoBehaviour coroutineHandler;
+    public List<Renderer> renderers;
+    public float flashSpeed;
+    public string baseColorProperty;
+    public Color colorOnDisabled;
+    public Color colorOnWaiting;
+    public Color colorOnSuccess;
+    public Color colorOnFail;
     public List<TutorialPhaseAction> PhaseActions = new List<TutorialPhaseAction>();
 
     [System.Serializable]
@@ -124,6 +132,14 @@ public class TutorialCrawler : MonoBehaviour
         SetupTutorialFSM();
         
         NavAgent.isStopped = true;
+    }
+
+    private void Start()
+    {
+        if (renderers != null && renderers.Count > 0)
+        {
+            baseColor = renderers[0].material.GetColor(baseColorProperty);
+        }
     }
 
     protected virtual void FixedUpdate()
@@ -266,7 +282,7 @@ public class TutorialCrawler : MonoBehaviour
         #endregion
 
         #region MakeTransitions
-
+        
         StateConfigurer.Create(Idle)
             .SetTransition(EnemyState.RageBuildup_Player, RageBuildup_Player)
             .SetTransition(EnemyState.Dead, Dead)
@@ -290,6 +306,7 @@ public class TutorialCrawler : MonoBehaviour
             currentState = EnemyState.Idle;
             
             TrySetAnimationTrigger(idleAnimationTrigger, "idle",false, true);
+            
         };
         
         Idle.OnUpdate += () =>
@@ -629,6 +646,7 @@ public class TutorialCrawler : MonoBehaviour
     {
         Succeeded = true;
         PhaseActions.First(x => x.phase == currentPhase).onSuccess.Invoke();
+        Flash(colorOnSuccess, flashSpeed);
     }
 
     private bool readyToFail = true;
@@ -640,6 +658,17 @@ public class TutorialCrawler : MonoBehaviour
         PhaseActions.First(x => x.phase == currentPhase).failActions.First(x => x.name.ToLower() == failName.ToLower()).onFail.Invoke();
         readyToFail = false;
         Invoke(nameof(ResetFail), failingCD);
+        Flash(colorOnFail, flashSpeed);
+    }
+
+    public void DisabledColor()
+    {
+        ChangeColor(colorOnDisabled, flashSpeed);
+    }
+    
+    public void WaitingColor()
+    {
+        ChangeColor(colorOnWaiting, flashSpeed);
     }
 
     void ResetFail()
@@ -1121,6 +1150,65 @@ public class TutorialCrawler : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(LastAnimationTrigger))
             Animator.SetTrigger(LastAnimationTrigger);
+    }
+
+    private Coroutine flashCoroutine;
+    public void Flash(Color color, float speed)
+    {
+        if (flashCoroutine != null) return;
+        
+        flashCoroutine = coroutineHandler.StartCoroutine(FlashingCoroutine(color, speed));
+    }
+
+    Color gridColor
+    {
+        get
+        {
+            if (renderers == null || renderers.Count == 0)
+            {
+                throw new Exception("Could not find renderers");
+            }
+            else
+            {
+                return renderers[0].material.GetColor(baseColorProperty);
+            }
+        }
+        set
+        {
+            foreach (var r in renderers)
+            {
+                r.material.SetColor(baseColorProperty, value);
+            }
+        }
+    }
+    private Color baseColor;
+    private IEnumerator FlashingCoroutine(Color color, float speed)
+    {
+        yield return LerpToColor(color, speed);
+        
+        yield return LerpToColor(baseColor, speed);
+
+        flashCoroutine = null;
+    }
+
+    private Coroutine changeColorCoroutine;
+    public void ChangeColor(Color color, float speed)
+    {
+        if (changeColorCoroutine != null) return;
+
+        baseColor = color;
+        changeColorCoroutine = coroutineHandler.StartCoroutine(LerpToColor(color, speed));
+    }
+    
+    private IEnumerator LerpToColor(Color color, float speed)
+    {
+        while (gridColor != color)
+        {
+            gridColor = Color.Lerp(gridColor, color, speed * Time.deltaTime);
+            yield return null;
+        }
+        
+        changeColorCoroutine = null;
     }
 }
 

@@ -151,15 +151,18 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
+    - _BaseColorGrid: {r: 0, g: 1, b: 0.055754423, a: 1}
     - _Clouds_1_Color: {r: 0, g: 1, b: 0.1972687, a: 0}
-    - _Clouds_Color: {r: 0.45911944, g: 1, b: 0.56485546, a: 0}
+    - _Clouds_Color: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color0: {r: 0.14582503, g: 1, b: 0, a: 1}
+    - _ColorGrid: {r: 0, g: 1, b: 0.055754423, a: 1}
     - _ColorGrid_Big: {r: 0, g: 1, b: 0.055754423, a: 1}
-    - _ColorGrid_Little: {r: 0.0016648325, g: 0.084905684, b: 0, a: 0.24705882}
+    - _ColorGrid_Little: {r: 0.08627451, g: 0.08627451, b: 0.08627451, a: 0.24705882}
     - _Color_Grid: {r: 0, g: 1, b: 0.17099166, a: 0}
     - _Color_Grid_Big: {r: 0, g: 1, b: 0.18292975, a: 1}
     - _Color_Grid_Little: {r: 0, g: 1, b: 0.14799094, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FlashColor: {r: 1, g: 0.09661572, b: 0, a: 1}
     - _Pos: {r: 0.28, g: 2.105962, b: 5.7, a: 0}
   m_BuildTextureStacks: []
