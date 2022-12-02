@@ -53,8 +53,18 @@ public class FaceScanner : MonoBehaviour
 
     public void InvalidScan()
     {
+        if (scanning) return;
+
+        ableToStopScan = true;
+        scanning = true;
+        onStartScan.Invoke();
         ResetTriggers();
         anim.SetTrigger(accessDeniedTrigger);
+    }
+
+    public void FinishInvalidScan()
+    {
+        scanning = false;
     }
 
     void ResetTriggers()

@@ -8,6 +8,7 @@ using System.Collections;
 
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 namespace Game.Level.Doors
@@ -56,6 +57,10 @@ namespace Game.Level.Doors
 
         [SerializeField, Tooltip("Name of the animation trigger when door is door is locked but palyer try to interact.")]
         private string lockedAnimationTrigger;
+
+        [Header("Override")]
+        public bool overrideInteraction;
+        public UnityEvent OnInteractionOverride;
 
         private Animator animator;
 
@@ -127,10 +132,13 @@ namespace Game.Level.Doors
                 if (DoorKeysManager.HasKey(key))
                 {
                     key = "";
-                    Try.PlayOneShoot(transform, unlockSound, "unlock");
+                    if (!overrideInteraction)
+                    {
+                        Try.PlayOneShoot(transform, unlockSound, "unlock");
                         isInAnimation = true;
-                    if (!Try.SetAnimationTrigger(animator, unlockAnimationTrigger, "blocked"))
-                        FromUnlock();
+                        if (!Try.SetAnimationTrigger(animator, unlockAnimationTrigger, "blocked"))
+                            FromUnlock();
+                    }
                 }
                 else
                 {
@@ -140,7 +148,15 @@ namespace Game.Level.Doors
                 return;
             }
 
-            Switch();
+            if (overrideInteraction)
+            {
+                OnInteractionOverride.Invoke();
+            }
+            else
+            {
+                Switch();
+            }
+            
         }
 
         bool open = false;

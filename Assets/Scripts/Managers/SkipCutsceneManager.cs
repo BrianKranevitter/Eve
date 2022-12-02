@@ -12,7 +12,7 @@ public class SkipCutsceneManager : MonoBehaviour
     public KeyCode skipKey;
     
     [HideInInspector]
-    public SkippableCutscene currentCutscene;
+    public GenericUnityEvent currentCutscene;
 
     private Action onUpdate = delegate {  };
     private void Awake()
@@ -43,7 +43,7 @@ public class SkipCutsceneManager : MonoBehaviour
 
     public void SkipAction()
     {
-        currentCutscene.OnSkip.Invoke();
+        currentCutscene.OnEventTrigger.Invoke();
 
         UnloadSkippable();
     }
@@ -55,7 +55,7 @@ public class SkipCutsceneManager : MonoBehaviour
         SkipReveal.RevealTemporary();
     }
     
-    public void LoadSkippable(SkippableCutscene cutscene)
+    public void LoadSkippable(GenericUnityEvent cutscene)
     {
         currentCutscene = cutscene;
 

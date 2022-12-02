@@ -1,3 +1,4 @@
+using System.Collections;
 using Game.Enemies;
 using Game.Utility;
 
@@ -46,6 +47,7 @@ namespace Game.Player
         
         [SerializeField, Tooltip("Camera Animator")]
         private Animator playerCameraAnimator;
+        
 
         private HurtShaderController hurtShaderController;
 
@@ -61,6 +63,14 @@ namespace Game.Player
         
         private (int, float) lastValue;
 
+        [Header("Death")]
+        [SerializeField]
+        private GameObject alignmentCamera;
+        
+        [SerializeField]
+        private GameObject alignmentBody;
+        
+        
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
         private void Awake()
         {
@@ -118,5 +128,7 @@ namespace Game.Player
                 enemy.gameObject.SetActive(false);
             }
         }
+
+        
     }
 }

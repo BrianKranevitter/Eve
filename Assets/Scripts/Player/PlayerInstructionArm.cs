@@ -14,7 +14,7 @@ public class PlayerInstructionArm : MonoBehaviour
     public GameObject normalScreen;
     [HideInInspector]
     public bool active = false;
-    
+
     [Header("Bestiary")]
     public KeyCode bestiaryKey;
     public KeyCode bestiaryForwardsKey;
@@ -119,18 +119,28 @@ public class PlayerInstructionArm : MonoBehaviour
 
     public void ShowInfo()
     {
-        active = true;
-        anim.gameObject.SetActive(false);
-        anim.gameObject.SetActive(true);
+        PlayerArmsManager.i.InstructionArmAnim(delegate { active = true;
+            anim.gameObject.SetActive(false);
+            anim.gameObject.SetActive(true);
 
-        if (bestiaryActive)
-        {
-            HideBestiary();
-        }
+            if (bestiaryActive)
+            {
+                HideBestiary();
+            }
+            
+        });
+        
     }
+
 
     public void HideInfo()
     {
+        if (!active)
+        {
+            OnHideInfoAnimationEnd();
+            return;
+        }
+        
         active = false;
         anim.SetTrigger("Out");
         
@@ -138,6 +148,13 @@ public class PlayerInstructionArm : MonoBehaviour
         {
             HideBestiary();
         }
+    }
+
+    private Action hideInfoAction;
+    public void HideInfo(Action callback)
+    {
+        hideInfoAction = callback;
+        HideInfo();
     }
 
     public void UnlockBestiary()
@@ -186,5 +203,7 @@ public class PlayerInstructionArm : MonoBehaviour
     {
         anim.gameObject.SetActive(false);
         SetInfo(currentObjective);
+        hideInfoAction?.Invoke();
+        hideInfoAction = null;
     }
 }

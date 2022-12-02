@@ -18,7 +18,6 @@ public class KamLoopSound : MonoBehaviour
     private bool fadingOut;
     public void Play(AudioUnit audio)
     {
-	    Debug.Log("test");
 	    source.loop = audio.loopOnPlay;
         source.clip = audio.audioClip;
         source.priority = audio.priority;
