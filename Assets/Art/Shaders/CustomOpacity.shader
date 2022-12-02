@@ -153,7 +153,7 @@ Shader "CustomOpacity"
 }
 /*ASEBEGIN
 Version=18900
-972.6667;655.3334;991.3333;428.9999;711.5103;-427.964;1.595886;True;False
+1262;538;681.3334;397;1049.05;173.6674;3.695886;False;False
 Node;AmplifyShaderEditor.RangedFloatNode;8;-103.3074,853.3997;Inherit;False;Property;_Roughness_Value;Roughness_Value;5;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.SamplerNode;1;-194.2491,-166.2261;Inherit;True;Property;_Albedo;Albedo;0;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.RangedFloatNode;12;272.8032,879.7487;Inherit;False;Property;_Opacity_Value;Opacity_Value;8;0;Create;True;0;0;0;False;0;False;0;0;0;0;0;1;FLOAT;0
@@ -183,4 +183,4 @@ WireConnection;0;4;6;0
 WireConnection;0;5;10;0
 WireConnection;0;9;14;0
 ASEEND*/
-//CHKSM=60C2A2ED692B69A23C86D74B383906FD713EFAFE
+//CHKSM=88A042287FCE147F5C3CEF3B85213C0740F37495

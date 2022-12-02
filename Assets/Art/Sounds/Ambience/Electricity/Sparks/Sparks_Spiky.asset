@@ -16,8 +16,8 @@ MonoBehaviour:
   audioType: 0
   volume:
     isRandom: 1
-    a: 0.7
-    b: 1
+    a: 0.3
+    b: 0.5
   pitch:
     isRandom: 1
     a: 0.8
@@ -79,3 +79,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  loopOnPlay: 0
