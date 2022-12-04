@@ -1,0 +1,423 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8190104519812479563
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 556797029e73b2347956b6579e77e05b, type: 3}
+  m_Name: DepthOfField
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  focusDistance:
+    overrideState: 1
+    value: 2.45
+  aperture:
+    overrideState: 1
+    value: 32
+  focalLength:
+    overrideState: 1
+    value: 1
+  kernelSize:
+    overrideState: 1
+    value: 2
+--- !u!114 &-3867553186111234219
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e8921a30a1ad74780ee2fea4779490, type: 3}
+  m_Name: RumblePPSSettings
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  _Rumble_Frecuency:
+    overrideState: 1
+    value: 100
+  _Rumble_Aprerture_Natural:
+    overrideState: 1
+    value: 0
+  _Rumble_Aperture_Explosion:
+    overrideState: 1
+    value: 0
+--- !u!114 &-751792079833414389
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0189d21aec1f64f92a0c61bddea18b, type: 3}
+  m_Name: FatiguePPSSettings
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  _Blur_Intensity:
+    overrideState: 1
+    value: 0.125
+  _Beat_Speed:
+    overrideState: 1
+    value: 1
+  _Base:
+    overrideState: 1
+    value: 0.622
+  _Vignette:
+    overrideState: 1
+    value: {fileID: 2800000, guid: abe321fc6bc17714baf78abe93c16c10, type: 3}
+    defaultState: 1
+  _Vignete_Intensity:
+    overrideState: 1
+    value: 0.92
+  _GlobalIntensity:
+    overrideState: 1
+    value: 1
+  _ExplosionBlurIntensity:
+    overrideState: 1
+    value: 0
+  _BlackScreen_Value:
+    overrideState: 1
+    value: 1
+--- !u!114 &-560159490901889125
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98aa99c10fb71a249b2644f8eeb3646e, type: 3}
+  m_Name: NightVisionPPSSettings
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  _Color:
+    overrideState: 1
+    value: {r: 1, g: 1, b: 1, a: 0}
+  _Noise_Speed:
+    overrideState: 1
+    value: 0
+  _Noise_Scale:
+    overrideState: 1
+    value: {x: 80, y: 750, z: 0, w: 0}
+  _Remap_Min:
+    overrideState: 1
+    value: 0
+  _Remap_Max:
+    overrideState: 1
+    value: 1
+  _Noise_Strenght:
+    overrideState: 1
+    value: 0.56
+  _GrayscaleValue:
+    overrideState: 1
+    value: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
+  m_Name: PostProcessLevel
+  m_EditorClassIdentifier: 
+  settings:
+  - {fileID: 6637465096344861924}
+  - {fileID: -8190104519812479563}
+  - {fileID: 4619208868105466351}
+  - {fileID: 6734497218616550307}
+  - {fileID: -751792079833414389}
+  - {fileID: 4931628202272872140}
+  - {fileID: -3867553186111234219}
+  - {fileID: -560159490901889125}
+--- !u!114 &1857400334576139276
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0189d21aec1f64f92a0c61bddea18b, type: 3}
+  m_Name: FatiguePPSSettings
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  _Blur_Intensity:
+    overrideState: 1
+    value: 0.25
+  _Beat_Speed:
+    overrideState: 1
+    value: 0.8
+  _Base:
+    overrideState: 1
+    value: 0.4
+  _Vignette:
+    overrideState: 1
+    value: {fileID: 2800000, guid: abe321fc6bc17714baf78abe93c16c10, type: 3}
+    defaultState: 1
+  _Vignete_Intensity:
+    overrideState: 1
+    value: 0.7
+  _GlobalIntensity:
+    overrideState: 1
+    value: 0.5
+  _ExplosionBlurIntensity:
+    overrideState: 0
+    value: 0
+  _BlackScreen_Value:
+    overrideState: 0
+    value: 1
+--- !u!114 &4619208868105466351
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1cb7e9e120078f43bce4f0b1be547a7, type: 3}
+  m_Name: AmbientOcclusion
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  mode:
+    overrideState: 1
+    value: 1
+  intensity:
+    overrideState: 1
+    value: 0.64
+  color:
+    overrideState: 1
+    value: {r: 0, g: 0, b: 0, a: 1}
+  ambientOnly:
+    overrideState: 1
+    value: 0
+  noiseFilterTolerance:
+    overrideState: 1
+    value: 0
+  blurTolerance:
+    overrideState: 1
+    value: -4.6
+  upsampleTolerance:
+    overrideState: 1
+    value: -12
+  thicknessModifier:
+    overrideState: 1
+    value: 2.07
+  directLightingStrength:
+    overrideState: 1
+    value: 0
+  radius:
+    overrideState: 1
+    value: 0.25
+  quality:
+    overrideState: 1
+    value: 2
+--- !u!114 &4922802166564517072
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f93bd9ef0c6fff4194504f1231d9b2f, type: 3}
+  m_Name: HurtShaderPPSSettings
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  _BigSplats:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 472ee67df5611dd4eaf58adf89b1b2e1, type: 3}
+    defaultState: 1
+  _MidSplats:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 5c17d3d49f567a74d910a52db477fe40, type: 3}
+    defaultState: 1
+  _Splats3:
+    overrideState: 1
+    value: 0
+  _Splats2:
+    overrideState: 1
+    value: 0
+  _Splats1:
+    overrideState: 1
+    value: 0
+  _LargeSplats:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 02ac3e2439440a64db7b078584d87d4c, type: 3}
+    defaultState: 1
+  _Blood_Color:
+    overrideState: 1
+    value: {r: 1, g: 0, b: 0, a: 1}
+  _Screen_Center:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 7e34bb5a484960f498957f8b91cf3ed0, type: 3}
+    defaultState: 1
+--- !u!114 &4931628202272872140
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f93bd9ef0c6fff4194504f1231d9b2f, type: 3}
+  m_Name: HurtShaderPPSSettings
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  _BigSplats:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 472ee67df5611dd4eaf58adf89b1b2e1, type: 3}
+    defaultState: 1
+  _MidSplats:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 5c17d3d49f567a74d910a52db477fe40, type: 3}
+    defaultState: 1
+  _Splats3:
+    overrideState: 1
+    value: 0
+  _Splats2:
+    overrideState: 1
+    value: 0
+  _Splats1:
+    overrideState: 1
+    value: 0
+  _LargeSplats:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 02ac3e2439440a64db7b078584d87d4c, type: 3}
+    defaultState: 1
+  _Blood_Color:
+    overrideState: 1
+    value: {r: 1, g: 0, b: 0, a: 0}
+  _Screen_Center:
+    overrideState: 1
+    value: {fileID: 2800000, guid: 7e34bb5a484960f498957f8b91cf3ed0, type: 3}
+    defaultState: 1
+--- !u!114 &6637465096344861924
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a79b01ea5641d4aa6daa2e23605641, type: 3}
+  m_Name: Bloom
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  intensity:
+    overrideState: 1
+    value: 3
+  threshold:
+    overrideState: 1
+    value: 0.79
+  softKnee:
+    overrideState: 1
+    value: 0.5
+  clamp:
+    overrideState: 0
+    value: 65472
+  diffusion:
+    overrideState: 0
+    value: 7
+  anamorphicRatio:
+    overrideState: 0
+    value: 0.397
+  color:
+    overrideState: 0
+    value: {r: 1, g: 1, b: 1, a: 1}
+  fastMode:
+    overrideState: 0
+    value: 0
+  dirtTexture:
+    overrideState: 0
+    value: {fileID: 0}
+    defaultState: 1
+  dirtIntensity:
+    overrideState: 0
+    value: 0
+--- !u!114 &6734497218616550307
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  mode:
+    overrideState: 1
+    value: 0
+  color:
+    overrideState: 1
+    value: {r: 0.18867922, g: 0.06882637, b: 0.06882637, a: 1}
+  center:
+    overrideState: 1
+    value: {x: 0.5, y: 0.5}
+  intensity:
+    overrideState: 1
+    value: 0.775
+  smoothness:
+    overrideState: 1
+    value: 0.315
+  roundness:
+    overrideState: 1
+    value: 0.76
+  rounded:
+    overrideState: 1
+    value: 0
+  mask:
+    overrideState: 1
+    value: {fileID: 0}
+    defaultState: 1
+  opacity:
+    overrideState: 1
+    value: 1
