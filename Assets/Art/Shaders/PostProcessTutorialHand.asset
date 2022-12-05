@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc0189d21aec1f64f92a0c61bddea18b, type: 3}
   m_Name: FatiguePPSSettings
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
