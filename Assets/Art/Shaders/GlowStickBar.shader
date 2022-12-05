@@ -161,7 +161,7 @@ Shader "GlowStickBar"
 }
 /*ASEBEGIN
 Version=18900
-1103.333;560.6667;820.6666;269.6667;1754.776;1174.305;1.058895;False;False
+1105.333;818;818.6666;269.6667;1818.133;1174.482;1.058895;False;False
 Node;AmplifyShaderEditor.SamplerNode;1;-1770.693,-674.9946;Inherit;True;Property;_Albedo;Albedo;0;0;Create;True;0;0;0;False;0;False;-1;cc59aceb46254394bb1075a8c9581d15;cc59aceb46254394bb1075a8c9581d15;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.TextureCoordinatesNode;44;-1872.162,-1666.892;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.RegisterLocalVarNode;27;-1385.028,-557.2444;Inherit;False;OPACITY_Prev;-1;True;1;0;FLOAT;0;False;1;FLOAT;0
@@ -248,4 +248,4 @@ WireConnection;0;4;29;0
 WireConnection;0;5;25;0
 WireConnection;0;9;28;0
 ASEEND*/
-//CHKSM=F1259D6640B977D6980B62428FC1E58B2AD21A02
+//CHKSM=BCC577E361CB5329C1EED03A534E5BAE5E7F8C8B

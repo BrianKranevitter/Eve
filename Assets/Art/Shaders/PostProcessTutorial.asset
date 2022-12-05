@@ -24,7 +24,7 @@ MonoBehaviour:
     value: 30.1
   focalLength:
     overrideState: 1
-    value: 150
+    value: 1
   kernelSize:
     overrideState: 1
     value: 2
@@ -112,7 +112,7 @@ MonoBehaviour:
     value: 0
   colorFilter:
     overrideState: 1
-    value: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
+    value: {r: 1, g: 1, b: 1, a: 1}
   hueShift:
     overrideState: 1
     value: 0
