@@ -27187,6 +27187,7 @@ GameObject:
   - component: {fileID: 7811997447100314049}
   - component: {fileID: 3039817373194623110}
   - component: {fileID: 1231785394336470576}
+  - component: {fileID: 2346886303383557934}
   m_Layer: 17
   m_Name: Arms_ANIMATED
   m_TagString: Untagged
@@ -27194,6 +27195,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2346886303383557934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2346886303383557933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35a8dad59536fcf4e960f1d7c7497c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2528873402513318026
 GameObject:
   m_ObjectHideFlags: 0
