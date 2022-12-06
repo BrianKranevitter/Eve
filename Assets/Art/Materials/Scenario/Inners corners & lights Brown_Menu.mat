@@ -108,7 +108,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _Albedo_Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    - _Albedo_Tint: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 0}
     - _Emission_Color: {r: 0.92, g: 0.6698618, b: 0, a: 1}

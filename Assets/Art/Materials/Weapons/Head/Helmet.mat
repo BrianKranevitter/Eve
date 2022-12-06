@@ -131,10 +131,10 @@ Material:
     - _LowBatteryLerp: 0
     - _Metallic: 0
     - _Mode: 0
-    - _Normal_Scale: 0
+    - _Normal_Scale: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Roughness_Scale: 0
+    - _Roughness_Scale: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Splats1: 1
