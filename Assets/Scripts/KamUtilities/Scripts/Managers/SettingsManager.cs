@@ -45,4 +45,33 @@ public static class SettingsManager
 
         throw new Exception("Error finding float property \"" + name + "\".");
     }
+    
+    public static  float FindFloatByName_Default(string name)
+    {
+        switch (name)
+        {
+            case nameof(Saturation):
+                return -0.5f;
+            case nameof(Brightness):
+                return 0;
+            case nameof(Contrast):
+                return 0;
+            case nameof(Sharpness):
+                return 0;
+            
+            case nameof(MasterVolume):
+                return 1;
+            case nameof(SoundVolume):
+                return 1;
+            case nameof(VoiceVolume):
+                return 1;
+            case nameof(MusicVolume):
+                return 1;
+            
+            case nameof(mouseSensitivity):
+                return 1;
+        }
+
+        throw new Exception("Error finding float property \"" + name + "\".");
+    }
 }

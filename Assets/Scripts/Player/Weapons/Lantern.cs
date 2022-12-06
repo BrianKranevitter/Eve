@@ -317,7 +317,12 @@ namespace Game.Player.Weapons
                         if (PlayerArmsManager.FirstTimeOutOfBattery)
                         {
                             PlayerArmsManager.FirstTimeOutOfBattery = false;
-                            onFirstTimeOutOfBattery.Invoke();
+                            
+                            PlayerArmsManager.i.InstructionArmAnim(delegate
+                            {
+                                onFirstTimeOutOfBattery.Invoke();
+                            });
+                            
                         }
                         
                         Active = false;

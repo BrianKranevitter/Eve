@@ -1,3 +1,6 @@
+using System;
+using Name.Menu;
+using TMPro.SpriteAssetUtilities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +13,12 @@ namespace Game.Menu
 
         [SerializeField]
         private Animator animator;
+
+        private void Awake()
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
 
         public void Up()
         {

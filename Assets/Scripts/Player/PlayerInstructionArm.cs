@@ -115,6 +115,8 @@ public class PlayerInstructionArm : MonoBehaviour
     public void SetInfo(string info)
     {
         text.text = info;
+        
+        Debug.Log("Set info: " + info);
     }
 
     public void ShowInfo()
@@ -201,8 +203,8 @@ public class PlayerInstructionArm : MonoBehaviour
 
     public void OnHideInfoAnimationEnd()
     {
-        anim.gameObject.SetActive(false);
         SetInfo(currentObjective);
+        anim.gameObject.SetActive(false);
         hideInfoAction?.Invoke();
         hideInfoAction = null;
     }

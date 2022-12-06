@@ -14,7 +14,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake()
     {
-        Paused = menuRoot.activeSelf;
+        Paused = false;
     }
 
     public void TogglePauseMenu()

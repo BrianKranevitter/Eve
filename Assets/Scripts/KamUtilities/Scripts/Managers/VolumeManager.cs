@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Enderlook.Unity.Toolset.Attributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -19,6 +20,8 @@ public class VolumeManager : MonoBehaviour
     {
         public string name;
         public Slider slider;
+        public Utilities_DividedSlider dividedSlider;
+        
         public TextMeshProUGUI text;
     }
     
@@ -26,13 +29,17 @@ public class VolumeManager : MonoBehaviour
     {
         VolumeSetting setting = settings.First(x => x.name == volumeName);
 
-        if (setting.slider == null) return;
+        bool sliderNull = setting.slider == null;
+        bool dividedSliderNull = setting.dividedSlider == null;
+        if (sliderNull && dividedSliderNull) return;
         
-        masterMixer.SetFloat(setting.name, -80f + (80 * volumeCurve.Evaluate(setting.slider.value)));
+        float value = sliderNull ? setting.dividedSlider.CurrentValue : setting.slider.value;
+        
+        masterMixer.SetFloat(setting.name, -80f + (80 * volumeCurve.Evaluate(value)));
 
         if (setting.text != null)
         {
-            setting.text.text = Mathf.RoundToInt(setting.slider.value * 100) + "%";
+            setting.text.text = Mathf.RoundToInt(value * 100) + "%";
         }
     }
 
@@ -40,8 +47,9 @@ public class VolumeManager : MonoBehaviour
     {
         foreach (var setting in settings)
         {
-            PlayerPrefs.SetFloat(setting.name, setting.slider.value);
-            Debug.Log($"Saving {setting.name} as {setting.slider.value}");
+            float value = setting.slider == null ? setting.dividedSlider.CurrentValue : setting.slider.value;
+            PlayerPrefs.SetFloat(setting.name, value);
+            //Debug.Log("Saving Volume: " + $"{setting.name} = {value}");
         }
     }
     public void LoadVolume()
@@ -50,11 +58,22 @@ public class VolumeManager : MonoBehaviour
         {
             if(PlayerPrefs.HasKey(setting.name))
             {
-                setting.slider.value = PlayerPrefs.GetFloat(setting.name);
+                float value = PlayerPrefs.GetFloat(setting.name);
+                if (setting.dividedSlider != null)
+                {
+                    setting.dividedSlider.CurrentValue = value;
+                }
+
+                if (setting.slider != null)
+                {
+                    setting.slider.value = value;
+                }
+                
+                //Debug.Log("Loading Volume: " + $"{setting.name} = {value}");
             }
             else
             {
-                setting.slider.value = 1;
+                setting.slider.value = SettingsManager.FindFloatByName_Default(setting.name);
             }
             
             SetVolume(setting.name);
@@ -71,5 +90,22 @@ public class VolumeManager : MonoBehaviour
         LoadVolume();
         
         Debug.Log("LOAD VOLUME");
+    }
+
+    public void SetToDefaults()
+    {
+        foreach (var setting in settings)
+        {
+            float value = SettingsManager.FindFloatByName_Default(setting.name);
+            if (setting.slider != null)
+            {
+                setting.slider.value = value;
+            }
+            
+            if (setting.dividedSlider != null)
+            {
+                setting.dividedSlider.CurrentValue = value;
+            }
+        }
     }
 }

@@ -78,10 +78,18 @@ public class PlayerArmsManager : MonoBehaviour
     IEnumerator WaitingForLeftArm(Action callback)
     {
         bool waitingForHideInfo = true;
-        instructionArm.HideInfo(delegate
+
+        if (instructionArm.active)
+        {
+            instructionArm.HideInfo(delegate
+            {
+                waitingForHideInfo = false;
+            });
+        }
+        else
         {
             waitingForHideInfo = false;
-        });
+        }
 
         while (waitingForHideInfo || batteryFirstTimePickup.activeSelf || batteryRechargeArms.activeSelf)
         {
@@ -90,7 +98,7 @@ public class PlayerArmsManager : MonoBehaviour
         
         callback.Invoke();
     }
-    void CheckRightArm(Action callback)
+    public void CheckRightArm(Action callback)
     {
         StartCoroutine(WaitingForRightArm(callback));
     }
@@ -99,7 +107,7 @@ public class PlayerArmsManager : MonoBehaviour
         yield return null;
         callback.Invoke();
     }
-    void CheckBothArms(Action callback)
+    public void CheckBothArms(Action callback)
     {
         StartCoroutine(WaitingForBothArms(callback));
     }

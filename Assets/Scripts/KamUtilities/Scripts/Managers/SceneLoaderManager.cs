@@ -87,7 +87,6 @@ public class SceneLoaderManager : MonoBehaviour
     {
         LoadScene(Scenes.MainMenu);
     }
-
     public void LoadLastScene()
     {
         LoadScene(lastScene);
