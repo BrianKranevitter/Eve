@@ -388,14 +388,14 @@ AnimationClip:
   - time: 0.15
     functionName: PlayAudioOneShootBag
     data: 
-    objectReferenceParameter: {fileID: 11400000, guid: 5a1f52e56f848524ba37cc45a01fd017, type: 2}
+    objectReferenceParameter: {fileID: 11400000, guid: 5d05ecb64e9f97e48aa40b9aabbd6ef6, type: 2}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.43333334
     functionName: PlayAudioOneShootBag
     data: 
-    objectReferenceParameter: {fileID: 11400000, guid: 5a1f52e56f848524ba37cc45a01fd017, type: 2}
+    objectReferenceParameter: {fileID: 11400000, guid: 5d05ecb64e9f97e48aa40b9aabbd6ef6, type: 2}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

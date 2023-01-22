@@ -567,6 +567,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -270
       objectReference: {fileID: 0}
+    - target: {fileID: 6369751961401321401, guid: dba86636f24b12d418b94c5cf84ce9ac, type: 3}
+      propertyPath: openSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 8bac8cd6c258e86429615693b256ac82, type: 2}
+    - target: {fileID: 6369751961401321401, guid: dba86636f24b12d418b94c5cf84ce9ac, type: 3}
+      propertyPath: closeSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 7483ec57eb8ec3f4abca7fab156e9424, type: 2}
     - target: {fileID: 6632889890836552271, guid: dba86636f24b12d418b94c5cf84ce9ac, type: 3}
       propertyPath: m_Name
       value: Door_Inner Variant
