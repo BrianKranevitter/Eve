@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a02fff447c6ed84b943b1d05661d745, type: 3}
+  m_Name: TiledAsset_Decor_Saliva_Wall_BigStain
+  m_EditorClassIdentifier: 
+  nameString: Saliva Wall Stain
+  prefab: {fileID: 4723879885657258670, guid: 24cf61b185530f54181ccdcfb4fdb424, type: 3}
+  visual: {fileID: 8547853315740924134, guid: 24cf61b185530f54181ccdcfb4fdb424, type: 3}
+  optionalVisual: {fileID: 0}
+  width: 1
+  height: 1

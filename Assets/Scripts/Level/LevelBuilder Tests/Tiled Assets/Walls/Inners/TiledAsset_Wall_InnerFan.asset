@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a02fff447c6ed84b943b1d05661d745, type: 3}
+  m_Name: TiledAsset_Wall_InnerFan
+  m_EditorClassIdentifier: 
+  nameString: Inner Fan
+  prefab: {fileID: 7123978850281960107, guid: de1f13a5a193ced4a83d06f75f2dda3a, type: 3}
+  visual: {fileID: 6193559934662406371, guid: de1f13a5a193ced4a83d06f75f2dda3a, type: 3}
+  optionalVisual: {fileID: 0}
+  width: 6
+  height: 4

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a02fff447c6ed84b943b1d05661d745, type: 3}
+  m_Name: TiledAsset_Normal_4Triangles
+  m_EditorClassIdentifier: 
+  nameString: 4 Triangles
+  prefab: {fileID: 2108585779749316889, guid: 916f14f2f7489e447b12da3787f6d30b, type: 3}
+  visual: {fileID: 326712311865129647, guid: 916f14f2f7489e447b12da3787f6d30b, type: 3}
+  optionalVisual: {fileID: 0}
+  width: 1
+  height: 1

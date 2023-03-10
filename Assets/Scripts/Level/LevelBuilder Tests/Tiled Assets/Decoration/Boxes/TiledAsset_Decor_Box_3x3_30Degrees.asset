@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a02fff447c6ed84b943b1d05661d745, type: 3}
+  m_Name: TiledAsset_Decor_Box_3x3_30Degrees
+  m_EditorClassIdentifier: 
+  nameString: "Box 3x3 30\xB0"
+  prefab: {fileID: 2715592698382726304, guid: 04876720c00203648aee08d9a0a9275b, type: 3}
+  visual: {fileID: 4914758187889211248, guid: 04876720c00203648aee08d9a0a9275b, type: 3}
+  optionalVisual: {fileID: 0}
+  width: 3
+  height: 3

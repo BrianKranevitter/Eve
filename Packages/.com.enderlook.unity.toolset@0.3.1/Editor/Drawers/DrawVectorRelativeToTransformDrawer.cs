@@ -45,7 +45,7 @@ namespace Enderlook.Unity.Toolset.Drawers
             EditorGUI.EndProperty();
         }
 
-        static DrawVectorRelativeToTransformEditor() => SceneView.duringSceneGui += RenderSceneGUI;
+        //static DrawVectorRelativeToTransformEditor() => SceneView.duringSceneGui += RenderSceneGUI;
 
         private static Vector3 DrawHandle(Vector3 position, bool usePositionHandle)
         {

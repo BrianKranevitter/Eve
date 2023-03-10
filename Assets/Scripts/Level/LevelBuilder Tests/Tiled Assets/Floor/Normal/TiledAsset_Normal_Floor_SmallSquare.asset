@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a02fff447c6ed84b943b1d05661d745, type: 3}
+  m_Name: TiledAsset_Normal_Floor_SmallSquare
+  m_EditorClassIdentifier: 
+  nameString: Small Square (Normal)
+  prefab: {fileID: 4268091824872808264, guid: a1b24d3a378207b47abb362b47b4243d, type: 3}
+  visual: {fileID: 7075592796614854278, guid: a1b24d3a378207b47abb362b47b4243d, type: 3}
+  optionalVisual: {fileID: 0}
+  width: 1
+  height: 1

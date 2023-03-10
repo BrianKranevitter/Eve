@@ -47,6 +47,7 @@ namespace Enderlook.Unity.Toolset.Utils
         /// <returns>An enumerable with all the properties, fields, attributes and the editor where they were taken.</returns>
         public static IEnumerable<(SerializedProperty serializedProperty, FieldInfo field, T attribute, Editor editor)> FindAllSerializePropertiesInActiveEditorWithTheAttribute<T>(bool inherit = true) where T : Attribute
         {
+            
             foreach (Editor editor in ActiveEditorTracker.sharedTracker.activeEditors)
             {
                 SerializedProperty serializedProperty = editor.serializedObject.GetIterator();
@@ -72,6 +73,7 @@ namespace Enderlook.Unity.Toolset.Utils
                         yield return (serializedProperty, field, (T)attribute, editor);
                 }
             }
+            
         }
     }
 }

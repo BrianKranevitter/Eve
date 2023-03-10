@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace Kam.CustomInput
@@ -56,14 +57,16 @@ namespace Kam.Utils
         {
             return newMin + (original - originalMin) * (newMax - newMin) / (originalMax - originalMin);
         }
-        
-        public static List<T> ForAllNearby<T>(GameObject self, List<T> listOfObjects, float maxDistance, Action<T> action) where T : MonoBehaviour
+
+        public static List<T> ForAllNearby<T>(GameObject self, List<T> listOfObjects, float maxDistance,
+            Action<T> action) where T : MonoBehaviour
         {
             List<T> nearby = new List<T>();
 
             foreach (var obj in listOfObjects)
             {
-                if (obj.gameObject != self && Vector3.Distance(obj.transform.position, self.transform.position) < maxDistance)
+                if (obj.gameObject != self &&
+                    Vector3.Distance(obj.transform.position, self.transform.position) < maxDistance)
                 {
                     action(obj);
                     nearby.Add(obj);
@@ -72,12 +75,49 @@ namespace Kam.Utils
 
             return nearby;
         }
-        
+
         public static IEnumerator Delay(float time, Action action)
         {
             yield return new WaitForSeconds(time);
-        
+
             action.Invoke();
+        }
+
+        public static TextMeshPro CreateWorldText(string text, Transform parent = null,
+            Vector3 localPostiion = default(Vector3), float fontSize = 40, Color color = default(Color),
+            TextAnchor textAnchor = default(TextAnchor), TextAlignmentOptions textAlignment = default(TextAlignmentOptions),
+            int sortingOrder = 0)
+        {
+            GameObject obj = new GameObject("Text", typeof(TextMeshPro));
+            Transform transform = obj.transform;
+            transform.SetParent(parent, false);
+            transform.localPosition = localPostiion;
+            TextMeshPro txtMesh = obj.GetComponent<TextMeshPro>();
+            txtMesh.alignment = textAlignment;
+            txtMesh.text = text;
+            txtMesh.fontSize = fontSize;
+            txtMesh.color = color;
+            txtMesh.GetComponent<MeshRenderer>().sortingOrder = sortingOrder;
+            return txtMesh;
+        }
+        
+        public static Vector3 GetMouseWorldPos_WithZ(LayerMask mask)
+        {
+            return GetMouseWorldPos_WithZ(Camera.main, mask);
+        }
+
+        public static Vector3 GetMouseWorldPos_WithZ(Camera worldCamera, LayerMask mask)
+        {
+            Ray ray = worldCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit raycastHit, 9999f, mask))
+            {
+                return raycastHit.point;
+            }
+            else
+            {
+                return Vector3.zero;
+            }
+            
         }
     }
 

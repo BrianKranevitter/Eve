@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 namespace Game.Player
 {
-    [RequireComponent(typeof(HurtShaderController))]
     public sealed class PlayerBody : MonoBehaviour, IDamagable
     {
         private static PlayerBody player;
