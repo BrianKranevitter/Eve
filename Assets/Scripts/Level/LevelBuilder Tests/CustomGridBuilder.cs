@@ -16,6 +16,7 @@ public class CustomGridBuilder : MonoBehaviour
     public Transform placedObjectsParent;
     private PlaceableObjectSO selectedObject;
     private int selectedId = 0;
+
     public int SelectedId {
         get
         {

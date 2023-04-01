@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a02fff447c6ed84b943b1d05661d745, type: 3}
+  m_Name: TiledAsset_Wall_HighWindow
+  m_EditorClassIdentifier: 
+  nameString: High Window
+  prefab: {fileID: 8948520644130555443, guid: d83af363581010548ab04b738cd1aa3b, type: 3}
+  visual: {fileID: 8948520644130555445, guid: d83af363581010548ab04b738cd1aa3b, type: 3}
+  optionalVisual: {fileID: 0}
+  width: 6
+  height: 2

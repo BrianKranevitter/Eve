@@ -69,6 +69,8 @@ public class CustomGridBuilderManager : MonoBehaviour
                 {
                     button.onClick.Invoke(); 
                     lastSelected = button;
+                    
+                    scrollviewAutoscroll_Item.Select(button.GetComponent<RectTransform>());
                 });
             }
             #endregion
@@ -154,7 +156,8 @@ public class CustomGridBuilderManager : MonoBehaviour
     public TMP_Dropdown loadDropdown;
     public GameObject loadScreen;
     public ScrollViewAutoScroll_Horizontal scrollviewAutoscroll_Builder;
-
+    public ScrollViewAutoScroll_Horizontal scrollviewAutoscroll_Item;
+    
     public Action<PlaceableObjectSO> OnSelectedChanged = (selected) => {};
 
     private Vector2Int lastGridPosition;

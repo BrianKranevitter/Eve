@@ -92,9 +92,9 @@ public class ScrollViewAutoScroll_Vertical : MonoBehaviour
         _transitionHelper.TransitionPositionFromTo(posScrollFrom, posScrollTo, _transitionDuration);
     }
 
-    private VerticalLayoutGroup GetVerticalLayoutGroup()
+    private LayoutGroup GetVerticalLayoutGroup()
     {
-        VerticalLayoutGroup verticalLayoutGroup = _content.GetComponent<VerticalLayoutGroup>();
+        LayoutGroup verticalLayoutGroup = _content.GetComponent<LayoutGroup>();
         return verticalLayoutGroup;
     }
     private class TransitionHelper
