@@ -35,7 +35,13 @@ namespace Game.Player.Weapons
 
         [SerializeField, Min(0), Tooltip("Starting level of battery.")]
         private float durationStart;
-
+        
+        [SerializeField, Min(0)]
+        private float durationRecoverySpeed;
+        
+        [SerializeField, Min(0),Tooltip("The time that is subtracted from total time when turning on the flashlight, to not simply keep flickering it.")]
+        private float turnOnTimeCost;
+        
         [FormerlySerializedAs("interactionRange")] [Min(0), Tooltip("Minimum Range at which the light starts interacting with things, such as enemies, at CLOSE range.")]
         public float interactionRange_Close;
         
@@ -77,6 +83,9 @@ namespace Game.Player.Weapons
 
         [SerializeField, Tooltip("Sound played when turn off lantern.")]
         private AudioUnit turnOffSound;
+        
+        [SerializeField, Tooltip("Sound played when you are unable to turn on the flashlight.")]
+        private AudioUnit unableToTurnOnSound;
         
         [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Sound that will be played on low battery.")]
         private AudioUnit batteryLowLevelSound;
@@ -137,7 +146,7 @@ namespace Game.Player.Weapons
         private Material haloLightShader;
 
         private float currentDuration;
-        public int batteryAmount;
+        public int instaCoolDownBatteryAmount;
 
         private bool isInAnimation;
 
@@ -151,7 +160,7 @@ namespace Game.Player.Weapons
         {
             Close, Far, None
         }
-        
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
         private void Awake()
         {
@@ -212,11 +221,7 @@ namespace Game.Player.Weapons
 
             if (Input.GetKeyDown(lightKey))
             {
-                if (outOfBattery)
-                {
-                    Debug.Log("Active: " + Active);
-                }
-                if (!outOfBattery || batteryAmount > 0)
+                if (!outOfBattery /*|| batteryAmount > 0*/)
                 {
                     if (!Active)
                     {
@@ -226,6 +231,11 @@ namespace Game.Player.Weapons
                     {
                         SetOff();;
                     }
+                }
+                else
+                {
+                    Debug.Log("Out of battery");
+                    Try.PlayOneShoot(transform, unableToTurnOnSound, "Unable to turn on");
                 }
             }
             
@@ -248,9 +258,14 @@ namespace Game.Player.Weapons
 
             light.range = originalRange * animationRangeMultiplier;
             haloLightShader.SetFloat(haloLightOpacityFieldName, originalOpacity * animationOpacityMultiplier);
+
+            bool cond1 = light.intensity <= 0;
+            bool cond2 = light.range <= 0;
+            bool cond3 = light.spotAngle <= 0;
             
-            if (light.intensity <= 0 || light.range <= 0 || light.spotAngle <= 0)
+            if (cond1 || cond2 || cond3)
             {
+                Debug.Log($"1 - {cond1}; 2 - {cond2}; 3 - {cond3}");
                 ActiveLight = null;
                 light.enabled = false;
                 if (haloLightRenderer != null)
@@ -264,45 +279,44 @@ namespace Game.Player.Weapons
                     haloLightRenderer.enabled = true;
             }
 
-            float batteryPercent = Mathf.Max(currentDuration, 0) / duration;
-            if (batteryShader != null)
-            {
-                if (!string.IsNullOrEmpty(batteryPercentFieldName))
-                    batteryShader.SetFloat(batteryPercentFieldName, Mathf.Ceil(batteryPercent * 10f) / 10f);
-
-                if (!string.IsNullOrEmpty(batteryLowLevelFieldName))
+            #region BatteryShader
+                float batteryPercent = Mathf.Max(currentDuration, 0) / duration;
+                if (batteryShader != null)
                 {
-                    if (batteryPercent < (batteryLowLevelPercentThreshhold / 100))
-                    {
-                        float speedScale = 3;
-                        float sine = Mathf.Abs(Mathf.Sin((Time.time * speedScale)));
-                        batteryShader.SetFloat(batteryLowLevelFieldName, sine);
+                    if (!string.IsNullOrEmpty(batteryPercentFieldName))
+                        batteryShader.SetFloat(batteryPercentFieldName, batteryPercent);
 
-                        if (light.enabled && !outOfBattery)
+                    if (!string.IsNullOrEmpty(batteryLowLevelFieldName))
+                    {
+                        if (batteryPercent < (batteryLowLevelPercentThreshhold / 100))
                         {
-                            if (Math.Abs(sine - 1) < 0.1f && !playedSound)
+                            float speedScale = 3;
+                            float sine = Mathf.Abs(Mathf.Sin((Time.time * speedScale)));
+                            batteryShader.SetFloat(batteryLowLevelFieldName, sine);
+
+                            if (light.enabled && !outOfBattery)
                             {
-                                //play sound once.
-                                playedSound = true;
-                                KamAudioManager.instance.PlaySFX_AudioUnit(batteryLowLevelSound, transform.position);
-                            }
-                            else if(sine < 0.1f && playedSound)
-                            {
-                                playedSound = false;
+                                if (Math.Abs(sine - 1) < 0.1f && !playedSound)
+                                {
+                                    //play sound once.
+                                    playedSound = true;
+                                    KamAudioManager.instance.PlaySFX_AudioUnit(batteryLowLevelSound, transform.position);
+                                }
+                                else if(sine < 0.1f && playedSound)
+                                {
+                                    playedSound = false;
+                                }
                             }
                         }
+                        else
+                        {
+                            batteryShader.SetFloat(batteryLowLevelFieldName, 0);
+                        }
+                        
                     }
-                    else
-                    {
-                        batteryShader.SetFloat(batteryLowLevelFieldName, 0);
-                    }
-                    
+                        
                 }
-                    
-            }
-
-
-
+            #endregion
 
             if (light.enabled)
             {
@@ -326,12 +340,36 @@ namespace Game.Player.Weapons
                         }
                         
                         Active = false;
-                        if (!Try.SetAnimationTrigger(animator, outOfBatteryAnimationTrigger, "out of battery"))
+                        if (Try.SetAnimationTrigger(animator, outOfBatteryAnimationTrigger, "out of battery"))
+                        {
+                            
+                        }
+                        else
                         {
                             SetOffImmediately();
                         }
 
                         Try.PlayOneShoot(transform, outOfBatterySound, "out of battery");
+                    }
+                }
+                else
+                {
+                    
+                }
+            }
+            else
+            {
+                currentDuration += durationRecoverySpeed * Time.deltaTime;
+
+                if (currentDuration > duration)
+                {
+                    currentDuration = duration;
+                    if (outOfBattery)
+                    {
+                        outOfBattery = false;
+
+                        SetOffImmediately();
+                        Try.SetAnimationTrigger(animator, reloadAnimationTrigger, "turn on");
                     }
                 }
             }
@@ -401,6 +439,9 @@ namespace Game.Player.Weapons
             if (currentDuration <= 0)
                 return;
             
+            if (currentDuration < turnOnTimeCost)
+                return;
+                
             light.intensity = originalIntensity;
             light.range = originalRange;
             light.spotAngle = originalAngle;
@@ -410,18 +451,22 @@ namespace Game.Player.Weapons
             haloLightRenderer.enabled = true;
             
             Active = true;
+            
+            currentDuration -= turnOnTimeCost;
+            
+            Debug.Log("Test");
         }
 
         public void SetOn()
         {
             if (isInAnimation)
                 return;
-
+/*
             if (currentDuration <= 0)
             {
                 TryReload();
                 return;
-            }
+            }*/
 
             if (!Try.SetAnimationTrigger(animator, turnOnAnimationTrigger, "turn on"))
                 SetOnImmediately();
@@ -455,34 +500,60 @@ namespace Game.Player.Weapons
 
         public void TryReload()
         {
-            if (batteryAmount > 0)
+            if (currentDuration < duration)
             {
-                batteryAmount--;
-                isInAnimation = true;
-
-                PlayerArmsManager.i.RechargeBatteryAnim();
-                
-                /*Try.PlayOneShoot(transform, reloadSound, "reload");
-                if (!Try.SetAnimationTrigger(animator, reloadAnimationTrigger, "reload"))
+                if (instaCoolDownBatteryAmount > 0)
                 {
-                    FromReloadLantern();
-                }*/
+                    instaCoolDownBatteryAmount--;
+                    isInAnimation = true;
+                    
+                    PlayerArmsManager.i.InstantCooldownBatteryAnim();
+                
+                    /*Try.PlayOneShoot(transform, reloadSound, "reload");
+                    if (!Try.SetAnimationTrigger(animator, reloadAnimationTrigger, "reload"))
+                    {
+                        FromReloadLantern();
+                    }*/
+                }
             }
         }
 
-        public void PickupBattery()
+        public void PickupBattery(BatteryPickup battery)
         {
             PlayerArmsManager.i.FirstTimeBatteryPickupAnim();
-            batteryAmount++;
+
+            switch (battery.batteryType)
+            {
+                case BatteryPickup.BatteryType.InstantCooldown:
+                    instaCoolDownBatteryAmount++;
+                    break;
+                
+                case BatteryPickup.BatteryType.FasterCooldown:
+                    durationRecoverySpeed += battery.addedRecoverySpeed;
+                    break;
+
+                case BatteryPickup.BatteryType.MoreHeat:
+                    duration += battery.addedDuration;
+                    break;
+                
+                case BatteryPickup.BatteryType.LessTurnOnCost:
+                    turnOnTimeCost -= battery.subtractedTurnOnCost;
+                    break;
+            }
         }
 
         public void FromReloadLantern()
         {
             isInAnimation = false;
+            currentDuration = duration;
+            SetOnImmediately();
             animator.ResetTrigger("TurnOff");
             currentDuration = duration;
             outOfBattery = false;
-            SetOnImmediately();
+
+
+            animationOpacityMultiplier = 1;
+            animationRangeMultiplier = 1;
         }
     }
 }

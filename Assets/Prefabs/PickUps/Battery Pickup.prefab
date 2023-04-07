@@ -211,11 +211,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a71c7f7386caa404c93e46416ab5a660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammunitionName: Battery
-  amountRestored: 1
   audioOnPickup: {fileID: 11400000, guid: bb808a6b79062ec4da65d29276217230, type: 2}
-  audioWhenFull: {fileID: 11400000, guid: d0934d1b5e20e5d4180a59410514c274, type: 2}
-  audioWhenFullCooldown: 2
+  batteryType: 1
+  addedRecoverySpeed: 0
+  addedDuration: 0
+  subtractedTurnOnCost: 0
 --- !u!114 &3025069360279511163
 MonoBehaviour:
   m_ObjectHideFlags: 0

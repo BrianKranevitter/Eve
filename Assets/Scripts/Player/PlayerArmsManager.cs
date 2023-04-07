@@ -33,7 +33,7 @@ public class PlayerArmsManager : MonoBehaviour
         CheckLeftArm(callback);
     }
 
-    public void RechargeBatteryAnim()
+    public void InstantCooldownBatteryAnim()
     {
         CheckBothArms(delegate { 
             headArm.SetActive(false);

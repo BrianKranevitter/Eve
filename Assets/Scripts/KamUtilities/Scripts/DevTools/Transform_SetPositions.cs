@@ -17,6 +17,7 @@ public class Transform_SetPositions : MonoBehaviour
 
     public List<Position> positions = new List<Position>();
     public KeyCode movePositionKey;
+    
     private int current = 0;
     private void Update()
     {
