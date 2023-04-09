@@ -53,14 +53,15 @@ public class CustomPlacedObject : MonoBehaviour
     public SaveObject GetSaveObject()
     {
         AssetDatabase.TryGetGUIDAndLocalFileIdentifier(placeableObjectSO.GetInstanceID(), out string guid, out long _);
-        return new SaveObject()
-        {
-            origin = origin,
-            soName = placeableObjectSO.name,
-            soGuid = guid,
-            dir = dir,
-            worldPos = transform.position
-        };
+         return new SaveObject()
+         {
+             origin = origin,
+             soName = placeableObjectSO.name,
+             soGuid = guid,
+             dir = dir,
+             worldPos = transform.position
+         };
+        
     }
 
     public void LoadSaveObject(SaveObject savedObj)
