@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6788133040458343558}
   - component: {fileID: 3703448170284667276}
   - component: {fileID: 119700490397466617}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ChairLegs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,12 +140,12 @@ GameObject:
   - component: {fileID: 8237972568791903742}
   - component: {fileID: 8392617319614913305}
   - component: {fileID: 1072120041281193577}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &1056296354741412979
 Transform:

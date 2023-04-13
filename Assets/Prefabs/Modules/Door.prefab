@@ -69,6 +69,10 @@ MonoBehaviour:
   blockeSideSound: {fileID: 0}
   unlockAnimationTrigger: 
   lockedAnimationTrigger: NeedKey
+  overrideInteraction: 0
+  OnInteractionOverride:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &6675491786944384341
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -189,8 +193,8 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.533022, y: 0.02458881, z: 1.33773}
   m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
   m_Center: {x: 0.5330219, y: 0.0000002384186, z: 1.33773}
   m_TimeToStationary: 0.5
 --- !u!1 &1817242317292835801
@@ -309,8 +313,8 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.533022, y: 0.02458881, z: 1.33773}
   m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
   m_Center: {x: -0.5330219, y: 0.0000002384186, z: 1.33773}
   m_TimeToStationary: 0.5
 --- !u!1 &3966368243333324403

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Kam.Utils;
@@ -11,6 +12,13 @@ public class PlayerInteractByLooking : MonoBehaviour
     public LayerMask mask;
 
     private PlayerTriggerByLook last;
+
+    private bool drawgizmos = false;
+    private void Awake()
+    {
+        drawgizmos = true;
+    }
+
     void Update()
     {
         if (PauseMenu.Paused) return;
@@ -20,6 +28,7 @@ public class PlayerInteractByLooking : MonoBehaviour
         {
             if (hitInfo.transform.TryGetComponent(out PlayerTriggerByLook interactable))
             {
+                Debug.Log("Got component");
                 if (last != interactable)
                 {
                     last = interactable;
@@ -29,12 +38,33 @@ public class PlayerInteractByLooking : MonoBehaviour
             }
             else
             {
+                Debug.Log("No component");
+                last = null;
                 StopAllCoroutines();
             }
         }
         else
         {
+            last = null;
             StopAllCoroutines();
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (!drawgizmos) return;
+        
+        Gizmos.color = Color.blue;
+        Ray ray = cam.ViewportPointToRay(new Vector3(.5f, .5f));
+        Physics.Raycast(cam.transform.position, ray.direction, out RaycastHit hitInfo, range, mask);
+        Vector3 pointA = cam.transform.position;
+        Vector3 pointB = hitInfo.point == Vector3.zero ? ray.GetPoint(range) : hitInfo.point;
+        Gizmos.DrawLine(pointA, pointB);
+        
+        Gizmos.color = Color.cyan;;
+        Gizmos.DrawSphere(pointA, 0.1f);
+        
+        Gizmos.color = Color.red;;
+        Gizmos.DrawSphere(pointB, 0.1f);
     }
 }

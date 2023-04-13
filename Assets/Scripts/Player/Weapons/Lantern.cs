@@ -265,7 +265,6 @@ namespace Game.Player.Weapons
             
             if (cond1 || cond2 || cond3)
             {
-                Debug.Log($"1 - {cond1}; 2 - {cond2}; 3 - {cond3}");
                 ActiveLight = null;
                 light.enabled = false;
                 if (haloLightRenderer != null)

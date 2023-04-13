@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Game.Player
 {
-    [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(PlayerStamina))]
+    [RequireComponent(typeof(PlayerStamina))]
     public sealed class PlayerController : MonoBehaviour
     {
         [Header("Configuration")]
@@ -11,10 +13,10 @@ namespace Game.Player
         private bool activated = true;
         
         [SerializeField, Min(1), Tooltip("Determines the walking speed of the player.")]
-        private float walkingSpeed = 15;
+        public float walkingSpeed = 15;
 
         [SerializeField, Min(1), Tooltip("Determines the walking acceleration of the player.")]
-        private float walkingAcceleration = 25;
+        public float walkingAcceleration = 25;
 
         [SerializeField, Tooltip("Key used to run.")]
         private KeyCode runKey;
@@ -39,7 +41,7 @@ namespace Game.Player
 
         [Header("Setup")]
         [SerializeField, Tooltip("Transform used to rotate head (and camera).")]
-        private Transform head;
+        public Transform head;
 
         [SerializeField, Tooltip("Transform used to detect floor.")]
         private Transform feet;
@@ -76,23 +78,36 @@ namespace Game.Player
             //targetRotation = currentRotation = new Vector2(head.transform.localEulerAngles.x, -rigidbody.rotation.eulerAngles.y);
             //rigidbody.rotation = Quaternion.AngleAxis(currentRotation.y, Vector3.up);
             //head.transform.localRotation = Quaternion.AngleAxis(currentRotation.x, Vector3.left);
-            
-            
+
+            lastPos = NavAgent.transform.position;
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
         private void Update()
         {
-            if (PauseMenu.Paused || !activated)
+            if (PauseMenu.Paused)
             {
                 bodyAnimator.SetFloat("PlayerSpeed", 0);
                 return;
             }
+
+            if (!activated)
+            {
+                bodyAnimator.SetFloat("PlayerSpeed", 0);
+                return;
+            }
+            else
+            {
+                
+            }
             
             if (PlayerBody.IsAlive)
             {
-                bodyAnimator.SetFloat("PlayerSpeed", rigidbody.velocity.magnitude);
-
+                //bodyAnimator.SetFloat("PlayerSpeed", rigidbody.velocity.magnitude);
+                //bodyAnimator.SetFloat("PlayerSpeed", NavAgent.velocity.magnitude);
+                bodyAnimator.SetFloat("PlayerSpeed", currentVelocity);
+                lastPos = NavAgent.transform.position;
+                
                 if (Physics.OverlapSphereNonAlloc(feet.position, feetCheckRadius, collider, walkableLayers) > 0)
                 {
                     Vector3 axis = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -105,11 +120,16 @@ namespace Game.Player
                     {
                         IsMoving = true;
                         if (Input.GetKey(runKey) && stamina.TryRun())
-                            Move(runningSpeed, runningAcceleration, axis);
+                        {
+                            //Move(runningSpeed, runningAcceleration, axis);
+                            MoveNavMesh(runningSpeed, runningAcceleration, axis);
+                        }
+                            
                         else
                         {
                             stamina.Walk();
-                            Move(walkingSpeed, walkingAcceleration, axis);
+                            //Move(walkingSpeed, walkingAcceleration, axis);
+                            MoveNavMesh(walkingSpeed, walkingAcceleration, axis);
                         }
                     }
                 }
@@ -118,6 +138,8 @@ namespace Game.Player
                     IsMoving = false;
                     stamina.Rest();
                 }
+                
+                currentVelocity = Vector3.Distance(new Vector3(lastPos.x, 0, lastPos.z), new Vector3(NavAgent.transform.position.x, 0, NavAgent.transform.position.z)) / Time.deltaTime;
             }
 
             Rotate();
@@ -140,6 +162,32 @@ namespace Game.Player
 
             rigidbody.velocity = Vector3.MoveTowards(rigidbody.velocity, targetSpeed, acceleration * Time.deltaTime);
         }
+
+        [Header("NavMesh")]
+        public NavMeshAgent NavAgent;
+
+        private Vector3 lastPos;
+        private float currentVelocity;
+        private void MoveNavMesh(float speed, float acceleration, Vector3 axis)
+        {
+            //NavAgent.speed = speed;
+            //NavAgent.acceleration = acceleration;
+
+            Vector3 movement = (transform.TransformDirection(axis.normalized) * Time.deltaTime * speed);
+            //Vector3 movement = transform.TransformDirection(axis.normalized);
+            Vector3 destination = feet.position + movement;
+
+            bool isValid = NavMesh.SamplePosition(destination, out NavMeshHit hit, .5f, NavMesh.AllAreas);
+            if (isValid)
+            {
+                float yPos = hit.position.y + Math.Abs(feet.position.y - transform.position.y);
+                transform.position = new Vector3(hit.position.x, yPos , hit.position.z);
+            }
+            else
+            {
+            }
+        }
+        
 
         private Quaternion bodyRotationBase;
         private Quaternion headRotationBase;

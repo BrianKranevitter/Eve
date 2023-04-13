@@ -77,6 +77,11 @@ public class Utilities_DividedSlider : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        
+    }
+
     public void DeletePlayerPref()
     {
         PlayerPrefs.DeleteKey(propertyName);

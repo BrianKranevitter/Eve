@@ -1,116 +1,110 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Player;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 public class PlayerAlignment : MonoBehaviour
 {
-    public GameObject player;
+    public PlayerController player;
     public GameObject playerHead;
     public GameObject playerBody;
     
     public GameObject head;
     public GameObject body;
+    public Animator bodyAnimator;
     public float speed;
     public float lerpThreshhold = 0.001f;
-    
-    private GameObject targetHead;
-    private GameObject targetBody;
-    private GenericUnityEvent onFinish;
 
-    public void SetTargetBody(GameObject body)
-    {
-        targetBody = body;
-    }
-
-    public void SetTargetCamera(GameObject camera)
-    {
-        targetHead = camera;
-    }
+    public NavMeshAgent NavAgent;
     
-    public void SetOnFinish(GenericUnityEvent script)
-    {
-        onFinish = script;
-    }
-    
-    public void Align()
-    {
-        Align(targetBody.transform, targetHead.transform, speed, onFinish.OnEventTrigger.Invoke);
-    }
-
     private Coroutine aligning = null;
-    public void Align(Transform targetCamera, Transform targetBody, float alignmentSpeed, Action callback = null)
+
+    public void Align(PlayerAlignmentSetup setup)
     {
+        AlignNavmesh(setup.targetFeet, setup.objToLookAtWhileAligning, setup.targetHead, setup.onFinished);
+    }
+
+    private void AlignNavmesh(Transform targetFeet, Transform objToLookAtWhileAligning, Transform targetHead, UnityEvent onAligned)
+    {
+        player.gameObject.SetActive(false);
+        head.SetActive(true);
+        body.SetActive(true);
+        
+        
+        transform.position = playerBody.transform.position;
+        transform.rotation = playerBody.transform.rotation;
+    
+        head.transform.position = playerHead.transform.position;
+        head.transform.rotation = playerHead.transform.rotation;
+        
+        
+
+        NavAgent.enabled = true;
+        NavAgent.speed = player.walkingSpeed;
+        NavAgent.acceleration = player.walkingAcceleration;
+            
+            
+        NavAgent.SetDestination(targetFeet.position);
+
         if (aligning != null)
         {
             StopCoroutine(aligning);
         }
 
-        aligning = StartCoroutine(AlignCoroutine(head.transform, body.transform, targetCamera, targetBody, alignmentSpeed,
-            delegate { callback?.Invoke(); aligning = null; }));
+        aligning = StartCoroutine(WaitingForAlignment(onAligned, objToLookAtWhileAligning, targetHead));
     }
-        
-    private IEnumerator AlignCoroutine(Transform currentCamera, Transform currentBody, Transform targetCamera, Transform targetBody, float alignmentSpeed, Action callback = null)
-    {
-        player.SetActive(false);
-        head.SetActive(true);
-        body.SetActive(true);
-        
-        InstaAlign(playerBody.transform, playerHead.transform);
-        
-        while (currentCamera.eulerAngles != targetCamera.eulerAngles || currentCamera.position != targetCamera.position || 
-               currentBody.eulerAngles != targetBody.eulerAngles  || currentBody.position != targetBody.position)
-        {
-            Debug.Log("test");
-            currentCamera.eulerAngles = Vector3.Lerp(currentCamera.eulerAngles, targetCamera.eulerAngles, alignmentSpeed * Time.deltaTime);
-            if (Vector3.Distance(currentCamera.eulerAngles, targetCamera.eulerAngles) < lerpThreshhold)
-            {
-                currentCamera.eulerAngles = targetCamera.eulerAngles;
-            }
-            
-            currentCamera.position = Vector3.Lerp(currentCamera.position, targetCamera.position, alignmentSpeed * Time.deltaTime);
-            if (Vector3.Distance(currentCamera.position, targetCamera.position) < lerpThreshhold)
-            {
-                currentCamera.position = targetCamera.position;
-            }
-            
-            currentBody.eulerAngles = Vector3.Lerp(currentBody.eulerAngles, targetBody.eulerAngles, alignmentSpeed * Time.deltaTime);
-            if (Vector3.Distance(currentBody.eulerAngles, targetBody.eulerAngles) < lerpThreshhold)
-            {
-                currentBody.eulerAngles = targetBody.eulerAngles;
-            }
-            
-            currentBody.position = Vector3.Lerp(currentBody.position, targetBody.position, alignmentSpeed * Time.deltaTime);
-            if (Vector3.Distance(currentBody.position, targetBody.position) < lerpThreshhold)
-            {
-                currentBody.position = targetBody.position;
-            }
 
+    IEnumerator WaitingForAlignment(UnityEvent onAligned, Transform objToLookAtWhileAligning, Transform targetHead)
+    {
+        while (!(!NavAgent.pathPending && NavAgent.remainingDistance <= NavAgent.stoppingDistance && (!NavAgent.hasPath || NavAgent.velocity.sqrMagnitude == 0f)))
+        {
+            //Walking towards destination
+            bodyAnimator.SetFloat("PlayerSpeed", NavAgent.velocity.magnitude);
+                
+            head.transform.LookAt(objToLookAtWhileAligning);
             yield return null;
         }
-        
+
+
+        while (Vector3.Distance(head.transform.eulerAngles, targetHead.eulerAngles) > lerpThreshhold)
+        {
+            head.transform.eulerAngles = Vector3.Lerp(head.transform.eulerAngles, targetHead.eulerAngles, speed * Time.deltaTime);
+            yield return null;
+        }
+            
+        head.transform.eulerAngles = targetHead.eulerAngles;
+
+        //Arrived
         head.SetActive(false);
         body.SetActive(false);
-        callback?.Invoke();
-    }
+        
+        onAligned.Invoke();
+        
+        NavAgent.enabled = false;
 
+        aligning = null;
+    }
     
-    public void InstaAlign(Transform targetBody, Transform targetCamera)
+    public void InstaAlign(PlayerAlignmentSetup setup)
     {
-        InstaAlignBody(targetBody);
-        InstaAlignCamera(targetCamera);
+        InstaAlignBody(setup.targetBody);
+        InstaAlignCamera(setup.targetHead);
+        
+        setup.onFinished.Invoke();
     }
     
     public void InstaAlignBody(Transform target)
     {
-        body.transform.position = target.position;
-        body.transform.rotation = target.rotation;
+        player.transform.position = target.position;
+        player.transform.rotation = target.rotation;
     }
     
     public void InstaAlignCamera(Transform target)
     {
-        head.transform.position = target.position;
-        head.transform.rotation = target.rotation;
+        player.head.transform.position = target.position;
+        player.head.transform.rotation = target.rotation;
     }
 }
