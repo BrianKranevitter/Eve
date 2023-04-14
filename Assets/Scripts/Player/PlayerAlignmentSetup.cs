@@ -12,4 +12,9 @@ public class PlayerAlignmentSetup : MonoBehaviour
     
     public Transform objToLookAtWhileAligning;
     public UnityEvent onFinished;
+    
+    public void OnFinished()
+    {
+        onFinished.Invoke();
+    }
 }

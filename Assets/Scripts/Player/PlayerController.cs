@@ -177,7 +177,7 @@ namespace Game.Player
             //Vector3 movement = transform.TransformDirection(axis.normalized);
             Vector3 destination = feet.position + movement;
 
-            bool isValid = NavMesh.SamplePosition(destination, out NavMeshHit hit, .5f, NavMesh.AllAreas);
+            bool isValid = NavMesh.SamplePosition(destination, out NavMeshHit hit, .3f, NavMesh.AllAreas);
             if (isValid)
             {
                 float yPos = hit.position.y + Math.Abs(feet.position.y - transform.position.y);
