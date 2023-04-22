@@ -118,7 +118,7 @@ Material:
     m_Floats:
     - _BatteryLevel_HegithLimit: -0.899
     - _BatteryLevel_LowLimit: 0.066
-    - _Battery_Level: 0.4
+    - _Battery_Level: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1

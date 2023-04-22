@@ -28,6 +28,8 @@ public class GenericPickup : MonoBehaviour, IPickup, IInteractable
     {
         onPickup.Invoke();
         Destroy(gameObject);
+
+        Try.PlayOneShoot(transform.position, audioOnPickup, "Pickup");
     }
 
     void IInteractable.Highlight() => outline.Highlight();

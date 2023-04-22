@@ -18,6 +18,8 @@ namespace Game.Level.Doors
     {
         private static readonly WaitForFixedUpdate wait = new WaitForFixedUpdate();
 
+        private float colorCheckRefreshTime = 2f;
+        private float currentColorCheckRefreshTime = 0f;
         [Header("Configuration")]
         [SerializeField, Range(0, 1), Tooltip("Determines the percent of door that is open or closed per second.")]
         private float doorSpeed;
@@ -34,6 +36,8 @@ namespace Game.Level.Doors
         [Header("Setup")]
         [SerializeField, Tooltip("Doors to interact.")]
         private SubDoor[] doors;
+        
+        public Animator colorAnimator;
 
         [Header("Sounds")]
         [SerializeField, Tooltip("Sound played when door is opening.")]
@@ -62,8 +66,8 @@ namespace Game.Level.Doors
         public bool overrideInteraction;
         public UnityEvent OnInteractionOverride;
 
-        private Animator animator;
 
+        private Animator animator;
         private State state;
         private bool isInAnimation;
 
@@ -78,7 +82,8 @@ namespace Game.Level.Doors
         {
             None = default,
             Back,
-            Front
+            Front,
+            FullLock
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
@@ -94,10 +99,71 @@ namespace Game.Level.Doors
 
             animator = GetComponent<Animator>();
         }
+        private void Start()
+        {
+            UpdateLockColor();
+        }
 
+        private void Update()
+        {
+            currentColorCheckRefreshTime -= Time.deltaTime;
+
+            if (currentColorCheckRefreshTime < 0)
+            {
+                currentColorCheckRefreshTime = colorCheckRefreshTime;
+                UpdateLockColor();
+            }
+        }
+
+        void UpdateLockColor()
+        {
+            if (colorAnimator == null) return;
+            
+            switch (locking)
+            {
+                case Locking.Front:
+                case Locking.Back:
+                    Vector3 toPlayer = (PlayerBody.Player.transform.position - transform.position).normalized;
+                    float dot = Vector3.Dot(toPlayer, transform.forward);
+                    if (dot > 0)
+                    {
+                        if (locking == Locking.Front)
+                        {
+                            colorAnimator.SetBool("Locked", true);
+                        }
+                        else
+                        {
+                            colorAnimator.SetBool("Locked", false);
+                        }
+                    }
+                    else
+                    {
+                        if (dot == 0 || locking == Locking.Back)
+                        {
+                            colorAnimator.SetBool("Locked", true);
+                        }
+                        else
+                        {
+                            colorAnimator.SetBool("Locked", false);
+                        }
+                    }
+                    break;
+                
+                case Locking.FullLock:
+                    colorAnimator.SetBool("Locked", true);
+                    break;
+                
+                case Locking.None:
+                    colorAnimator.SetBool("Locked", false);
+                    break;
+            }
+        }
         public void Interact()
         {
             if (isInAnimation)
+                return;
+
+            if (locking == Locking.FullLock)
                 return;
 
             if (locking != Locking.None)
@@ -202,19 +268,27 @@ namespace Game.Level.Doors
             StartCoroutine(Work());
         }
 
+        public void FullLock()
+        {
+            locking = Locking.FullLock;
+            UpdateLockColor();
+        }
         public void LockFront()
         {
             locking = Locking.Front;
+            UpdateLockColor();
         }
         
         public void LockBack()
         {
             locking = Locking.Back;
+            UpdateLockColor();
         }
         
         public void Unlock()
         {
             locking = Locking.None;
+            UpdateLockColor();
         }
 
         IEnumerator Work()

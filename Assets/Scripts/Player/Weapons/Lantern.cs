@@ -87,35 +87,35 @@ namespace Game.Player.Weapons
         [SerializeField, Tooltip("Sound played when you are unable to turn on the flashlight.")]
         private AudioUnit unableToTurnOnSound;
         
-        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Sound that will be played on low battery.")]
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(List<Renderer>), null, false), Tooltip("Sound that will be played on low battery.")]
         private AudioUnit batteryLowLevelSound;
 
         [Header("Shader")]
         [SerializeField, Tooltip("Object with the material that presents lantern feedback.")]
-        private Renderer objectWithLanternRenderer;
+        public List<Renderer> objectWithLanternRenderer;
 
-        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery percent.")]
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(List<Renderer>), null, false), Tooltip("Field of the shader used to set battery percent.")]
         private string batteryPercentFieldName;
         
-        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery color.")]
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(List<Renderer>), null, false), Tooltip("Field of the shader used to set battery color.")]
         private string batteryColorFieldName;
         
         [Range(0,100)]
-        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Threshhold of batteryLevel used to set low battery.")]
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(List<Renderer>), null, false), Tooltip("Threshhold of batteryLevel used to set low battery.")]
         private float batteryLowLevelPercentThreshhold;
         
-        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery low level.")]
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(List<Renderer>), null, false), Tooltip("Field of the shader used to set battery low level.")]
         private string batteryLowLevelFieldName;
         
         
 
         private bool playedSound = false;
         
-        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery percent.")]
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(List<Renderer>), null, false), Tooltip("Field of the shader used to set battery percent.")]
         private Color batteryWhiteColor;
-        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery percent.")]
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(List<Renderer>), null, false), Tooltip("Field of the shader used to set battery percent.")]
         private Color batteryRedColor;
-        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(Renderer), null, false), Tooltip("Field of the shader used to set battery percent.")]
+        [SerializeField, ShowIf(nameof(objectWithLanternRenderer), typeof(List<Renderer>), null, false), Tooltip("Field of the shader used to set battery percent.")]
         private Color batteryBlueColor;
         
 
@@ -141,8 +141,7 @@ namespace Game.Player.Weapons
         public float animationOpacityMultiplier;
         public float animationRangeMultiplier;
         private bool outOfBattery = false;
-
-        private Material batteryShader;
+        
         private Material haloLightShader;
 
         private float currentDuration;
@@ -175,15 +174,6 @@ namespace Game.Player.Weapons
             originalAngle = light.spotAngle;
 
             currentDuration = durationStart;
-
-            if (objectWithLanternRenderer != null)
-            {
-                batteryShader = objectWithLanternRenderer.material;
-                if (batteryShader == null)
-                    Debug.LogWarning("Object with lantern doesn't have material.");
-                else if (string.IsNullOrEmpty(batteryPercentFieldName))
-                    Debug.LogWarning("Missing batery percent opacity field name.");
-            }
 
             if (haloLightRenderer != null)
             {
@@ -278,44 +268,7 @@ namespace Game.Player.Weapons
                     haloLightRenderer.enabled = true;
             }
 
-            #region BatteryShader
-                float batteryPercent = Mathf.Max(currentDuration, 0) / duration;
-                if (batteryShader != null)
-                {
-                    if (!string.IsNullOrEmpty(batteryPercentFieldName))
-                        batteryShader.SetFloat(batteryPercentFieldName, batteryPercent);
-
-                    if (!string.IsNullOrEmpty(batteryLowLevelFieldName))
-                    {
-                        if (batteryPercent < (batteryLowLevelPercentThreshhold / 100))
-                        {
-                            float speedScale = 3;
-                            float sine = Mathf.Abs(Mathf.Sin((Time.time * speedScale)));
-                            batteryShader.SetFloat(batteryLowLevelFieldName, sine);
-
-                            if (light.enabled && !outOfBattery)
-                            {
-                                if (Math.Abs(sine - 1) < 0.1f && !playedSound)
-                                {
-                                    //play sound once.
-                                    playedSound = true;
-                                    KamAudioManager.instance.PlaySFX_AudioUnit(batteryLowLevelSound, transform.position);
-                                }
-                                else if(sine < 0.1f && playedSound)
-                                {
-                                    playedSound = false;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            batteryShader.SetFloat(batteryLowLevelFieldName, 0);
-                        }
-                        
-                    }
-                        
-                }
-            #endregion
+            UpdateBatteryShader();
 
             if (light.enabled)
             {
@@ -374,6 +327,54 @@ namespace Game.Player.Weapons
             }
         }
 
+        private void UpdateBatteryShader()
+        {
+            #region BatteryShader
+                float batteryPercent = Mathf.Max(currentDuration, 0) / duration;
+
+                foreach (var obj in objectWithLanternRenderer)
+                {
+                    Material batteryShader = obj.material;
+                    if (batteryShader != null)
+                    {
+                        if (!string.IsNullOrEmpty(batteryPercentFieldName))
+                            batteryShader.SetFloat(batteryPercentFieldName, batteryPercent);
+
+                        if (!string.IsNullOrEmpty(batteryLowLevelFieldName))
+                        {
+                            if (batteryPercent < (batteryLowLevelPercentThreshhold / 100))
+                            {
+                                float speedScale = 3;
+                                float sine = Mathf.Abs(Mathf.Sin((Time.time * speedScale)));
+                                batteryShader.SetFloat(batteryLowLevelFieldName, sine);
+
+                                if (light.enabled && !outOfBattery)
+                                {
+                                    if (Math.Abs(sine - 1) < 0.1f && !playedSound)
+                                    {
+                                        //play sound once.
+                                        playedSound = true;
+                                        KamAudioManager.instance.PlaySFX_AudioUnit(batteryLowLevelSound, transform.position);
+                                    }
+                                    else if(sine < 0.1f && playedSound)
+                                    {
+                                        playedSound = false;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                batteryShader.SetFloat(batteryLowLevelFieldName, 0);
+                            }
+                        
+                        }
+                        
+                    }
+                }
+                
+            #endregion
+        }
+
         public void SetType(LightType type)
         {
             if (light == null) return;
@@ -384,17 +385,31 @@ namespace Game.Player.Weapons
                 case LightType.White: 
                     light.color = Color.white;
                     haloLightShader.SetColor(haloLightColorFieldName, Color.white);
-                    batteryShader.SetColor(batteryColorFieldName, batteryWhiteColor);
+                    foreach (var obj in objectWithLanternRenderer)
+                    {
+                        Material batteryShader = obj.material;
+                        batteryShader.SetColor(batteryColorFieldName, batteryWhiteColor);
+                    }
+
                     break;
                 case LightType.Red:
                     light.color = Color.red;
                     haloLightShader.SetColor(haloLightColorFieldName, Color.red);
-                    batteryShader.SetColor(batteryColorFieldName, batteryRedColor);
+                    foreach (var obj in objectWithLanternRenderer)
+                    {
+                        Material batteryShader = obj.material;
+                        batteryShader.SetColor(batteryColorFieldName, batteryRedColor);
+                    }
+
                     break;
                 case LightType.Blue:
                     light.color = Color.blue;
                     haloLightShader.SetColor(haloLightColorFieldName, Color.blue);
-                    batteryShader.SetColor(batteryColorFieldName, batteryBlueColor);
+                    foreach (var obj in objectWithLanternRenderer)
+                    {
+                        Material batteryShader = obj.material;
+                        batteryShader.SetColor(batteryColorFieldName, batteryBlueColor);
+                    }
                     break;
                 
                 default:
@@ -524,23 +539,51 @@ namespace Game.Player.Weapons
             switch (battery.batteryType)
             {
                 case BatteryPickup.BatteryType.InstantCooldown:
-                    instaCoolDownBatteryAmount++;
+                    PickupBattery_InstantCooldown();
                     break;
                 
                 case BatteryPickup.BatteryType.FasterCooldown:
-                    durationRecoverySpeed += battery.addedRecoverySpeed;
+                    PickupBattery_FasterCooldown(battery.addedRecoverySpeed);
                     break;
 
                 case BatteryPickup.BatteryType.MoreHeat:
-                    duration += battery.addedDuration;
+                    PickupBattery_MoreHeat(battery.addedDuration);
                     break;
                 
                 case BatteryPickup.BatteryType.LessTurnOnCost:
-                    turnOnTimeCost -= battery.subtractedTurnOnCost;
+                    PickupBattery_LessTurnOnCost(battery.subtractedTurnOnCost);
                     break;
             }
         }
+        
+        public void PickupBattery_InstantCooldown(int amount = 1)
+        {
+            instaCoolDownBatteryAmount += amount;
+        }
+        
+        public void PickupBattery_FasterCooldown(float addedRecoverySpeed)
+        {
+            durationRecoverySpeed += addedRecoverySpeed;
+        }
+        
+        public void PickupBattery_MoreHeat(float addedDuration)
+        {
+            duration += addedDuration;
+        }
+        
+        public void PickupBattery_LessTurnOnCost(float subtractedTurnOnCost)
+        {
+            turnOnTimeCost -= subtractedTurnOnCost;
+        }
 
+
+        public void RestartLanternTime()
+        {
+            currentDuration = duration;
+            
+            UpdateBatteryShader();
+        }
+        
         public void FromReloadLantern()
         {
             isInAnimation = false;

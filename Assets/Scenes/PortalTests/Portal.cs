@@ -9,11 +9,14 @@ using UnityEditor;
 public class Portal : MonoBehaviour
 {
     Camera mainCamera;
+    public Transform testTransform;
     public RenderTexture texture;
     public MeshRenderer renderer;
     public Portal pairPortal;
     private Camera pairPortalCamera;
     private GameObject mainCameraCopyAsChild;
+    public float  nearClipOffset;
+    public float  nearClipLimit;
 
     public Color mainCameraGizmo;
     public Color pairedCameraGizmo;
@@ -47,6 +50,8 @@ public class Portal : MonoBehaviour
 
         mainCameraCopyAsChild = new GameObject("Main Camera Copy");
         mainCameraCopyAsChild.transform.parent = transform;
+
+        pairPortalCamera.enabled = false;
     }
 
     private void Start()
@@ -61,26 +66,70 @@ public class Portal : MonoBehaviour
         OnUpdate += OnUpdateFunction;
     }
 
+    private bool VisibleFromCamera(Renderer renderer, Camera camera)
+    {
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(camera);
+        return GeometryUtility.TestPlanesAABB(planes, renderer.bounds);
+    }
+
     private void Update()
     {
         OnUpdate.Invoke();
     }
-
+    
     private void OnUpdateFunction()
     {
+        mainCamera = Camera.main;
+        
+        if (!VisibleFromCamera(renderer, mainCamera))
+        {
+            return;
+        }
+        
+        renderer.material.SetTexture(RenderTexture1, pairPortalCamera.targetTexture);
         UpdateCamera(pairPortalCamera);
         
-        mainCamera = Camera.main;
         mainCameraCopyAsChild.transform.rotation = mainCamera.transform.rotation;
         mainCameraCopyAsChild.transform.position = mainCamera.transform.position;
     }
 
     private void UpdateCamera(Camera camera)
     {
-        camera.transform.localPosition = -mainCameraCopyAsChild.transform.localPosition;
+        renderer.enabled = false;
+        
+        //rotation and position
+        /*
+        var localToWorldMatrix = mainCamera.transform.localToWorldMatrix;
+        localToWorldMatrix = transform.localToWorldMatrix * pairPortal.transform.worldToLocalMatrix * localToWorldMatrix;
+
+        pairPortalCamera.transform.SetPositionAndRotation(localToWorldMatrix.GetColumn(3),localToWorldMatrix.rotation);*/
+        camera.transform.localPosition = new Vector3(-mainCameraCopyAsChild.transform.localPosition.x,mainCameraCopyAsChild.transform.localPosition.y,-mainCameraCopyAsChild.transform.localPosition.z);
         camera.transform.localEulerAngles = mainCameraCopyAsChild.transform.localEulerAngles + new Vector3(0, 180, 0);
 
         camera.projectionMatrix = mainCamera.projectionMatrix;
+        //SetNearClipPlane(camera);
+        
+        camera.Render();
+
+        renderer.enabled = true;
+    }
+
+    void SetNearClipPlane(Camera camera)
+    {
+        Transform clipPlane = testTransform;
+        float dot = Mathf.Sign(Vector3.Dot(clipPlane.forward, transform.position - camera.transform.position));
+
+        Vector3 camSpacePos = camera.worldToCameraMatrix.MultiplyPoint(clipPlane.position);
+        Vector3 camSpaceNormal = camera.worldToCameraMatrix.MultiplyVector(clipPlane.forward) * dot;
+        float camspacedist = -Vector3.Dot(camSpacePos, camSpaceNormal) + nearClipOffset;
+        
+        if (Mathf.Abs (camspacedist) > nearClipLimit) {
+            Vector4 clipPlaneCameraSpace = new Vector4(camSpaceNormal.x, camSpaceNormal.y, camSpaceNormal.z, camspacedist);
+
+            camera.projectionMatrix = mainCamera.CalculateObliqueMatrix(clipPlaneCameraSpace);
+        } else {
+            camera.projectionMatrix = mainCamera.projectionMatrix;
+        }
     }
 
     private void OnDrawGizmos()

@@ -18,6 +18,7 @@ public class PlayerArmsManager : MonoBehaviour
     
     [Header("Right")]
     public GameObject headArm;
+    private Animator headArmAnimator;
     
     [Header("Both")]
     public GameObject batteryRechargeArms;
@@ -26,6 +27,7 @@ public class PlayerArmsManager : MonoBehaviour
     private void Awake()
     {
         i = this;
+        headArmAnimator = headArm.GetComponent<Animator>();
     }
 
     public void InstructionArmAnim(Action callback)
@@ -102,11 +104,27 @@ public class PlayerArmsManager : MonoBehaviour
     {
         StartCoroutine(WaitingForRightArm(callback));
     }
+
+    private bool waitingForSyncAnimation_RightArm = false;
     IEnumerator WaitingForRightArm(Action callback)
     {
-        yield return null;
+        waitingForSyncAnimation_RightArm = true;
+        headArmAnimator.SetTrigger("Sync");
+        Debug.Log("Waiting");
+        while (waitingForSyncAnimation_RightArm)
+        {
+            yield return null;
+        }
+        
+        Debug.Log("Done");
         callback.Invoke();
     }
+
+    public void AnimationEvent_SyncConfirmed()
+    {
+        waitingForSyncAnimation_RightArm = false;
+    }
+    
     public void CheckBothArms(Action callback)
     {
         StartCoroutine(WaitingForBothArms(callback));

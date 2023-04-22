@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Game.Enemies;
 using Game.Utility;
 
@@ -47,6 +48,8 @@ namespace Game.Player
         [SerializeField, Tooltip("Camera Animator")]
         private Animator playerCameraAnimator;
         
+        [SerializeField, Tooltip("Bracelet renderers")]
+        private List<Renderer> braceletRenderers;
 
         private HurtShaderController hurtShaderController;
 
@@ -61,15 +64,8 @@ namespace Game.Player
         }
         
         private (int, float) lastValue;
+        private static readonly int HurtAmount = Shader.PropertyToID("_HurtAmount");
 
-        [Header("Death")]
-        [SerializeField]
-        private GameObject alignmentCamera;
-        
-        [SerializeField]
-        private GameObject alignmentBody;
-        
-        
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Code Quality", "IDE0051:Remove unused private members", Justification = "Used by Unity.")]
         private void Awake()
         {
@@ -96,7 +92,7 @@ namespace Game.Player
         {
             if (PauseMenu.Paused || !IsAlive) return;
             
-            hurtShaderController.SetBlood(amount / 5); // We set the feedback accord in how much damage we took.
+            hurtShaderController.SetBlood(amount); // We set the feedback accord in how much damage we took.
             
             currentHealth -= amount;
 
@@ -109,10 +105,25 @@ namespace Game.Player
             }
             else
             {
-                if (amount.ToPercentageOfRange(0, health) < 10)
+                float hpReduction = Mathf.Ceil(health * 0.25f);
+                float hpRange = health - hpReduction;
+                float currentHp = health - currentHealth;
+
+                float hurtAmount = currentHp > hpRange ? 1 : currentHp / hpRange;
+                
+                float feedbackAmount = Mathf.Clamp(hurtAmount, 0, 1);
+
+                foreach (var braceletRenderer in braceletRenderers)
+                {
+                    braceletRenderer.material.SetFloat(HurtAmount,feedbackAmount);
+                }
+                
+                
+                /*
+                if (amount.ToPercentageOfRange(0, health) < 25)
                     playerCameraAnimator.SetTrigger(shakeLightTrigger);
                 else
-                    playerCameraAnimator.SetTrigger(shakeHardTrigger);
+                    playerCameraAnimator.SetTrigger(shakeHardTrigger);*/
             }
         }
 

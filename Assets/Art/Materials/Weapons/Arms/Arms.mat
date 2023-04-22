@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Arms
-  m_Shader: {fileID: 4800000, guid: fafa0d6b080f1244aa19ce020e5c7eda, type: 3}
+  m_Shader: {fileID: 4800000, guid: b33629cacf4d7e94192d66d4bcf65985, type: 3}
   m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _SPECGLOSSMAP
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -95,6 +95,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _HurtAmount: 0
     - _Metallic: 0
     - _Mode: 0
     - _Normal_Scale: 1
