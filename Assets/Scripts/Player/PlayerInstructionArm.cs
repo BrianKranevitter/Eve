@@ -116,7 +116,7 @@ public class PlayerInstructionArm : MonoBehaviour
     {
         text.text = info;
         
-        Debug.Log("Set info: " + info);
+        Log("Set info: " + info);
     }
 
     public void ShowInfo()
@@ -207,5 +207,15 @@ public class PlayerInstructionArm : MonoBehaviour
         anim.gameObject.SetActive(false);
         hideInfoAction?.Invoke();
         hideInfoAction = null;
+    }
+    
+    [Header("Debug")]
+    public bool ableToDebug = false;
+    private void Log(string message)
+    {
+        if (ableToDebug)
+        {
+            Debug.Log(message);
+        }
     }
 }

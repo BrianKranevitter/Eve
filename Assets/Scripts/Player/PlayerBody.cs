@@ -127,6 +127,31 @@ namespace Game.Player
             }
         }
 
+        public void HealDamage(float amount)
+        {
+            if (PauseMenu.Paused || !IsAlive) return;
+            
+            currentHealth += amount;
+
+            if (currentHealth > health)
+            {
+                currentHealth = health;
+            }
+            
+            float hpReduction = Mathf.Ceil(health * 0.25f);
+            float hpRange = health - hpReduction;
+            float currentHp = health - currentHealth;
+
+            float hurtAmount = currentHp > hpRange ? 1 : currentHp / hpRange;
+                
+            float feedbackAmount = Mathf.Clamp(hurtAmount, 0, 1);
+
+            foreach (var braceletRenderer in braceletRenderers)
+            {
+                braceletRenderer.material.SetFloat(HurtAmount,feedbackAmount);
+            }
+        }
+
         private void OnDeath()
         {
             dyingModel_Crawler.gameObject.SetActive(true);
@@ -138,7 +163,5 @@ namespace Game.Player
                 enemy.gameObject.SetActive(false);
             }
         }
-
-        
     }
 }

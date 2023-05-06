@@ -467,8 +467,6 @@ namespace Game.Player.Weapons
             Active = true;
             
             currentDuration -= turnOnTimeCost;
-            
-            Debug.Log("Test");
         }
 
         public void SetOn()
@@ -596,6 +594,68 @@ namespace Game.Player.Weapons
 
             animationOpacityMultiplier = 1;
             animationRangeMultiplier = 1;
+        }
+        
+        public static DistanceEffect HasPlayerLightInRange(Transform obj, LayerMask BlockSight, Vector3 eyeOffset = default)
+        {
+            if(!Active)
+                return DistanceEffect.None;
+            
+            Light light = ActiveLight;
+            if (light == null)
+                return DistanceEffect.None;
+            
+            Lantern flashlight = ActiveLantern;;
+            if (flashlight == null)
+                return DistanceEffect.None;
+            
+            
+            Transform lightTranform = light.transform;
+
+            Vector3 closestEnemyPoint = obj.position + eyeOffset;
+                
+                /*colliders.Aggregate(Tuple.Create(Vector3.zero, float.PositiveInfinity), (acum, item) =>
+            {
+                Vector3 closestPoint = item.ClosestPoint(Lantern.ActiveLantern.transform.position);
+                float distance = Vector3.Distance(closestPoint, Lantern.ActiveLantern.transform.position);
+                if (distance < acum.Item2)
+                {
+                    return Tuple.Create(closestPoint, distance);
+                }
+
+                return acum;
+            }).Item1;*/
+
+
+            Vector3 lightPosition = lightTranform.position;
+
+            Vector3 lightDirection = closestEnemyPoint - lightPosition;
+            float distanceToConeOrigin = lightDirection.sqrMagnitude;
+
+            if (distanceToConeOrigin <= Lantern.ActiveLantern.interactionRange_Far)
+            {
+                Vector3 coneDirection = lightTranform.forward;
+                float angle = Vector3.Angle(coneDirection, lightDirection);
+                if (angle <= flashlight.interactionAngle)
+                {
+                    if (!Physics.Linecast(closestEnemyPoint, lightPosition, BlockSight))
+                    {
+                        //Light is hitting, now check distance.
+                        
+                        if (distanceToConeOrigin > Lantern.ActiveLantern.interactionRange_Close)
+                        {
+                            return Lantern.DistanceEffect.Far;
+                        }
+                        else
+                        {
+                            return Lantern.DistanceEffect.Close;
+                        }
+                    }
+
+                }
+            }
+
+            return Lantern.DistanceEffect.None;
         }
     }
 }

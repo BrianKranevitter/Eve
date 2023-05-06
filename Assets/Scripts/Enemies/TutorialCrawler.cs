@@ -197,7 +197,7 @@ public class TutorialCrawler : MonoBehaviour
 
         RageInterruption.OnEnter += x =>
         {
-            Debug.Log($"{gameObject.name}: Rage interruption tutorial");
+            Log($"{gameObject.name}: Rage interruption tutorial");
             currentPhase = TutorialPhase.RageInterruption;
 
             SetupFSM(TutorialPhase.RageInterruption);
@@ -205,7 +205,7 @@ public class TutorialCrawler : MonoBehaviour
         
         Stun.OnEnter += x =>
         {
-            Debug.Log($"{gameObject.name}: Stun tutorial");
+            Log($"{gameObject.name}: Stun tutorial");
             currentPhase = TutorialPhase.Stun;
 
             SetupFSM(TutorialPhase.Stun);
@@ -213,7 +213,7 @@ public class TutorialCrawler : MonoBehaviour
         
         Angry.OnEnter += x =>
         {
-            Debug.Log($"{gameObject.name}: Angry tutorial");
+            Log($"{gameObject.name}: Angry tutorial");
             currentPhase = TutorialPhase.Angry;
 
             SetupFSM(TutorialPhase.Angry);
@@ -221,7 +221,7 @@ public class TutorialCrawler : MonoBehaviour
         
         AngryInterrupt.OnEnter += x =>
         {
-            Debug.Log($"{gameObject.name}: AngryInterrupt tutorial");
+            Log($"{gameObject.name}: AngryInterrupt tutorial");
             currentPhase = TutorialPhase.AngryInterrupt;
 
             SetupFSM(TutorialPhase.AngryInterrupt);
@@ -302,7 +302,7 @@ public class TutorialCrawler : MonoBehaviour
 
         Idle.OnEnter += x =>
         {
-            Debug.Log($"{gameObject.name}: IDLE");
+            Log($"{gameObject.name}: IDLE");
             currentState = EnemyState.Idle;
             
             TrySetAnimationTrigger(idleAnimationTrigger, "idle",false, true);
@@ -326,7 +326,7 @@ public class TutorialCrawler : MonoBehaviour
 
         RageBuildup_Player.OnEnter += x =>
         {
-            Debug.Log($"{gameObject.name}: RAGE BUILDUP PLAYER");
+            Log($"{gameObject.name}: RAGE BUILDUP PLAYER");
             
             currentState = EnemyState.RageBuildup_Player;
 
@@ -1209,6 +1209,16 @@ public class TutorialCrawler : MonoBehaviour
         }
         
         changeColorCoroutine = null;
+    }
+    
+    [Header("Debug")]
+    public bool ableToDebug = false;
+    private void Log(string message)
+    {
+        if (ableToDebug)
+        {
+            Debug.Log(message);
+        }
     }
 }
 

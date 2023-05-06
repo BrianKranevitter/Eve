@@ -96,7 +96,7 @@ namespace Game.Enemies
 
         protected override bool CheckRage_Player()
         {
-            Lantern.DistanceEffect distance = HasPlayerLightInRange();
+            Lantern.DistanceEffect distance = Lantern.HasPlayerLightInRange(transform, BlockSight, Vector3.up * eyeOffset);
                 
             //Cases where you'd want to stay in rage
             bool case1 = distance == Lantern.DistanceEffect.Close &&
@@ -121,7 +121,7 @@ namespace Game.Enemies
         {
             base.OnCertainKill_Update();
             
-            Lantern.DistanceEffect lightEffect = HasPlayerLightInRange();
+            Lantern.DistanceEffect lightEffect = Lantern.HasPlayerLightInRange(transform,BlockSight, Vector3.up * eyeOffset);
             if (lightEffect == Lantern.DistanceEffect.Close)
             {
                 if (Lantern.ActiveLantern.lightType == Lantern.LightType.White)

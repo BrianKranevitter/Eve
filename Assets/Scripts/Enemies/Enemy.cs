@@ -44,7 +44,7 @@ namespace Game.Enemies
         protected LayerMask BlockInteraction { get; set; }
 
         [SerializeField, Min(0), Tooltip("Height offset of eyes.")]
-        private float eyeOffset = .5f;
+        protected float eyeOffset = .5f;
 
         [SerializeField, Min(0), Tooltip("Determines the distance at which the creature kills the player in ragemode.")]
         private float rageKillDistance = 1.5f;
@@ -361,7 +361,7 @@ namespace Game.Enemies
 
             Idle.OnEnter += x =>
             {
-                Debug.Log($"{gameObject.name}: IDLE");
+                Log($"{gameObject.name}: IDLE");
                 currentState = EnemyState.Idle;
 
                 NavAgent.isStopped = true;
@@ -385,7 +385,7 @@ namespace Game.Enemies
             
             Blinded_Player.OnEnter += x =>
             {
-                Debug.Log($"{gameObject.name}: BLINDED PLAYER");
+                Log($"{gameObject.name}: BLINDED PLAYER");
                 
                 CheckAndSaveLastState();
                 
@@ -409,7 +409,7 @@ namespace Game.Enemies
 
             ChasePlayer.OnEnter += x =>
             {
-                Debug.Log($"{gameObject.name}: CHASING PLAYER");
+                Log($"{gameObject.name}: CHASING PLAYER");
                 
                 currentState = EnemyState.ChasePlayer;
                 
@@ -449,7 +449,7 @@ namespace Game.Enemies
 
             RageBuildup_Player.OnEnter += x =>
             {
-                Debug.Log($"{gameObject.name}: RAGE BUILDUP PLAYER");
+                Log($"{gameObject.name}: RAGE BUILDUP PLAYER");
                 CheckAndSaveLastState();
 
                 bool wasInGlowstickRage = currentState == EnemyState.RageBuildup_Glowstick;
@@ -476,7 +476,7 @@ namespace Game.Enemies
             
             Blinded_Glowstick.OnEnter += x =>
             {
-                Debug.Log($"{gameObject.name}: BLINDED GLOWSTICK");
+                Log($"{gameObject.name}: BLINDED GLOWSTICK");
                 
                 CheckAndSaveLastState();
                 
@@ -500,7 +500,7 @@ namespace Game.Enemies
             
             ChaseGlowstick.OnEnter += x =>
             {
-                Debug.Log($"{gameObject.name}: CHASE GLOWSTICK");
+                Log($"{gameObject.name}: CHASE GLOWSTICK");
                 currentState = EnemyState.ChaseGlowstick;
                 NavAgent.isStopped = false;
                 NavAgent.speed = initialSpeed * chargingSpeedMultiplier;
@@ -533,7 +533,7 @@ namespace Game.Enemies
 
             RageBuildup_Glowstick.OnEnter += x =>
             {
-                Debug.Log($"{gameObject.name}: RAGE BUILDUP GLOWSTICK");
+                Log($"{gameObject.name}: RAGE BUILDUP GLOWSTICK");
                 CheckAndSaveLastState();
 
                 bool wasInPlayerRage = currentState == EnemyState.RageBuildup_Player;
@@ -562,7 +562,7 @@ namespace Game.Enemies
             
             CertainKillMode.OnEnter += x =>
             {
-                Debug.Log($"{gameObject.name}: CERTAIN KILL");
+                Log($"{gameObject.name}: CERTAIN KILL");
                 currentState = EnemyState.CertainKillMode;
 
                 NavAgent.isStopped = false;
@@ -725,7 +725,7 @@ namespace Game.Enemies
 
         protected virtual void PlayerLightBehaviors()
         {
-            Lantern.DistanceEffect lightEffect = HasPlayerLightInRange();
+            Lantern.DistanceEffect lightEffect = Lantern.HasPlayerLightInRange(transform, BlockSight,Vector3.up * eyeOffset);
             if (lightEffect != Lantern.DistanceEffect.None)
             {
                 LightEffect(lightEffect);
@@ -1048,67 +1048,7 @@ namespace Game.Enemies
 
         protected void SetLastPlayerPosition() => LastPlayerPosition = PlayerBody.Player.transform.position;
 
-        protected Lantern.DistanceEffect HasPlayerLightInRange()
-        {
-            if(!Lantern.Active)
-                return Lantern.DistanceEffect.None;
-            
-            Light light = Lantern.ActiveLight;
-            if (light == null)
-                return Lantern.DistanceEffect.None;
-            
-            Lantern flashlight = Lantern.ActiveLantern;;
-            if (flashlight == null)
-                return Lantern.DistanceEffect.None;
-            
-            
-            Transform lightTranform = light.transform;
-
-            Vector3 closestEnemyPoint = transform.position + Vector3.up * eyeOffset;
-                
-                /*colliders.Aggregate(Tuple.Create(Vector3.zero, float.PositiveInfinity), (acum, item) =>
-            {
-                Vector3 closestPoint = item.ClosestPoint(Lantern.ActiveLantern.transform.position);
-                float distance = Vector3.Distance(closestPoint, Lantern.ActiveLantern.transform.position);
-                if (distance < acum.Item2)
-                {
-                    return Tuple.Create(closestPoint, distance);
-                }
-
-                return acum;
-            }).Item1;*/
-
-
-            Vector3 lightPosition = lightTranform.position;
-
-            Vector3 lightDirection = closestEnemyPoint - lightPosition;
-            float distanceToConeOrigin = lightDirection.sqrMagnitude;
-
-            if (distanceToConeOrigin <= Lantern.ActiveLantern.interactionRange_Far)
-            {
-                Vector3 coneDirection = lightTranform.forward;
-                float angle = Vector3.Angle(coneDirection, lightDirection);
-                if (angle <= flashlight.interactionAngle)
-                {
-                    if (!Physics.Linecast(closestEnemyPoint, lightPosition, BlockSight))
-                    {
-                        //Light is hitting, now check distance.
-                        
-                        if (distanceToConeOrigin > Lantern.ActiveLantern.interactionRange_Close)
-                        {
-                            return Lantern.DistanceEffect.Far;
-                        }
-                        else
-                        {
-                            return Lantern.DistanceEffect.Close;
-                        }
-                    }
-
-                }
-            }
-
-            return Lantern.DistanceEffect.None;
-        }
+       
         
         protected Lantern.DistanceEffect HasGlowstickInRange()
         {
@@ -1229,6 +1169,17 @@ namespace Game.Enemies
         {
             _Fsm.SendInput(state);
         }
+        
+        [Header("Debug")]
+        public bool ableToDebug = false;
+        private void Log(string message)
+        {
+            if (ableToDebug)
+            {
+                Debug.Log(message);
+            }
+        }
+        
 #if UNITY_EDITOR
         protected virtual void OnDrawGizmosSelected()
         {
