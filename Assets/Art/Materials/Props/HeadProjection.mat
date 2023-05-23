@@ -52,11 +52,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HologramGrid_Big:
-        m_Texture: {fileID: 2800000, guid: c6f153915268a8d478fe9b55425d393f, type: 3}
+        m_Texture: {fileID: 2800000, guid: fe84fc10ecad0a54f8ce45205a82aa17, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HologramGrid_Little:
-        m_Texture: {fileID: 2800000, guid: c6f153915268a8d478fe9b55425d393f, type: 3}
+        m_Texture: {fileID: 2800000, guid: fe84fc10ecad0a54f8ce45205a82aa17, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
