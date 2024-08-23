@@ -16,7 +16,7 @@ public class GridBuilderItemUI : MonoBehaviour
     {
         this.builder = builder;
         this.so = so;
-        image.texture = so.optionalVisual != null ? so.optionalVisual : AssetPreview.GetAssetPreview(so.visual);
+       // image.texture = so.optionalVisual != null ? so.optionalVisual : AssetPreview.GetAssetPreview(so.visual);
         text.text = $"{so.width}x{so.height}";
     }
 

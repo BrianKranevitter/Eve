@@ -19,7 +19,7 @@ namespace Game.Enemies
         
         [SerializeField, Tooltip("Name of the animation trigger for mouth.")]
         private string mouthAnimationTrigger;
-        
+
         public void TriggerMouthAttackAnimation()
         {
             if (string.IsNullOrEmpty(mouthAnimationTrigger))

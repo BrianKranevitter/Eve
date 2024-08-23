@@ -676,11 +676,11 @@ public class CustomGridBuilderManager : MonoBehaviour
                 }
                 
                 //try by GUID
-                AssetDatabase.TryGetGUIDAndLocalFileIdentifier(so.GetInstanceID(), out string guid, out long _);
+                /*AssetDatabase.TryGetGUIDAndLocalFileIdentifier(so.GetInstanceID(), out string guid, out long _);
                 if (guid == soGuid)
                 {
                     return so;
-                }
+                }*/
             }
         }
 

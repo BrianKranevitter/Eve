@@ -23,6 +23,6 @@ public class RandomKamTestingScript : MonoBehaviour
     private void RefreshVisual()
     {
         PlaceableObjectSO placedObjectTypeSO = CustomGridBuilderManager.Instance.GetSelectedObject();
-        image.texture = AssetPreview.GetAssetPreview(placedObjectTypeSO.visual);
+        //image.texture = AssetPreview.GetAssetPreview(placedObjectTypeSO.visual);
     }
 }

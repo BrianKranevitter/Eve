@@ -20,11 +20,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: e6f47968a0aabf24a81a9fcf36499ced, type: 3}
+        m_Texture: {fileID: 2800000, guid: e8fc9006893af0d4484a0247f64fc796, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AmbientOclussion:
-        m_Texture: {fileID: 2800000, guid: 2162155f0519a8f48a56122e30f9c046, type: 3}
+        m_Texture: {fileID: 2800000, guid: eb2a81770b2185b4b811fdf906751070, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Emission:
-        m_Texture: {fileID: 2800000, guid: 584a2154073778e4aa7ff045d69fd1f2, type: 3}
+        m_Texture: {fileID: 2800000, guid: b3fa61554833b9344a20f33a7bab6bf1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Metallic:
-        m_Texture: {fileID: 2800000, guid: e60172f3502234848bd2861a1b75298e, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -64,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: d024c30f9d786a3428f585eb05b2e155, type: 3}
+        m_Texture: {fileID: 2800000, guid: eeb9ae24f4c785d429725fa191bc6fbd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -76,7 +76,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Roughness:
-        m_Texture: {fileID: 2800000, guid: 7d142cc0ef6d0e94f92823ff86d14972, type: 3}
+        m_Texture: {fileID: 2800000, guid: e0176f834a681b149b01dd513fd868c5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -92,6 +92,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _Float0: 0.5
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -99,8 +100,8 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Range: 50
-    - _RoughnessValue: 0.87
+    - _Range: 30
+    - _RoughnessValue: 0.92
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -108,8 +109,9 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
+    - _Albedo_Tint: {r: 0.67058825, g: 0.29803923, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _Emission_Color: {r: 1, g: 0.8997164, b: 0.76100624, a: 1}
+    - _Emission_Color: {r: 1, g: 0.8679244, b: 0, a: 1}
     - _PlayerPosition: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

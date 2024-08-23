@@ -92,6 +92,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _Float0: 0.5
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -108,7 +109,7 @@ Material:
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _Albedo_Tint: {r: 1, g: 1, b: 1, a: 0}
+    - _Albedo_Tint: {r: 0.67058825, g: 0.29803923, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 0}
     - _Emission_Color: {r: 0.92, g: 0.6698618, b: 0, a: 1}
